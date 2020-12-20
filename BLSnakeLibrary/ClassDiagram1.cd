@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BLSnakeLibrary.Field">
+    <Position X="4.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAIAIAAAAAIQAEIACAAAAAAAAAAgAAAIAAAMEDCAAAI=</HashCode>
+      <FileName>Classes\Field.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLSnakeLibrary.Fruits">
+    <Position X="7.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAgAAACAgCBAAEAACICIAABEgAAAAEAAARQCAA=</HashCode>
+      <FileName>Classes\Fruits.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLSnakeLibrary.Snake">
+    <Position X="11" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAEABAAAAAAQAIAACSAgAAAAAAAQACIAAAACAAABGAA=</HashCode>
+      <FileName>Classes\Snake.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLSnakeLibrary.GameSnake">
+    <Position X="1" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QEBUAAAQAAgISBAACBAECggAAIEiBIAQAEAgAIEACFU=</HashCode>
+      <FileName>Classes\GameSnake.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="BLSnakeLibrary.BorderElement">
+    <Position X="4.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaAA=</HashCode>
+      <FileName>Structures\BorderElement.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="BLSnakeLibrary.FruitElement">
+    <Position X="8" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaAA=</HashCode>
+      <FileName>Structures\FruitElement.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="BLSnakeLibrary.SnakeElement">
+    <Position X="11.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaAA=</HashCode>
+      <FileName>Structures\SnakeElement.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="BLSnakeLibrary.Accelerators" Collapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAgAgAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Enum\Accelerators.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BLSnakeLibrary.BordersSymbols" Collapsed="true">
+    <Position X="13.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAABAAAAAAAAAAAIAAAAAAQAAEAACAAAAAAA=</HashCode>
+      <FileName>Enum\BordersSymbols.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BLSnakeLibrary.Difficulty" Collapsed="true">
+    <Position X="13.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAIAAAAAAAAAAAgACA=</HashCode>
+      <FileName>Enum\Difficulty.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BLSnakeLibrary.DifficultyChois" Collapsed="true">
+    <Position X="13.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAgAAAAAAAAAIAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Enum\DifficultyChois.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BLSnakeLibrary.FruitsSize" Collapsed="true">
+    <Position X="13.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAABAAAAAQAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Enum\FruitsSize.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BLSnakeLibrary.InputUser" Collapsed="true">
+    <Position X="13.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAIAAAAAAAIAAAQABAAAEACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enum\InputUser.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BLSnakeLibrary.MenuChois" Collapsed="true">
+    <Position X="13.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAABAAAAAAAAAAACAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Enum\MenuChois.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BLSnakeLibrary.SizesOfSnake" Collapsed="true">
+    <Position X="13.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAABAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enum\SizesOfSnake.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BLSnakeLibrary.SuperFruitsSize" Collapsed="true">
+    <Position X="13.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAABAAAAAQAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Enum\SuperFruitsSize.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BLSnakeLibrary.Symbols" Collapsed="true">
+    <Position X="13.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAIABAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Enum\Symbols.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BLSnakeLibrary.WinSpeed" Collapsed="true">
+    <Position X="13.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAgAAA=</HashCode>
+      <FileName>Enum\WinSpeed.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -108,8 +108,8 @@
                 xPosition = _rDownAngleCoord.X;
             }
 
-            _pointOfField[index] = new BorderElement
-                   (xPosition, _lTopAngleCoord.Y + _step + (count * _step),
+            _pointOfField[index] = new BorderElement(new Coordinate
+                (xPosition, _lTopAngleCoord.Y + _step + (count * _step)),
                    (char)BordersSymbols.Vertical);
         }
 
@@ -129,9 +129,8 @@
 
             if (count == 0)
             {
-                _pointOfField[index] =
-                        new BorderElement
-                        (_lTopAngleCoord.X + count * _step, yPosition,
+                _pointOfField[index] =new BorderElement(new Coordinate
+                        (_lTopAngleCoord.X + count * _step, yPosition),
                         _angles[symbol]);
 
                 symbol++;
@@ -140,18 +139,16 @@
             {
                 if (count == _sizeOfSides - 1)
                 {
-                    _pointOfField[index] =
-                           new BorderElement
-                           (_lTopAngleCoord.X + count * _step, yPosition,
+                    _pointOfField[index] = new BorderElement(new Coordinate
+                           (_lTopAngleCoord.X + count * _step, yPosition),
                            _angles[symbol]);
 
                     symbol++;
                 }
                 else
                 {
-                    _pointOfField[index] =
-                          new BorderElement
-                          (_lTopAngleCoord.X + count * _step, yPosition,
+                    _pointOfField[index] = new BorderElement(new Coordinate
+                          (_lTopAngleCoord.X + count * _step, yPosition),
                           (char)BordersSymbols.Horizontal);
                 }
             }
@@ -163,7 +160,7 @@
         /// <param name="index">index of BorderElement in all BorderElements</param>
         /// <returns>BorderElement</returns>
         public BorderElement this[int index]
-        {
+        {          
             get
             {
                 return _pointOfField[index];

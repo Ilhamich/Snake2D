@@ -1,18 +1,20 @@
 ﻿namespace BLSnakeLibrary
 {
-    public struct SnakeElement
+    public class SnakeElement
     {
-        public int Y { get; internal set; }
-
-        public int X { get; internal set; }
+        public Coordinate Coord { get; internal set; }
 
         public char Symbol { get;}
 
-        public SnakeElement(int startCoordinateY, int startCoordinateX, char symbol)
+        public SnakeElement(Coordinate coord, char symbol)
         {
-            Y = startCoordinateY;
-            X = startCoordinateX;
+            Coord = coord;
             Symbol = symbol; 
+        }
+
+        internal void ChangeCoordinate(Coordinate coord)
+        {
+            Coord = coord;
         }
     }
 }

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BLSnakeLibrary;
+using System;
 using System.Windows.Forms;
-using BLSnakeLibrary;
 
 namespace Training_Snake
 {

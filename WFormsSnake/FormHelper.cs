@@ -15,8 +15,7 @@ namespace Training_Snake
             {
                 if (i < snakeFP.SizeOfSnake - 1)
                 {
-                    if ((snakeFP[i].Y != Snake.NO_COORDINATE)
-                            && (snakeFP[i].X != Snake.NO_COORDINATE))
+                    if (snakeFP[i].Coord != Snake.NO_COORDINATE)
                     {
                         if ((i + 1) % 2 == 0)
                         {
@@ -27,8 +26,8 @@ namespace Training_Snake
                             snakeSegment.Color = Color.DarkGreen;
                         }
 
-                        painter.FillRectangle(snakeSegment, snakeFP[i].X,
-                                snakeFP[i].Y, stepDisplay, stepDisplay);
+                        painter.FillRectangle(snakeSegment, snakeFP[i].Coord.X,
+                                snakeFP[i].Coord.Y, stepDisplay, stepDisplay);
                     }
                 }
                 else
@@ -37,8 +36,8 @@ namespace Training_Snake
                     {
                         snakeSegment.Color = Color.Black;
 
-                        painter.FillRectangle(snakeSegment, snakeFP.Head.X,
-                                snakeFP.Head.Y, stepDisplay, stepDisplay);
+                        painter.FillRectangle(snakeSegment, snakeFP.Head.Coord.X,
+                                snakeFP.Head.Coord.Y, stepDisplay, stepDisplay);
                     }
                 }
             }
@@ -51,8 +50,8 @@ namespace Training_Snake
 
             for (int i = 0; i < fieldFP.FieldLenght; i++)
             {
-                painter.FillRectangle(fieldSegment, fieldFP[i].X,
-                                fieldFP[i].Y, stepDisplay, stepDisplay);
+                painter.FillRectangle(fieldSegment, fieldFP[i].Coord.X,
+                                fieldFP[i].Coord.Y, stepDisplay, stepDisplay);
             }
         }
 
@@ -83,8 +82,8 @@ namespace Training_Snake
             {
                 case Keys.Left:
                     if (direction != InputUser.RightArrow
-                            && game.SnakeGame.Head.X - game.StepDisplay
-                            != game.SnakeGame[0].X)
+                            && game.SnakeGame.Head.Coord.X - game.StepDisplay
+                            != game.SnakeGame[0].Coord.X)
                     {
                         direction = InputUser.LeftArrow;
                     }
@@ -92,8 +91,8 @@ namespace Training_Snake
 
                 case Keys.Right:
                     if (direction != InputUser.LeftArrow
-                            && game.SnakeGame.Head.X + game.StepDisplay
-                            != game.SnakeGame[0].X)
+                            && game.SnakeGame.Head.Coord.X + game.StepDisplay
+                            != game.SnakeGame[0].Coord.X)
                     {
                         direction = InputUser.RightArrow;
                     }
@@ -101,8 +100,8 @@ namespace Training_Snake
 
                 case Keys.Up:
                     if (direction != InputUser.DownArrow
-                            && game.SnakeGame.Head.Y - game.StepDisplay
-                            != game.SnakeGame[0].Y)
+                            && game.SnakeGame.Head.Coord.Y - game.StepDisplay
+                            != game.SnakeGame[0].Coord.Y)
                     {
                         direction = InputUser.UpArrow;
                     }
@@ -110,8 +109,8 @@ namespace Training_Snake
 
                 case Keys.Down:
                     if (direction != InputUser.UpArrow
-                            && game.SnakeGame.Head.Y + game.StepDisplay
-                            != game.SnakeGame[0].Y)
+                            && game.SnakeGame.Head.Coord.Y + game.StepDisplay
+                            != game.SnakeGame[0].Coord.Y)
                     {
                         direction = InputUser.DownArrow;
                     }

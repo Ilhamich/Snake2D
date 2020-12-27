@@ -1,18 +1,25 @@
 ﻿namespace BLSnakeLibrary
 {
-    public struct BorderElement
+    public class BorderElement
     {
-        public int X { get;}
-
-        public int Y { get;}
+        public readonly Coordinate Coord;
 
         public char Symbol { get;}
 
-        public BorderElement(int x, int y, char symbol)
+        public BorderElement(Coordinate coord, char symbol)
         {
-            X = x;
-            Y = y;
+            Coord = coord;
             Symbol = symbol;
+        }
+
+        internal BorderElement GetCopy()
+        {
+            return (BorderElement)MemberwiseClone();
+        }
+
+        public override string ToString()
+        {
+            return Symbol.ToString();
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Training_Snake
 
             for (int i = 0; i < field.FieldLenght; i++)
             {
-                Console.SetCursorPosition(field[i].X, field[i].Y);
+                Console.SetCursorPosition(field[i].Coord.X, field[i].Coord.Y);
                 Console.Write(field[i].Symbol);
             }
 
@@ -92,7 +92,7 @@ namespace Training_Snake
 
         public static void PrintGameResolt(string resolt, SnakeElement head)
         {
-            Console.SetCursorPosition(head.X, head.Y);
+            Console.SetCursorPosition(head.Coord.X, head.Coord.Y);
             Console.Write(resolt);
             Console.ReadKey();
         }
@@ -108,7 +108,7 @@ namespace Training_Snake
                 Console.ForegroundColor = ConsoleColor.Green;
             }
 
-            Console.SetCursorPosition(body.X, body.Y);
+            Console.SetCursorPosition(body.Coord.X, body.Coord.Y);
             Console.Write("{0}", body.Symbol);
         }
 
@@ -186,16 +186,14 @@ namespace Training_Snake
             {
                 if (i < mySnake.SizeOfSnake - 1)
                 {
-                    if ((mySnake[i].Y != Snake.NO_COORDINATE)
-                            && (mySnake[i].X != Snake.NO_COORDINATE))
+                    if (mySnake[i].Coord != Snake.NO_COORDINATE)
                     {
                         DrawSnakeElement(mySnake[i], i);
                     }
                 }
                 else
                 {
-                    if ((mySnake.Tail.Y != Snake.NO_COORDINATE)
-                            && (mySnake.Tail.X != Snake.NO_COORDINATE)
+                    if ((mySnake.Tail.Coord != Snake.NO_COORDINATE)
                             && (i == mySnake.SizeOfSnake - 1))
                     {
                         DrawSnakeElement(mySnake.Tail, i);
@@ -396,9 +394,7 @@ namespace Training_Snake
 
         public static void ClearGameResolt(string resolt, SnakeElement head)
         {
-            Coordinate snakeHead = new Coordinate();
-            snakeHead.X = head.X;
-            snakeHead.Y = head.Y;
+            Coordinate snakeHead = new Coordinate(head.Coord.X, head.Coord.Y);
 
             Console.SetCursorPosition(snakeHead.X, snakeHead.Y);
 
@@ -413,20 +409,20 @@ namespace Training_Snake
         {
             for (int i = 0; i < myFruit.FruitLength; i++)
             {
-                if (myFruit.GetFruit(i).X != Fruits.UNTOUCHED_FRUIT
-                        && myFruit.GetFruit(i).Y != Fruits.UNTOUCHED_FRUIT)
+                if (myFruit.GetFruit(i).Coord != Fruits.UNTOUCHED_FRUIT)
                 {
-                    Console.SetCursorPosition(myFruit.GetFruit(i).X, myFruit.GetFruit(i).Y);
+                    Console.SetCursorPosition(myFruit.GetFruit(i).X,
+                            myFruit.GetFruit(i).Y);
                     Console.Write(' ');
                 }
             }
 
             for (int i = 0; i < myFruit.SuperFruitLength; i++)
             {
-                if (myFruit.GetSuperFruit(i).X != Fruits.UNTOUCHED_FRUIT
-                        && myFruit.GetSuperFruit(i).Y != Fruits.UNTOUCHED_FRUIT)
+                if (myFruit.GetSuperFruit(i).Coord != Fruits.UNTOUCHED_FRUIT)
                 {
-                    Console.SetCursorPosition(myFruit.GetSuperFruit(i).X, myFruit.GetSuperFruit(i).Y);
+                    Console.SetCursorPosition(myFruit.GetSuperFruit(i).X,
+                            myFruit.GetSuperFruit(i).Y);
                     Console.Write(' ');
                 }
             }
@@ -436,11 +432,11 @@ namespace Training_Snake
         {
             for (int i = 0; i < mySnake.SizeOfSnake - 1; i++)
             {
-                Console.SetCursorPosition(mySnake[i].X, mySnake[i].Y);
+                Console.SetCursorPosition(mySnake[i].Coord.X, mySnake[i].Coord.Y);
                 Console.Write(' ');
             }
 
-            Console.SetCursorPosition(mySnake.Tail.X, mySnake.Tail.Y);
+            Console.SetCursorPosition(mySnake.Tail.Coord.X, mySnake.Tail.Coord.Y);
             Console.Write(' ');
         }
 

@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BLSnakeLibrary
 {
     public class Snake
     {
-        public const int NO_COORDINATE = -1;
-        public static int START_SNAKE_BODY_RANGE = 15;
+        private const byte SUPERFRUIT_PRIZ = 2;
+        public static readonly Coordinate NO_COORDINATE
+                = new Coordinate{ X = -1, Y = -1 };
         private SnakeElement _head;
-        private SnakeElement[] _body;
+        private List<SnakeElement> _body;              //TODO
         private SnakeElement _tail;
 
         /// <summary>
@@ -17,16 +19,17 @@ namespace BLSnakeLibrary
 
         public Snake(int sizeOfSnake, int startX, int startY)
         {
-            _head = new SnakeElement(startY, startX, (char)Symbols.Head);
+            _head = new SnakeElement(new Coordinate(startX, startY),
+                    (char)Symbols.Head);
 
-            _body = new SnakeElement[START_SNAKE_BODY_RANGE];
+            _body = new List<SnakeElement>(sizeOfSnake - 1);
 
-            for (int i = 0; i < _body.Length; i++)
+            for (int i = 0; i < sizeOfSnake - 1; i++)
             {
-                _body[i] = new SnakeElement(NO_COORDINATE, NO_COORDINATE, '*');
+                _body.Add(new SnakeElement(NO_COORDINATE, '*'));
             }
 
-            _tail = new SnakeElement(NO_COORDINATE, NO_COORDINATE, ' ');
+            _tail = new SnakeElement(NO_COORDINATE, ' ');
 
             SizeOfSnake = sizeOfSnake;
         }
@@ -73,7 +76,7 @@ namespace BLSnakeLibrary
         {
             get
             {
-                return _body.Length;
+                return _body.Count;
             }
         }
 
@@ -84,26 +87,22 @@ namespace BLSnakeLibrary
         {
             for (int i = SizeOfSnake - 1; i >= 0; i--)
             {
-                if ((i == SizeOfSnake - 1) && (_body[i - 1].Y != NO_COORDINATE)
-                        && (_body[i - 1].X != NO_COORDINATE))
+                if ((i == SizeOfSnake - 1) 
+                        && (_body[i - 1].Coord != NO_COORDINATE))
                 {
-                    _tail.X = _body[i - 1].X;
-                    _tail.Y = _body[i - 1].Y;
+                    _tail.Coord = _body[i - 1].Coord;
                 }
                 else
                 {
-                    if ((i > 0) && (_body[i - 1].Y != NO_COORDINATE) &&
-                        (_body[i - 1].X != NO_COORDINATE))
+                    if ((i > 0) && (_body[i - 1].Coord != NO_COORDINATE))
                     {
-                        _body[i].X = _body[i - 1].X;
-                        _body[i].Y = _body[i - 1].Y;
+                        _body[i].ChangeCoordinate(_body[i - 1].Coord);
                     }
                     else
                     {
                         if (i == 0)
                         {
-                            _body[i].X = _head.X;
-                            _body[i].Y = _head.Y;
+                            _body[i].ChangeCoordinate(_head.Coord);
                         }
                     }
                 }
@@ -120,32 +119,23 @@ namespace BLSnakeLibrary
             switch (key)
             {
                 case InputUser.LeftArrow:
-                    _head.X -= step;
+                    _head.Coord = new Coordinate
+                            (_head.Coord.X - step, _head.Coord.Y);
                     break;
                 case InputUser.UpArrow:
-                    _head.Y -= step;
+                    _head.Coord = new Coordinate
+                            (_head.Coord.X, _head.Coord.Y - step);
                     break;
                 case InputUser.RightArrow:
-                    _head.X += step;
+                    _head.Coord = new Coordinate
+                           (_head.Coord.X + step, _head.Coord.Y);
                     break;
                 case InputUser.DownArrow:
-                    _head.Y += step;
+                    _head.Coord = new Coordinate
+                            (_head.Coord.X, _head.Coord.Y + step);
                     break;
                 default:
                     break;
-            }
-        }
-
-        private void EnlargeRangeOfSnakeBody(int oldSizeOfBody)
-        {
-            Array.Resize(ref _body, _body.Length * 2);
-
-            for (int j = 0; j < _body.Length; j++)
-            {
-                if (j >= oldSizeOfBody)
-                {
-                    _body[j] = new SnakeElement(NO_COORDINATE, NO_COORDINATE, '*');
-                }
             }
         }
 
@@ -157,40 +147,39 @@ namespace BLSnakeLibrary
         /// <param name="myFruits">Object fruits</param>
         public void CheckFruitsEating(Fruits myFruits)
         {
-            myFruits.FruitEaten = Fruits.UNTOUCHED_FRUIT;
-
-            int tmpSizeOfBody = SizeOfBody;
+            myFruits.FruitEaten = Fruits.UNEATEN;
 
             for (int i = 0; i < myFruits.FruitLength; i++)
             {
-                if (Head.X == myFruits.GetFruit(i).X
-                        && Head.Y == myFruits.GetFruit(i).Y)
+                if (Head.Coord == myFruits.GetFruit(i).Coord)
                 {
                     myFruits.FruitEaten = i;
                     SizeOfSnake++;
 
-                    if (SizeOfSnake > SizeOfBody)
+                    if (SizeOfSnake - 1 > SizeOfBody)
                     {
-                        EnlargeRangeOfSnakeBody(tmpSizeOfBody);
+                        _body.Add(new SnakeElement(NO_COORDINATE, '*'));
                     }
 
                     myFruits.FruitQuantity--;
                 }
             }
 
-            myFruits.SuperFruitEating = Fruits.UNTOUCHED_FRUIT;
+            myFruits.SuperFruitEating = Fruits.UNEATEN;
 
             for (int i = 0; i < myFruits.SuperFruitLength; i++)
             {
-                if (Head.X == myFruits.GetSuperFruit(i).X
-                        && Head.Y == myFruits.GetSuperFruit(i).Y)
+                if (Head.Coord == myFruits.GetSuperFruit(i).Coord)
                 {
                     myFruits.SuperFruitEating = i;
-                    SizeOfSnake += 2;
+                    SizeOfSnake += SUPERFRUIT_PRIZ;
 
                     if (SizeOfSnake > SizeOfBody)
                     {
-                        EnlargeRangeOfSnakeBody(tmpSizeOfBody);
+                        for (int j = 0; j < SUPERFRUIT_PRIZ; j++)
+                        {
+                            _body.Add(new SnakeElement(NO_COORDINATE, '*'));
+                        }                     
                     }
 
                     myFruits.SuperFruitQuantity--;
@@ -208,7 +197,7 @@ namespace BLSnakeLibrary
 
             for (int i = 0; i < SizeOfSnake - 1; i++)
             {
-                if (Head.X == _body[i].X && Head.Y == _body[i].Y)
+                if (Head.Coord == _body[i].Coord)
                 {
                     resolt = true;
                     break;

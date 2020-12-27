@@ -146,8 +146,8 @@ namespace BLSnakeLibrary
             int lowerLimitY = (_playField.LeftTopAngle.Y + step) / step;
             int upperLimitY = (_playField.RightDownAngle.Y - step) / step;
 
-            fruit.X = rnd.Next(lowerLimitX, upperLimitX) * step;
-            fruit.Y = rnd.Next(lowerLimitY, upperLimitY) * step;
+            fruit.SetCoordX(rnd.Next(lowerLimitX, upperLimitX) * step);
+            fruit.SetCoordY(rnd.Next(lowerLimitY, upperLimitY) * step);
         }
 
         /// <summary>
@@ -158,21 +158,21 @@ namespace BLSnakeLibrary
         /// <returns>Resolt of check, if was coincidence true and false if not</returns>
         public void CheckFruitWithSnake(FruitElement fruit, ref bool check)
         {
-            if (fruit.X == _snake.Head.X && fruit.Y == _snake.Head.Y)
+            if (fruit.Coord == _snake.Head.Coord)
             {
                 check = true;
             }
 
             for (int i = 0; i < _snake.SizeOfSnake - 1; i++)
             {
-                if (fruit.X == _snake[i].X && fruit.Y == _snake[i].Y)
+                if (fruit.Coord == _snake[i].Coord)
                 {
                     check = true;
                     return;
                 }
             }
 
-            if (fruit.X == _snake.Tail.X && fruit.Y == _snake.Tail.Y)
+            if (fruit.Coord == _snake.Tail.Coord)
             {
                 check = true;
             }
@@ -188,7 +188,7 @@ namespace BLSnakeLibrary
         {
             bool resolt = false;
 
-            if (_snake.Head.X == border.X && _snake.Head.Y == border.Y)
+            if (_snake.Head.Coord == border.Coord)
             {
                 resolt = true;
             }
@@ -268,7 +268,7 @@ namespace BLSnakeLibrary
         {
             if (_fruits.FruitQuantity < _fruits.FruitLength)
             {
-                if (_fruits.FruitEaten == Fruits.UNTOUCHED_FRUIT)
+                if (_fruits.FruitEaten == Fruits.UNEATEN)
                 {
                     GenerateFruit(step, _fruits.FruitQuantity);
 
@@ -287,7 +287,7 @@ namespace BLSnakeLibrary
         {
             if (_fruits.SuperFruitQuantity < _fruits.SuperFruitLength)
             {
-                if (_fruits.SuperFruitEating == Fruits.UNTOUCHED_FRUIT)
+                if (_fruits.SuperFruitEating == Fruits.UNEATEN)
                 {
                     GenerateSuperFruit(step, _fruits.SuperFruitQuantity);
 
@@ -306,8 +306,8 @@ namespace BLSnakeLibrary
         {
             int intervalNew = interval;
 
-            if (_fruits.FruitEaten != Fruits.UNTOUCHED_FRUIT
-                    || _fruits.SuperFruitEating != Fruits.UNTOUCHED_FRUIT)
+            if (_fruits.FruitEaten != Fruits.UNEATEN
+                    || _fruits.SuperFruitEating != Fruits.UNEATEN)
             {
                 countEating++;
 

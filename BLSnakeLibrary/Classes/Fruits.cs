@@ -1,10 +1,11 @@
-﻿using System;
-
-namespace BLSnakeLibrary
+﻿namespace BLSnakeLibrary
 {
     public class Fruits
     {
-        public const int UNTOUCHED_FRUIT = -1;
+        public const int UNEATEN = -1;
+
+        public static readonly Coordinate UNTOUCHED_FRUIT = 
+                new Coordinate {X = -1, Y =  -1 };
 
         private FruitElement[] _fruit;
         private int _fruitQuantity;
@@ -20,21 +21,23 @@ namespace BLSnakeLibrary
 
             for (int i = 0; i < _fruit.Length; i++)
             {
-                _fruit[i].Symbol = (char)Symbols.Apple;
+                _fruit[i] = new FruitElement
+                    (new Coordinate(UNEATEN, UNEATEN), (char)Symbols.Apple);              
             }
 
             _fruitQuantity = 0;
-            _fruitEaten = UNTOUCHED_FRUIT;
+            _fruitEaten = UNEATEN;
 
             _superFruit = new FruitElement[superFruitsLehght];
 
             for (int i = 0; i < _superFruit.Length; i++)
             {
-                _superFruit[i].Symbol = (char)Symbols.BigApple;
+                _superFruit[i] = new FruitElement
+                    (new Coordinate(UNEATEN, UNEATEN), (char)Symbols.BigApple);
             }
 
             _superFruitQuantity = 0;
-            _superFruitEating = UNTOUCHED_FRUIT;
+            _superFruitEating = UNEATEN;
         }
 
         /// <summary>
@@ -43,7 +46,7 @@ namespace BLSnakeLibrary
         /// </summary>
         public int FruitQuantity
         {
-            get 
+            get
             {
                 return _fruitQuantity;
             }
@@ -61,7 +64,7 @@ namespace BLSnakeLibrary
 
                     throw new FruitCountException(massege, _fruitQuantity, value);
                 }
-            } 
+            }
         }
 
         /// <summary>
@@ -72,7 +75,7 @@ namespace BLSnakeLibrary
             get
             {
                 return _fruitEaten;
-            } 
+            }
             set
             {
                 if (value < _fruit.Length && value >= -1)
@@ -94,7 +97,7 @@ namespace BLSnakeLibrary
         /// </summary>
         /// <param name="index">index of fruit</param>
         /// <returns>FruitElement fruit[index]</returns>
-        public FruitElement GetFruit(int index) 
+        public FruitElement GetFruit(int index)
         {
             return _fruit[index];
         }
@@ -140,7 +143,7 @@ namespace BLSnakeLibrary
                 else
                 {
                     string massege = "Changes of count in one step can't be" +
-                        " more 1. Now oldCount = " + _superFruitQuantity + 
+                        " more 1. Now oldCount = " + _superFruitQuantity +
                         " new count = " + value;
 
                     throw new FruitCountException(massege, _superFruitQuantity, value);
@@ -169,7 +172,7 @@ namespace BLSnakeLibrary
                         " or not more " + _superFruit.Length + ". Value is " + value;
 
                     throw new FruitEatingException(massege, _superFruit.Length, value);
-                }               
+                }
             }
         }
 
@@ -190,7 +193,7 @@ namespace BLSnakeLibrary
         /// <param name="index">index of superFruit</param>
         public void SetSuperFruit(FruitElement value, int index)
         {
-            _superFruit[index] = value; 
+            _superFruit[index] = value;
         }
 
         public int SuperFruitLength
@@ -211,8 +214,7 @@ namespace BLSnakeLibrary
         {
             for (int j = 0; j < FruitLength; j++)
             {
-                if ((index != j) && (_fruit[index].X == _fruit[j].X)
-                           && (_fruit[index].Y == _fruit[j].Y))
+                if ((index != j) && (_fruit[index].Coord == _fruit[j].Coord))
                 {
                     check = true;
                     return;
@@ -221,8 +223,7 @@ namespace BLSnakeLibrary
 
             for (int j = 0; j < SuperFruitLength; j++)
             {
-                if ((_fruit[index].X == _superFruit[j].X)
-                           && (_fruit[index].Y == _superFruit[j].Y))
+                if (_fruit[index].Coord == _superFruit[j].Coord)
                 {
                     check = true;
                     break;
@@ -240,8 +241,7 @@ namespace BLSnakeLibrary
         {
             for (int j = 0; j < FruitLength; j++)
             {
-                if ((_superFruit[index].X == _fruit[j].X)
-                           && (_superFruit[index].Y == _fruit[j].Y))
+                if (_superFruit[index].Coord == _fruit[j].Coord)
                 {
                     check = true;
                     return;
@@ -250,8 +250,8 @@ namespace BLSnakeLibrary
 
             for (int j = 0; j < SuperFruitLength; j++)
             {
-                if ((index != j) && (_superFruit[index].X == _superFruit[j].X)
-                           && (_superFruit[index].Y == _superFruit[j].Y))
+                if ((index != j)
+                       && (_superFruit[index].Coord == _superFruit[j].Coord))
                 {
                     check = true;
                     break;

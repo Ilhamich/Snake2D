@@ -138,7 +138,8 @@ namespace Training_Snake
                 radioButtonHard.Visible = false;
             }
 
-            _game.InitSnake(SNAKE_START_X_POSITION, SNAKE_START_Y_POSITION);
+            _game.InitSnake(new Coordinate
+                    (SNAKE_START_X_POSITION, SNAKE_START_Y_POSITION));
             _game.InitFruits();
 
             _direction = InputUser.DownArrow;

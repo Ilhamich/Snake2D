@@ -1,6 +1,6 @@
 ﻿namespace BLSnakeLibrary
 {
-    public class SnakeElement
+    public class SnakeElement : IGraphicElement
     {
         public Coordinate Coord { get; internal set; }
 

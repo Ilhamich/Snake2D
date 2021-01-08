@@ -58,11 +58,12 @@
     <Compile Include="Exceptions\FruitEatingException.cs" />
     <Compile Include="Exceptions\FruitCountException.cs" />
     <Compile Include="Enum\FruitsSize.cs" />
+    <Compile Include="Structures and GraphicElements\IGraphicElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Structures\BorderElement.cs" />
-    <Compile Include="Structures\FruitElement.cs" />
-    <Compile Include="Structures\Coordinate.cs" />
-    <Compile Include="Structures\SnakeElement.cs" />
+    <Compile Include="Structures and GraphicElements\BorderElement.cs" />
+    <Compile Include="Structures and GraphicElements\FruitElement.cs" />
+    <Compile Include="Structures and GraphicElements\Coordinate.cs" />
+    <Compile Include="Structures and GraphicElements\SnakeElement.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />

@@ -1,8 +1,8 @@
 ﻿namespace BLSnakeLibrary
 {
-    public class FruitElement 
+    public class FruitElement : IGraphicElement
     {
-        Coordinate _coord;
+        private Coordinate _coord;
 
         public Coordinate Coord
         {
@@ -11,16 +11,6 @@
         }
 
         public char Symbol { get; internal set; }
-
-        public int X 
-        {
-            get { return _coord.X; }
-        }
-
-        public int Y
-        {
-            get { return _coord.Y; }
-        }
 
         public FruitElement(Coordinate coord, char symbol)
         {

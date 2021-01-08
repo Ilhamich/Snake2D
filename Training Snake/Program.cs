@@ -45,7 +45,7 @@ namespace Training_Snake
                 {
                     case (byte)MenuChois.ButtonStart:
 
-                        _game.InitSnake(UI.HEAD_X, UI.HEAD_Y);
+                        _game.InitSnake(new Coordinate(UI.HEAD_X, UI.HEAD_Y));
 
                         _game.InitFruits();
 

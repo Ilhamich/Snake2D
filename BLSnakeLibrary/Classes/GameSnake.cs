@@ -66,9 +66,9 @@ namespace BLSnakeLibrary
             _fruits = new Fruits(FruitsLenght, SuperFruitsLenght);
         }
 
-        public void InitSnake(int startX, int startY)
+        public void InitSnake(Coordinate startCoord)
         {
-            _snake = new Snake(SizeOfSnake, startX, startY);
+            _snake = new Snake(SizeOfSnake, startCoord);
         }
 
         public int SetEasyDifficulty(int oldInterval)

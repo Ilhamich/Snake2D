@@ -9,7 +9,7 @@ namespace BLSnakeLibrary
         public static readonly Coordinate NO_COORDINATE
                 = new Coordinate{ X = -1, Y = -1 };
         private SnakeElement _head;
-        private List<SnakeElement> _body;              //TODO
+        private List<SnakeElement> _body;              
         private SnakeElement _tail;
 
         /// <summary>
@@ -17,9 +17,9 @@ namespace BLSnakeLibrary
         /// </summary>
         public int SizeOfSnake { get; private set; }
 
-        public Snake(int sizeOfSnake, int startX, int startY)
+        public Snake(int sizeOfSnake, Coordinate startCoord)
         {
-            _head = new SnakeElement(new Coordinate(startX, startY),
+            _head = new SnakeElement(startCoord,
                     (char)Symbols.Head);
 
             _body = new List<SnakeElement>(sizeOfSnake - 1);

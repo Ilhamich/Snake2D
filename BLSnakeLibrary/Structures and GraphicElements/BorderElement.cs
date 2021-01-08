@@ -1,8 +1,8 @@
 ﻿namespace BLSnakeLibrary
 {
-    public class BorderElement
+    public class BorderElement : IGraphicElement
     {
-        public readonly Coordinate Coord;
+        public Coordinate Coord { get; }
 
         public char Symbol { get;}
 
@@ -12,10 +12,10 @@
             Symbol = symbol;
         }
 
-        internal BorderElement GetCopy()
-        {
-            return (BorderElement)MemberwiseClone();
-        }
+        //internal BorderElement GetCopy()
+        //{
+        //    return (BorderElement)MemberwiseClone();
+        //}
 
         public override string ToString()
         {

@@ -6,10 +6,18 @@ namespace Training_Snake
 {
     class FormHelper
     {
+        private static void PainttGraphicElement
+                (IGraphicElement element, SolidBrush brush,
+                Graphics painter, int stepDisplay)
+        {
+            painter.FillRectangle(brush, element.Coord.X,
+                               element.Coord.Y, stepDisplay, stepDisplay);
+        }
+
         public static void PaintSnake
                 (Snake snakeFP, Graphics painter, int stepDisplay)
         {
-            SolidBrush snakeSegment = new SolidBrush(Color.DarkMagenta);
+            SolidBrush snakeBrush = new SolidBrush(Color.DarkMagenta);
 
             for (int i = 0; i < snakeFP.SizeOfSnake; i++)
             {
@@ -19,25 +27,25 @@ namespace Training_Snake
                     {
                         if ((i + 1) % 2 == 0)
                         {
-                            snakeSegment.Color = Color.Orange;
+                            snakeBrush.Color = Color.Orange;
                         }
                         else
                         {
-                            snakeSegment.Color = Color.DarkGreen;
+                            snakeBrush.Color = Color.DarkGreen;
                         }
 
-                        painter.FillRectangle(snakeSegment, snakeFP[i].Coord.X,
-                                snakeFP[i].Coord.Y, stepDisplay, stepDisplay);
+                        PainttGraphicElement(snakeFP[i], snakeBrush,
+                                painter, stepDisplay);
                     }
                 }
                 else
                 {
                     if (i == snakeFP.SizeOfSnake - 1)
                     {
-                        snakeSegment.Color = Color.Black;
+                        snakeBrush.Color = Color.Black;
 
-                        painter.FillRectangle(snakeSegment, snakeFP.Head.Coord.X,
-                                snakeFP.Head.Coord.Y, stepDisplay, stepDisplay);
+                        PainttGraphicElement(snakeFP.Head, snakeBrush,
+                                painter, stepDisplay);
                     }
                 }
             }
@@ -46,32 +54,32 @@ namespace Training_Snake
         public static void PaintField
                 (Field fieldFP, Graphics painter, int stepDisplay)
         {
-            SolidBrush fieldSegment = new SolidBrush(Color.BurlyWood);
+            SolidBrush fieldBrash = new SolidBrush(Color.BurlyWood);
 
             for (int i = 0; i < fieldFP.FieldLenght; i++)
             {
-                painter.FillRectangle(fieldSegment, fieldFP[i].Coord.X,
-                                fieldFP[i].Coord.Y, stepDisplay, stepDisplay);
+                PainttGraphicElement
+                        (fieldFP[i], fieldBrash, painter, stepDisplay);
             }
         }
 
         public static void PaintFruits
                 (Fruits fruitsFP, Graphics painter, int stepDisplay)
         {
-            SolidBrush oneOfFruits = new SolidBrush(Color.Crimson);
+            SolidBrush fruitBrash = new SolidBrush(Color.Crimson);
 
             for (int i = 0; i < fruitsFP.FruitQuantity; i++)
             {
-                painter.FillRectangle(oneOfFruits, fruitsFP.GetFruit(i).X,
-                        fruitsFP.GetFruit(i).Y, stepDisplay, stepDisplay);
+                PainttGraphicElement(fruitsFP.GetFruit(i),
+                        fruitBrash, painter, stepDisplay);
             }
 
-            oneOfFruits.Color = Color.Chartreuse;
+            fruitBrash.Color = Color.Chartreuse;
 
             for (int i = 0; i < fruitsFP.SuperFruitQuantity; i++)
             {
-                painter.FillRectangle(oneOfFruits, fruitsFP.GetSuperFruit(i).X,
-                        fruitsFP.GetSuperFruit(i).Y, stepDisplay, stepDisplay);
+                PainttGraphicElement(fruitsFP.GetSuperFruit(i),
+                        fruitBrash, painter, stepDisplay);
             }
         }
 

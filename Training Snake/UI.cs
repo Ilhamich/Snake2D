@@ -25,6 +25,12 @@ namespace Training_Snake
         public const int X_COORDINATE_MENU = FIELD_X_END + 3;
         public const int COORDINATE_ARROW = FIELD_X_END + 1;
 
+        private static void PrintGraphicElement(IGraphicElement element)
+        {
+            Console.SetCursorPosition(element.Coord.X, element.Coord.Y);
+            Console.Write(element.Symbol);
+        }
+
         public static void PrintField(Field field)
         {
             Console.SetWindowSize(WINDOW_WIDTH, WINDOW_HIGHT);
@@ -33,8 +39,7 @@ namespace Training_Snake
 
             for (int i = 0; i < field.FieldLenght; i++)
             {
-                Console.SetCursorPosition(field[i].Coord.X, field[i].Coord.Y);
-                Console.Write(field[i].Symbol);
+                PrintGraphicElement(field[i]);
             }
 
             Console.ResetColor();
@@ -47,18 +52,14 @@ namespace Training_Snake
 
             for (int i = 0; i < myFruits.FruitQuantity; i++)
             {
-                Console.SetCursorPosition(myFruits.GetFruit(i).X,
-                        myFruits.GetFruit(i).Y);
-                Console.Write(myFruits.GetFruit(i).Symbol);
+                PrintGraphicElement(myFruits.GetFruit(i));
             }
 
             Console.ForegroundColor = ConsoleColor.DarkGreen;
 
             for (int i = 0; i < myFruits.SuperFruitQuantity; i++)
             {
-                Console.SetCursorPosition(myFruits.GetSuperFruit(i).X,
-                        myFruits.GetSuperFruit(i).Y);
-                Console.Write(myFruits.GetSuperFruit(i).Symbol);
+                PrintGraphicElement(myFruits.GetSuperFruit(i));
             }
 
             Console.ResetColor();
@@ -108,8 +109,7 @@ namespace Training_Snake
                 Console.ForegroundColor = ConsoleColor.Green;
             }
 
-            Console.SetCursorPosition(body.Coord.X, body.Coord.Y);
-            Console.Write("{0}", body.Symbol);
+            PrintGraphicElement(body);
         }
 
         public static InputUser SetKurse(InputUser key)
@@ -400,8 +400,8 @@ namespace Training_Snake
 
             for (int i = 0; i < resolt.Length; i++)
             {
-                Console.SetCursorPosition(snakeHead.X++, snakeHead.Y);
-                Console.Write(' ');
+                PrintGraphicElement(new SnakeElement
+                        (new Coordinate(snakeHead.X++, snakeHead.Y), ' '));
             }
         }
 
@@ -411,9 +411,9 @@ namespace Training_Snake
             {
                 if (myFruit.GetFruit(i).Coord != Fruits.UNTOUCHED_FRUIT)
                 {
-                    Console.SetCursorPosition(myFruit.GetFruit(i).X,
-                            myFruit.GetFruit(i).Y);
-                    Console.Write(' ');
+                    PrintGraphicElement(new FruitElement(new Coordinate
+                            (myFruit.GetFruit(i).Coord.X,
+                            myFruit.GetFruit(i).Coord.Y), ' '));
                 }
             }
 
@@ -421,9 +421,9 @@ namespace Training_Snake
             {
                 if (myFruit.GetSuperFruit(i).Coord != Fruits.UNTOUCHED_FRUIT)
                 {
-                    Console.SetCursorPosition(myFruit.GetSuperFruit(i).X,
-                            myFruit.GetSuperFruit(i).Y);
-                    Console.Write(' ');
+                    PrintGraphicElement(new FruitElement(new Coordinate
+                          (myFruit.GetSuperFruit(i).Coord.X,
+                          myFruit.GetSuperFruit(i).Coord.Y), ' '));
                 }
             }
         }
@@ -432,12 +432,10 @@ namespace Training_Snake
         {
             for (int i = 0; i < mySnake.SizeOfSnake - 1; i++)
             {
-                Console.SetCursorPosition(mySnake[i].Coord.X, mySnake[i].Coord.Y);
-                Console.Write(' ');
+                PrintGraphicElement(new SnakeElement(mySnake[i].Coord, ' '));
             }
 
-            Console.SetCursorPosition(mySnake.Tail.Coord.X, mySnake.Tail.Coord.Y);
-            Console.Write(' ');
+            PrintGraphicElement(mySnake.Tail);
         }
 
         public static void SetCursor(int x, int y)

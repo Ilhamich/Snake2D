@@ -4,13 +4,10 @@ using System.Text;
 
 namespace Training_Snake
 {
-    class UI
+    class Visualizer
     {
         public const int WINDOW_WIDTH = 80;
         public const int WINDOW_HIGHT = 42;
-
-        public const byte EXIT_FROM_LEVEL = 2;
-        public const byte EXIT_FROM_MENU = 3;
 
         public const int HEAD_X = 40;
         public const int HEAD_Y = 2;
@@ -112,74 +109,6 @@ namespace Training_Snake
             PrintGraphicElement(body);
         }
 
-        public static InputUser SetKurse(InputUser key)
-        {
-            InputUser chekKey = key;
-            ConsoleKey keyReal = 0;
-
-            if (Console.KeyAvailable)
-            {
-                keyReal = Console.ReadKey().Key;
-            }
-
-            switch (keyReal)
-            {
-                case ConsoleKey.LeftArrow:
-                    if (chekKey == InputUser.RightArrow)
-                    {
-                        key = chekKey;
-                    }
-                    else
-                    {
-                        key = InputUser.LeftArrow;
-                    }
-                    break;
-
-                case ConsoleKey.UpArrow:
-                    if (chekKey == InputUser.DownArrow)
-                    {
-                        key = chekKey;
-                    }
-                    else
-                    {
-                        key = InputUser.UpArrow;
-                    }
-                    break;
-
-                case ConsoleKey.RightArrow:
-                    if (chekKey == InputUser.LeftArrow)
-                    {
-                        key = chekKey;
-                    }
-                    else
-                    {
-                        key = InputUser.RightArrow;
-                    }
-                    break;
-
-                case ConsoleKey.DownArrow:
-                    if (chekKey == InputUser.UpArrow)
-                    {
-                        key = chekKey;
-                    }
-                    else
-                    {
-                        key = InputUser.DownArrow;
-                    }
-                    break;
-
-                case ConsoleKey.Escape:
-                    key = InputUser.Escape;
-                    break;
-
-                default:
-                    key = chekKey;
-                    break;
-            }
-
-            return key;
-        }
-
         public static void PrintSnake(Snake mySnake)
         {
             for (int i = 0; i <= mySnake.SizeOfSnake; i++)
@@ -209,124 +138,6 @@ namespace Training_Snake
             }
         }
 
-        public static byte СhooseExitOrPlay(byte step, out InputUser push)
-        {
-            int tmpStep = step;
-
-            PrintArrow(step);
-
-            push = PushButton();
-
-            if (push == InputUser.DownArrow && step < EXIT_FROM_LEVEL)
-            {
-                step++;
-            }
-            else
-            {
-                if (push == InputUser.UpArrow && step > 1)
-                {
-                    step--;
-                }
-            }
-
-            Console.SetCursorPosition(FIELD_X_END + 1, tmpStep);
-            Console.Write("  ");
-
-            PrintArrow(step);
-
-            Console.ResetColor();
-
-            return step;
-        }
-
-        public static byte GetChoisMenu(byte step, out InputUser push)
-        {
-            byte tmpStep = step;
-
-            PrintArrow(step);
-
-            push = PushButton();
-
-            if (push == InputUser.DownArrow && step < EXIT_FROM_MENU)
-            {
-                step++;
-            }
-            else
-            {
-                if (push == InputUser.UpArrow && step > 1)
-                {
-                    step--;
-                }
-            }
-
-            Console.SetCursorPosition(FIELD_X_END + 1, tmpStep);
-            Console.Write("  ");
-
-            PrintArrow(step);
-
-            Console.ResetColor();
-
-            return step;
-        }
-
-        public static void GetChoisDifficulty(ref byte step, out InputUser Push)
-        {
-            int tmpStep = step;
-
-            PrintArrow(step);
-
-            Push = PushButton();
-
-            if (Push == InputUser.DownArrow && step < (byte)MenuChois.ButtonExit)
-            {
-                step++;
-            }
-            else
-            {
-                if (Push == InputUser.UpArrow && step > (byte)MenuChois.ButtonStart)
-                {
-                    step--;
-                }
-                else
-                {
-
-                }
-            }
-
-            Console.SetCursorPosition(FIELD_X_END + 1, tmpStep);
-            Console.Write("  ");
-
-            PrintArrow(step);
-
-            Console.ResetColor();
-        }
-
-        public static InputUser PushButton()
-        {
-            ConsoleKey key = Console.ReadKey().Key;
-            InputUser result = InputUser.NoDirection;
-
-            switch (key)
-            {
-                case ConsoleKey.UpArrow:
-                    result = InputUser.UpArrow;
-                    break;
-
-                case ConsoleKey.DownArrow:
-                    result = InputUser.DownArrow;
-                    break;
-
-                case ConsoleKey.Enter:
-                    result = InputUser.Enter;
-                    break;
-
-                default:
-                    break;
-            }
-
-            return result;
-        }
-
         public static void PrintMenu(string[] menu)
         {
             Console.ForegroundColor = ConsoleColor.White;
@@ -347,28 +158,17 @@ namespace Training_Snake
             Console.Write((char)Symbols.Arrow);
         }
 
-        public static void ChooseInPouse
-                (InputUser keyTmp, ref InputUser key, ref byte choiceExOrPl)
+        public static void PrintArrowMenu(byte tmpStep, string[] categories,
+                ref InputUser key, ref byte stepMenu)
         {
-            while (key == InputUser.Escape)
+            ArrowClear(tmpStep);
+
+            PrintArrow(stepMenu);
+
+            if (key == InputUser.Enter)
             {
-                string[] exitContinued = { "Continued", "Exit" };
-
-                PrintMenu(exitContinued);
-
-                InputUser keyExOrPl = InputUser.NoDirection;
-
-                choiceExOrPl = СhooseExitOrPlay(choiceExOrPl, out keyExOrPl);
-
-                if (keyExOrPl == InputUser.Enter)
-                {
-                    key = keyTmp;
-
-                    ArrowClear(choiceExOrPl);
-                    ClearMenu(exitContinued);
-
-                    break;
-                }
+                ArrowClear(stepMenu);
+                ClearMenu(categories);
             }
         }
 

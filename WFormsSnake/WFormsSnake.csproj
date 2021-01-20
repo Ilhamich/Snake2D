@@ -46,7 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormHelper.cs" />
+    <Compile Include="FormController.cs" />
+    <Compile Include="FormPainter.cs" />
     <Compile Include="FormGameSnake.cs">
       <SubType>Form</SubType>
     </Compile>

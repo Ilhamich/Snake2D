@@ -56,19 +56,19 @@ namespace Training_Snake
             }
             else
             {
-                FormHelper.GiveDirectionInputKey
+                FormController.GiveDirectionInputKey
                         (_game, e.KeyCode, ref _direction);
             }
         }
 
         public void PrintField(object sender, PaintEventArgs e)
         {
-            FormHelper.PaintField(_game.PlayField, e.Graphics, STEP_DISPLAY);
+            FormPainter.PaintField(_game.PlayField, e.Graphics, STEP_DISPLAY);
         }
 
         private void PrintSnake(object sender, PaintEventArgs e)
         {
-            FormHelper.PaintSnake(_game.SnakeGame, e.Graphics, STEP_DISPLAY);
+            FormPainter.PaintSnake(_game.SnakeGame, e.Graphics, STEP_DISPLAY);
         }
 
         private void ProcessFruit(object sender, PaintEventArgs e)
@@ -79,7 +79,7 @@ namespace Training_Snake
 
         private void PrintFruits(object sender, PaintEventArgs e)
         {
-            FormHelper.PaintFruits(_game.FruitsGame, e.Graphics, STEP_DISPLAY);
+            FormPainter.PaintFruits(_game.FruitsGame, e.Graphics, STEP_DISPLAY);
         }
 
         private void pictureBoxSand_Paint(object sender, PaintEventArgs e)

@@ -13,7 +13,8 @@ namespace Training_Snake
 
             GameSnake _game = new GameSnake();
 
-            _game.InitGameField (UI.SIDE_SIZE, UI.FIELD_X_START, UI.FIELD_Y_START);
+            _game.InitGameField (Visualizer.SIDE_SIZE,
+                    Visualizer.FIELD_X_START, Visualizer.FIELD_Y_START);
 
             int interval = GameSnake.TICK_SPEED * (byte)Difficulty.Normal;
 
@@ -24,32 +25,32 @@ namespace Training_Snake
                 int countEating = 0;
                 double timer = 0;
                
-                UI.PrintField(_game.PlayField);
+                Visualizer.PrintField(_game.PlayField);
 
-                InputUser push;
+                InputUser push = InputUser.NoDirection;
 
                 string[] menu = { "START", "DIFFICULTY", "EXIT" };
 
                 do
                 {
-                    UI.PrintMenu(menu);
+                    Visualizer.PrintMenu(menu);
 
-                    choiceMenu = UI.GetChoisMenu(choiceMenu, out push);
-
+                    ShowMenu(menu, ref push, ref choiceMenu);
                 } while (push != InputUser.Enter);
 
-                UI.ArrowClear(choiceMenu);
-                UI.ClearMenu(menu);
+                Visualizer.ArrowClear(choiceMenu);
+                Visualizer.ClearMenu(menu);
 
                 switch (choiceMenu)
                 {
                     case (byte)MenuChois.ButtonStart:
 
-                        _game.InitSnake(new Coordinate(UI.HEAD_X, UI.HEAD_Y));
+                        _game.InitSnake(new Coordinate
+                                (Visualizer.HEAD_X, Visualizer.HEAD_Y));
 
                         _game.InitFruits();
 
-                        byte choiceExOrPl = (byte)MenuChois.ButtonStart;
+                        byte chPouseMenu = (byte)MenuChois.ButtonStart;
 
                         do
                         {
@@ -60,69 +61,84 @@ namespace Training_Snake
                             _game.GenerateFruitByCount(stepDisplay);
                             _game.GenerateSuperFruitByCount(stepDisplay);
 
-                            UI.PrintFruits(_game.FruitsGame);
-                            UI.PrintSnake(_game.SnakeGame);
-                            UI.PrintStatistic(countEating, (int)timer, _game.SnakeGame.SizeOfSnake);
+                            Visualizer.PrintFruits(_game.FruitsGame);
+                            Visualizer.PrintSnake(_game.SnakeGame);
+                            Visualizer.PrintStatistic(countEating,
+                                    (int)timer, _game.SnakeGame.SizeOfSnake);
 
                             if (_game.CheckObstructionBorders()
                                     || _game.SnakeGame.CheckEncounter())
                             {
-                                choiceExOrPl = UI.EXIT_FROM_LEVEL;
+                                chPouseMenu = Controller.EXIT_FROM_LEVEL;
                             }
 
-                            _game.SnakeGame.CheckFruitsEating(_game.FruitsGame);
+                            _game.SnakeGame.CheckFruitsEating
+                                    (_game.FruitsGame);
 
-                            interval = _game.WorkOnSpeed(interval, ref countEating);
+                            interval = _game.WorkOnSpeed
+                                    (interval, ref countEating);
 
                             _game.SnakeGame.PassСoordinates();
 
-                            InputUser keyTmp = key;
+                            InputUser prevKey = key;
 
-                            key = UI.SetKurse(key);
+                            key = Controller.SetKurse(key);
 
-                            UI.ChooseInPouse(keyTmp, ref key, ref choiceExOrPl);
+                            if (key == InputUser.Escape)
+                            {
+
+                                string[] categories = { "Continued", "Exit" };
+
+                                ShowMenu(categories, ref key, ref chPouseMenu);
+
+                                key = prevKey;
+                            }
 
                             _game.SnakeGame.ChangeDirection(key, stepDisplay);
 
                             if(_game.CheckWin())
                             {
-                                choiceExOrPl = UI.EXIT_FROM_LEVEL;
+                                chPouseMenu = Controller.EXIT_FROM_LEVEL;
                             }
 
-                        } while (choiceExOrPl != UI.EXIT_FROM_LEVEL);
+                        } while(chPouseMenu != Controller.EXIT_FROM_LEVEL);
 
                         if (_game.CheckWin())
                         {
                             string youWin = "YOU WIN";
-                            UI.PrintGameResolt(youWin, _game.SnakeGame.Head);
-                            UI.ClearGameResolt(youWin, _game.SnakeGame.Head);
+
+                            Visualizer.PrintGameResolt
+                                    (youWin, _game.SnakeGame.Head);
+                            Visualizer.ClearGameResolt
+                                    (youWin, _game.SnakeGame.Head);
                         }
                         else
                         {
                             string gameOver = "GAME OVER";
-                            UI.PrintGameResolt(gameOver, _game.SnakeGame.Head);
-                            UI.ClearGameResolt(gameOver, _game.SnakeGame.Head);
+
+                            Visualizer.PrintGameResolt
+                                    (gameOver, _game.SnakeGame.Head);
+                            Visualizer.ClearGameResolt
+                                    (gameOver, _game.SnakeGame.Head);
                         }
 
-                        UI.ClearFruits(_game.FruitsGame);
-                        UI.ClearSnake(_game.SnakeGame);
-                        UI.ClearStatistic(UI.FIELD_X_START);
-
+                        Visualizer.ClearFruits(_game.FruitsGame);
+                        Visualizer.ClearSnake(_game.SnakeGame);
+                        Visualizer.ClearStatistic(Visualizer.FIELD_X_START);
                         break;
 
                     case (byte)MenuChois.ButtonDifficulty:
 
-                        InputUser keyDifficulty;
-
+                        InputUser keyDifficulty = InputUser.NoDirection;
                         byte choisDifficulty = (byte)DifficultyChois.Normal;
-
                         string[] difficulty = { "EASY", "NORMAL", "HIGH" };
 
                         do
                         {
-                            UI.PrintMenu(difficulty);
+                            Visualizer.PrintMenu(difficulty);
 
-                            UI.GetChoisDifficulty(ref choisDifficulty, out keyDifficulty);
+                            ShowMenu(difficulty,
+                                    ref keyDifficulty, ref choisDifficulty);
 
                         } while (keyDifficulty != InputUser.Enter);
 
@@ -148,19 +164,45 @@ namespace Training_Snake
                                 break;
                         }
 
-                        UI.ArrowClear(choisDifficulty);
-                        UI.ClearMenu(difficulty);
-
+                        Visualizer.ArrowClear(choisDifficulty);
+                        Visualizer.ClearMenu(difficulty);
                         break;
 
                     default:
-                        choiceExOrPl = UI.EXIT_FROM_LEVEL;
+                        chPouseMenu = Controller.EXIT_FROM_LEVEL;
                         break;
                 }
 
             } while (choiceMenu != (byte)MenuChois.ButtonExit);
 
-            UI.SetCursor(0, _game.PlayField.RightDownAngle.Y + 1);
+            Visualizer.SetCursor(0, _game.PlayField.RightDownAngle.Y + 1);
         }
+
+        private static void ShowMenu(string[] categories,
+                ref InputUser key, ref byte choisPouseMenu)
+        {
+            bool entry = false;
+            byte PouseMenuTmp = 0;
+
+            do
+            {
+                PouseMenuTmp = choisPouseMenu;
+
+                if (entry)
+                {
+                    key = Controller.PushButton();
+
+                    Controller.MoveArrow(key, (byte)MenuChois.ButtonStart,
+                            (byte)categories.Length, ref choisPouseMenu);
+                }
+
+                Visualizer.PrintMenu(categories);
+
+                Visualizer.PrintArrowMenu(PouseMenuTmp, categories,
+                        ref key, ref choisPouseMenu);
+
+                entry = true;
+            } while (key != InputUser.Enter);
+        }    
     }
 }

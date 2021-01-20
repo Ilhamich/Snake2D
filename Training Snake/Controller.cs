@@ -1,6 +1,5 @@
-﻿using System;
-
-using BLSnakeLibrary;
+﻿using BLSnakeLibrary;
+using System;
 
 namespace Training_Snake
 {
@@ -18,38 +17,43 @@ namespace Training_Snake
                 keyReal = Console.ReadKey().Key;
             }
 
-            if (key.ToString() == keyReal.ToString())
+            switch (keyReal)
             {
-                key = chekKey;
-            }
-            else
-            {
-                switch (keyReal)
-                {
-                    case ConsoleKey.LeftArrow:
+                case ConsoleKey.LeftArrow:
+                    if (key != InputUser.RightArrow)
+                    {
                         key = InputUser.LeftArrow;
-                        break;
+                    }
+                    break;
 
-                    case ConsoleKey.UpArrow:
+                case ConsoleKey.UpArrow:
+                    if (key != InputUser.DownArrow)
+                    {
                         key = InputUser.UpArrow;
-                        break;
+                    }
+                    break;
 
-                    case ConsoleKey.RightArrow:
+                case ConsoleKey.RightArrow:
+                    if (key != InputUser.LeftArrow)
+                    {
                         key = InputUser.RightArrow;
-                        break;
+                    }
+                    break;
 
-                    case ConsoleKey.DownArrow:
+                case ConsoleKey.DownArrow:
+                    if (key != InputUser.UpArrow)
+                    {
                         key = InputUser.DownArrow;
-                        break;
+                    }
+                    break;
 
-                    case ConsoleKey.Escape:
-                        key = InputUser.Escape;
-                        break;
+                case ConsoleKey.Escape:
+                    key = InputUser.Escape;
+                    break;
 
-                    default:
-                        key = chekKey;
-                        break;
-                }
+                default:
+                    key = chekKey;
+                    break;
             }
 
             return key;

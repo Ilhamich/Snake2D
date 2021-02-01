@@ -51,6 +51,8 @@ namespace Training_Snake
             this.lStateSSize = new System.Windows.Forms.Label();
             this.lGameResolt = new System.Windows.Forms.Label();
             this.labelPause = new System.Windows.Forms.Label();
+            this.buttonSaveExit = new System.Windows.Forms.Button();
+            this.buttonLoad = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSand)).BeginInit();
             this.SuspendLayout();
             // 
@@ -220,7 +222,7 @@ namespace Training_Snake
             this.buttonContinue.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.buttonContinue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonContinue.ForeColor = System.Drawing.Color.Gold;
-            this.buttonContinue.Location = new System.Drawing.Point(23, 300);
+            this.buttonContinue.Location = new System.Drawing.Point(23, 261);
             this.buttonContinue.Name = "buttonContinue";
             this.buttonContinue.Size = new System.Drawing.Size(100, 50);
             this.buttonContinue.TabIndex = 13;
@@ -234,7 +236,7 @@ namespace Training_Snake
             this.buttonExit.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonExit.ForeColor = System.Drawing.Color.Gold;
-            this.buttonExit.Location = new System.Drawing.Point(23, 380);
+            this.buttonExit.Location = new System.Drawing.Point(23, 317);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(100, 50);
             this.buttonExit.TabIndex = 14;
@@ -292,6 +294,33 @@ namespace Training_Snake
             this.labelPause.Text = "Pause";
             this.labelPause.Visible = false;
             // 
+            // buttonSaveExit
+            // 
+            this.buttonSaveExit.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.buttonSaveExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSaveExit.ForeColor = System.Drawing.Color.Gold;
+            this.buttonSaveExit.Location = new System.Drawing.Point(23, 373);
+            this.buttonSaveExit.Name = "buttonSaveExit";
+            this.buttonSaveExit.Size = new System.Drawing.Size(100, 50);
+            this.buttonSaveExit.TabIndex = 18;
+            this.buttonSaveExit.Text = "Save and exit";
+            this.buttonSaveExit.UseVisualStyleBackColor = false;
+            this.buttonSaveExit.Visible = false;
+            this.buttonSaveExit.Click += new System.EventHandler(this.buttonSaveExit_Click);
+            // 
+            // buttonLoad
+            // 
+            this.buttonLoad.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.buttonLoad.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonLoad.ForeColor = System.Drawing.Color.Gold;
+            this.buttonLoad.Location = new System.Drawing.Point(355, 350);
+            this.buttonLoad.Name = "buttonLoad";
+            this.buttonLoad.Size = new System.Drawing.Size(100, 50);
+            this.buttonLoad.TabIndex = 19;
+            this.buttonLoad.Text = "Load";
+            this.buttonLoad.UseVisualStyleBackColor = false;
+            this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click);
+            // 
             // FormGameSnake
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -300,6 +329,8 @@ namespace Training_Snake
             this.BackgroundImage = global::Training_Snake.Properties.Resources.Snakes___pic;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(804, 451);
+            this.Controls.Add(this.buttonLoad);
+            this.Controls.Add(this.buttonSaveExit);
             this.Controls.Add(this.lGameResolt);
             this.Controls.Add(this.lStateSSize);
             this.Controls.Add(this.labelSnakeSize);
@@ -355,6 +386,8 @@ namespace Training_Snake
         private System.Windows.Forms.Label lStateSSize;
         private System.Windows.Forms.Label lGameResolt;
         private System.Windows.Forms.Label labelPause;
+        private System.Windows.Forms.Button buttonSaveExit;
+        private System.Windows.Forms.Button buttonLoad;
     }
 }
 

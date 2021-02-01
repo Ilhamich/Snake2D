@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DlFormConnector.cs" />
     <Compile Include="FormController.cs" />
     <Compile Include="FormPainter.cs" />
     <Compile Include="FormGameSnake.cs">
@@ -86,6 +87,10 @@
     <ProjectReference Include="..\BLSnakeLibrary\BLSnakeLibrary.csproj">
       <Project>{b1f1e348-534f-4d0e-9d76-06621f7e43f3}</Project>
       <Name>BLSnakeLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DLSnakeLibrary\DLSnakeLibrary.csproj">
+      <Project>{6c3f82a9-5d1e-42ab-80f4-91dee4e206bd}</Project>
+      <Name>DLSnakeLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

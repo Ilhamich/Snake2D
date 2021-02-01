@@ -13,18 +13,16 @@ namespace Training_Snake
         const byte SNAKE_START_Y_POSITION = 10;
         const short MILLISECONDS_IN_SECOND = 1000;
 
-        private bool _pouse = false;
-        private double _timer = 0;
-        private int _countEating;
+        private bool _pouse = true;
         private InputUser _direction;
-        readonly GameSnake _game;
+        private GameSnake _game;
+        DlFormConnector _saver;
 
         public FormGameSnake(GameSnake game)
         {
             _game = game;
-
+   
             InitializeComponent();
-            _game.InitGameField(FIELD_SIZE, 0, 0, STEP_DISPLAY);
 
             pictureBoxSand.Paint += pictureBoxSand_Paint;
             pictureBoxSand.Paint += PrintField;
@@ -39,7 +37,7 @@ namespace Training_Snake
         {
             if (!_pouse)
             {
-                _timer += (double)timerGame.Interval / MILLISECONDS_IN_SECOND;
+                _game.RunTimer(MILLISECONDS_IN_SECOND);
                 pictureBoxSand.Invalidate();
             }
         }
@@ -53,6 +51,7 @@ namespace Training_Snake
                 labelPause.Visible = true;
                 buttonContinue.Visible = true;
                 buttonExit.Visible = true;
+                buttonSaveExit.Visible = true;
             }
             else
             {
@@ -68,7 +67,7 @@ namespace Training_Snake
 
         private void PrintSnake(object sender, PaintEventArgs e)
         {
-            FormPainter.PaintSnake(_game.SnakeGame, e.Graphics, STEP_DISPLAY);
+            FormPainter.PaintSnake(_game.SnakeObj, e.Graphics, STEP_DISPLAY);
         }
 
         private void ProcessFruit(object sender, PaintEventArgs e)
@@ -79,48 +78,62 @@ namespace Training_Snake
 
         private void PrintFruits(object sender, PaintEventArgs e)
         {
-            FormPainter.PaintFruits(_game.FruitsGame, e.Graphics, STEP_DISPLAY);
+            FormPainter.PaintFruits(_game.FruitsObj, e.Graphics, STEP_DISPLAY);
         }
 
         private void pictureBoxSand_Paint(object sender, PaintEventArgs e)
         {
-            labelTime.Text = ((int)_timer).ToString() + " sec";
-            eatenFruit.Text = _countEating.ToString();
-            lStateSSize.Text = _game.SnakeGame.SizeOfSnake.ToString();
-
-            if (_game.CheckObstructionBorders()
-                    || _game.SnakeGame.CheckEncounter())
+            if (!_pouse)
             {
-                timerGame.Stop();
-                lGameResolt.Visible = true;
-                buttonExit.Visible = true;
-                lGameResolt.Text = "Game Over";
-                return;
+                labelTime.Text = _game.Timer.ToString() + " sec";
+                eatenFruit.Text = _game.CountEating.ToString();
+                lStateSSize.Text = _game.SnakeObj.SizeOfSnake.ToString();
+
+                if (_game.CheckObstructionBorders()
+                        || _game.SnakeObj.CheckEncounter())
+                {
+                    timerGame.Stop();
+                    lGameResolt.Visible = true;
+                    buttonExit.Visible = true;
+                    lGameResolt.Text = "Game Over";
+                    return;
+                }
+
+                if (_game.CheckWin())
+                {
+                    timerGame.Stop();
+                    lGameResolt.Visible = true;
+                    buttonExit.Visible = true;
+                    lGameResolt.Text = "You win";
+                    lGameResolt.Location = new Point
+                            (buttonContinue.Location.X, buttonContinue.Location.Y);
+                }
+
+                _game.RunSnakeDynamics(_direction, STEP_DISPLAY);
+
+                timerGame.Interval = _game.Interval;
             }
-
-            if (_game.CheckWin())
-            {
-                timerGame.Stop();
-                lGameResolt.Visible = true;
-                buttonExit.Visible = true;
-                lGameResolt.Text = "You win";
-                lGameResolt.Location = new Point
-                        (buttonContinue.Location.X, buttonContinue.Location.Y);
-            }
-
-            _game.SnakeGame.CheckFruitsEating(_game.FruitsGame);
-
-            timerGame.Interval = _game.WorkOnSpeed
-                    (timerGame.Interval, ref _countEating);
-
-            _game.SnakeGame.PassСoordinates();
-            _game.SnakeGame.ChangeDirection(_direction, STEP_DISPLAY);
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
+            ReadyStart();
+
+            _game.InitGameField(FIELD_SIZE, 0, 0, STEP_DISPLAY);
+            _game.InitSnake(new Coordinate
+                    (SNAKE_START_X_POSITION, SNAKE_START_Y_POSITION));
+            _game.InitFruits();
+
+            _direction = _game.SnakeObj.SetDirection();
+            _pouse = false;
+            timerGame.Start();
+        }
+
+        private void ReadyStart()
+        {
             buttonStart.Visible = false;
             buttonDifficulti.Visible = false;
+            buttonLoad.Visible = false;
 
             pictureBoxSand.Visible = true;
 
@@ -137,13 +150,6 @@ namespace Training_Snake
                 radioButtonNormal.Visible = false;
                 radioButtonHard.Visible = false;
             }
-
-            _game.InitSnake(new Coordinate
-                    (SNAKE_START_X_POSITION, SNAKE_START_Y_POSITION));
-            _game.InitFruits();
-
-            _direction = InputUser.DownArrow;
-            _pouse = false;
         }
 
         private void buttonDifficulti_Click(object sender, EventArgs e)
@@ -167,8 +173,8 @@ namespace Training_Snake
         {
             if (radioButtonEasy.Checked)
             {
-                timerGame.Interval = _game.SetEasyDifficulty
-                        (timerGame.Interval);
+                _game.SetEasyDifficulty();
+                timerGame.Interval = _game.Interval;
             }
         }
 
@@ -176,8 +182,8 @@ namespace Training_Snake
         {
             if (radioButtonNormal.Checked)
             {
-                timerGame.Interval = _game.SetMiddleDifficulty
-                        (timerGame.Interval);
+                _game.SetMiddleDifficulty();
+                timerGame.Interval = _game.Interval;
             }
         }
 
@@ -185,8 +191,8 @@ namespace Training_Snake
         {
             if (radioButtonHard.Checked)
             {
-                timerGame.Interval = _game.SetHightDifficulty
-                        (timerGame.Interval);
+                _game.SetHightDifficulty();
+                timerGame.Interval = _game.Interval;
             }
         }
 
@@ -195,6 +201,7 @@ namespace Training_Snake
             labelPause.Visible = false;
             buttonContinue.Visible = false;
             buttonExit.Visible = false;
+            buttonSaveExit.Visible = false;
             _pouse = false;
         }
 
@@ -206,16 +213,21 @@ namespace Training_Snake
                 lGameResolt.Visible = false;
             }
 
-            _timer = 0;
-            _countEating = 0;
+            ReadyExit();
+        }
+
+        private void ReadyExit()
+        {
             labelTime.Text = "";
             eatenFruit.Text = "";
             lStateSSize.Text = "";
 
             buttonContinue.Visible = false;
             buttonExit.Visible = false;
+            buttonSaveExit.Visible = false;
             buttonStart.Visible = true;
             buttonDifficulti.Visible = true;
+            buttonLoad.Visible = true;
 
             lableСover.Visible = true;
             labelAvtor.Visible = true;
@@ -223,8 +235,41 @@ namespace Training_Snake
 
             pictureBoxSand.Visible = false;
 
-            timerGame.Interval = _game.SetMiddleDifficulty
-                       (timerGame.Interval);
+            _game.Reset();
+            timerGame.Interval = _game.Interval;
+        }
+
+        private void buttonSaveExit_Click(object sender, EventArgs e)
+        {
+            _saver = new DlFormConnector(_game); //TODO
+            _saver.Save();
+            ReadyExit();
+        }
+
+        private void buttonLoad_Click(object sender, EventArgs e)
+        {
+            ReadyStart();
+
+            try
+            {
+                _saver = new DlFormConnector(_game);//TODO
+                _game = _saver.Load();
+                _game.InitGameField(FIELD_SIZE, 0, 0, STEP_DISPLAY);
+            }
+            catch (Exception)
+            {
+                _game.InitGameField(FIELD_SIZE, 0, 0, STEP_DISPLAY);
+                _game.InitSnake(new Coordinate
+                        (SNAKE_START_X_POSITION, SNAKE_START_Y_POSITION));
+                _game.InitFruits();
+
+                MessageBox.Show("Save file broken or don't exist." +
+                                "\nWill be start new game");
+            }
+
+            _direction = _game.SnakeObj.SetDirection();
+            _pouse = false;
+            timerGame.Start();
         }
     }
 }

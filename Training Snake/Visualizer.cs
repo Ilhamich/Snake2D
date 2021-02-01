@@ -22,10 +22,13 @@ namespace Training_Snake
         public const int X_COORDINATE_MENU = FIELD_X_END + 3;
         public const int COORDINATE_ARROW = FIELD_X_END + 1;
 
-        private static void PrintGraphicElement(IGraphicElement element)
+        private static void PrintGraphicElement(IGraphicElement element) //TODO Поискать решение с отсутствием координат
         {
-            Console.SetCursorPosition(element.Coord.X, element.Coord.Y);
-            Console.Write(element.Symbol);
+            if (element.Coord.X != -1 && element.Coord.Y != -1)
+            {
+                Console.SetCursorPosition(element.Coord.X, element.Coord.Y);
+                Console.Write(element.Symbol);
+            }
         }
 
         public static void PrintField(Field field)
@@ -62,15 +65,15 @@ namespace Training_Snake
             Console.ResetColor();
         }
 
-        public static void PrintStatistic(int eating, int timer, int size)
+        public static void PrintStatistic(GameSnake game)
         {
             Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("Fruit eaten = {0}", eating);
+            Console.Write("Fruit eaten = {0}", game.CountEating);
             Console.SetCursorPosition(0, 1);
-            Console.Write("Snake size : {0}", size);
+            Console.Write("Snake size : {0}", game.SnakeObj.SizeOfSnake);
             Console.SetCursorPosition(0, 2);
-            Console.Write("Time : {0}", timer);
+            Console.Write("Time : {0}", game.Timer);
         }
 
         public static void ClearStatistic(int distance)
@@ -241,6 +244,27 @@ namespace Training_Snake
         public static void SetCursor(int x, int y)
         {
             Console.SetCursorPosition(x, y);
+        }
+
+        public static void ShowMessage(string message, Coordinate coord,
+                bool pouse = false)
+        {
+            Console.SetCursorPosition(coord.X, coord.Y);
+            Console.Write(message);
+
+            if (pouse)
+            {
+                Console.ReadKey();
+            }          
+        }
+
+        public static void ClearMessage(string message, Coordinate coord)
+        {
+            for (int i = 0; i < message.Length; i++)
+            {
+                Console.SetCursorPosition(coord.X++, coord.Y);
+                Console.Write(' ');
+            }
         }
     }
 }

@@ -1,5 +1,8 @@
-﻿namespace BLSnakeLibrary
+﻿using System;
+
+namespace BLSnakeLibrary
 {
+    [Serializable]
     public class Fruits
     {
         public const int UNEATEN = -1;

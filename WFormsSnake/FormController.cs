@@ -12,8 +12,8 @@ namespace Training_Snake
             {
                 case Keys.Left:
                     if (direction != InputUser.RightArrow
-                            && game.SnakeGame.Head.Coord.X - game.StepDisplay
-                            != game.SnakeGame[0].Coord.X)
+                            && game.SnakeObj.Head.Coord.X - game.StepDisplay
+                            != game.SnakeObj[0].Coord.X)
                     {
                         direction = InputUser.LeftArrow;
                     }
@@ -21,8 +21,8 @@ namespace Training_Snake
 
                 case Keys.Right:
                     if (direction != InputUser.LeftArrow
-                            && game.SnakeGame.Head.Coord.X + game.StepDisplay
-                            != game.SnakeGame[0].Coord.X)
+                            && game.SnakeObj.Head.Coord.X + game.StepDisplay
+                            != game.SnakeObj[0].Coord.X)
                     {
                         direction = InputUser.RightArrow;
                     }
@@ -30,8 +30,8 @@ namespace Training_Snake
 
                 case Keys.Up:
                     if (direction != InputUser.DownArrow
-                            && game.SnakeGame.Head.Coord.Y - game.StepDisplay
-                            != game.SnakeGame[0].Coord.Y)
+                            && game.SnakeObj.Head.Coord.Y - game.StepDisplay
+                            != game.SnakeObj[0].Coord.Y)
                     {
                         direction = InputUser.UpArrow;
                     }
@@ -39,8 +39,8 @@ namespace Training_Snake
 
                 case Keys.Down:
                     if (direction != InputUser.UpArrow
-                            && game.SnakeGame.Head.Coord.Y + game.StepDisplay
-                            != game.SnakeGame[0].Coord.Y)
+                            && game.SnakeObj.Head.Coord.Y + game.StepDisplay
+                            != game.SnakeObj[0].Coord.Y)
                     {
                         direction = InputUser.DownArrow;
                     }

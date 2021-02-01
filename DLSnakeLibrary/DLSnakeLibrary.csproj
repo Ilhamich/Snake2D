@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BFFC7375-ED03-439F-8F8B-F19A06030618}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Training_Snake</RootNamespace>
-    <AssemblyName>Training Snake</AssemblyName>
+    <ProjectGuid>{6C3F82A9-5D1E-42AB-80F4-91DEE4E206BD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DLSnakeLibrary</RootNamespace>
+    <AssemblyName>DLSnakeLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,20 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConnectHelper.cs" />
-    <Compile Include="Controller.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Visualizer.cs" />
+    <Compile Include="DLWorker.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLSnakeLibrary\BLSnakeLibrary.csproj">
       <Project>{b1f1e348-534f-4d0e-9d76-06621f7e43f3}</Project>
       <Name>BLSnakeLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DLSnakeLibrary\DLSnakeLibrary.csproj">
-      <Project>{6c3f82a9-5d1e-42ab-80f4-91dee4e206bd}</Project>
-      <Name>DLSnakeLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

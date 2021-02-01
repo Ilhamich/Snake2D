@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace BLSnakeLibrary
 {
+    [Serializable]
     public class Snake
     {
         private const byte SUPERFRUIT_PRIZ = 2;
@@ -205,6 +206,39 @@ namespace BLSnakeLibrary
             }
 
             return resolt;
+        }
+
+        public InputUser SetDirection()
+        {
+            InputUser direction = InputUser.DownArrow;
+
+            if (_body[0].Coord.X != -1 && _body[0].Coord.Y != -1)
+            {
+                if (Head.Coord.X == _body[0].Coord.X)
+                {
+                    if (Head.Coord.Y > _body[0].Coord.Y)
+                    {
+                        direction = InputUser.DownArrow;
+                    }
+                    else
+                    {
+                        direction = InputUser.UpArrow;
+                    }                  
+                }
+                else
+                {
+                    if (Head.Coord.X > _body[0].Coord.X)
+                    {
+                        direction = InputUser.RightArrow;
+                    }
+                    else
+                    {
+                        direction = InputUser.LeftArrow;
+                    }
+                }
+            }
+
+            return direction;
         }
     }
 }

@@ -2,39 +2,56 @@
 
 namespace BLSnakeLibrary
 {
+    [Serializable]
     public class GameSnake
     {
         public const int TICK_SPEED = 40;
         public const byte SCORE_FOR_WIN = 120;
 
+        [NonSerialized]
         static Random rnd = new Random();
 
+        #region PRIVATE
         private bool _easyDif;
         private bool _middleDif;
         private bool _highDif;
+        private double _timer;
 
+        [NonSerialized]
+        private Field _playField;
+
+        private Snake _snake;
+        private Fruits _fruits;
+        #endregion
+
+        public string HomeDir { get; } = ".\\Save";
+        public string HomeFile { get; } = "Save.bin";
         public byte StepDisplay { get; private set; }
         public byte SizeOfSnake { get; private set; }
         public byte Accelerator { get; private set; }
         public byte WinScore { get; private set; }
         public byte FruitsLenght { get; private set; }
         public byte SuperFruitsLenght { get; private set; }
+        public int CountEating { get; private set; }
+        public int Interval { get;private set; } = TICK_SPEED * 
+                (byte)Difficulty.Normal;
 
-        private Field _playField;
-        private Snake _snake;
-        private Fruits _fruits;
+        public int Timer
+        {
+            get { return (int)_timer; }
+        }
 
         public Field PlayField
         {
             get { return _playField; }
         }
 
-        public Fruits FruitsGame
+        public Fruits FruitsObj
         {
             get { return _fruits; }
         }
 
-        public Snake SnakeGame
+        public Snake SnakeObj
         {
             get { return _snake; }
         }
@@ -71,10 +88,8 @@ namespace BLSnakeLibrary
             _snake = new Snake(SizeOfSnake, startCoord);
         }
 
-        public int SetEasyDifficulty(int oldInterval)
+        public void SetEasyDifficulty()
         {
-            int interval = oldInterval;
-
             if (!_easyDif)
             {
                 Accelerator = (byte)Accelerators.Low;
@@ -82,19 +97,15 @@ namespace BLSnakeLibrary
                 WinScore = SCORE_FOR_WIN - (TICK_SPEED * (byte)WinSpeed.Easy);
                 FruitsLenght = (byte)FruitsSize.Big;
                 SuperFruitsLenght = (byte)SuperFruitsSize.Big;
-                interval = TICK_SPEED * (byte)Difficulty.Easy;
+                Interval = TICK_SPEED * (byte)Difficulty.Easy;
                 _easyDif = true;
                 _middleDif = false;
                 _highDif = false;
             }
-
-            return interval;
         }
 
-        public int SetMiddleDifficulty(int oldInterval)
+        public void SetMiddleDifficulty()
         {
-            int interval = oldInterval;
-
             if (!_middleDif)
             {
                 Accelerator = (byte)Accelerators.Middle;
@@ -102,19 +113,15 @@ namespace BLSnakeLibrary
                 WinScore = SCORE_FOR_WIN - (TICK_SPEED * (byte)WinSpeed.Middle);
                 FruitsLenght = (byte)FruitsSize.Medium;
                 SuperFruitsLenght = (byte)SuperFruitsSize.Medium;
-                interval = TICK_SPEED * (byte)Difficulty.Normal;
+                Interval = TICK_SPEED * (byte)Difficulty.Normal;
                 _easyDif = false;
                 _middleDif = true;
                 _highDif = false;
             }
-
-            return interval;
         }
 
-        public int SetHightDifficulty(int oldInterval)
+        public void SetHightDifficulty()
         {
-            int interval = oldInterval;
-
             if (!_highDif)
             {
                 Accelerator = (byte)Accelerators.High;
@@ -122,13 +129,11 @@ namespace BLSnakeLibrary
                 WinScore = SCORE_FOR_WIN - (TICK_SPEED * (byte)WinSpeed.High);
                 FruitsLenght = (byte)FruitsSize.Small;
                 SuperFruitsLenght = (byte)SuperFruitsSize.Small;
-                interval = TICK_SPEED * (byte)Difficulty.Hight;
+                Interval = TICK_SPEED * (byte)Difficulty.Hight;
                 _easyDif = false;
                 _middleDif = false;
                 _highDif = true;
             }
-
-            return interval;
         }
 
         /// <summary>
@@ -302,23 +307,19 @@ namespace BLSnakeLibrary
             }
         }
 
-        public int WorkOnSpeed(int interval, ref int countEating)
+        public void WorkOnSpeed()
         {
-            int intervalNew = interval;
-
             if (_fruits.FruitEaten != Fruits.UNEATEN
                     || _fruits.SuperFruitEating != Fruits.UNEATEN)
             {
-                countEating++;
+                CountEating++;
 
-                if (countEating % Accelerator == 0
-                        && intervalNew - TICK_SPEED > TICK_SPEED)
+                if (CountEating % Accelerator == 0
+                        && Interval - TICK_SPEED > TICK_SPEED)
                 {
-                    intervalNew -= TICK_SPEED;
+                    Interval -= TICK_SPEED;
                 }
             }
-
-            return intervalNew;
         }
 
         public bool CheckWin()
@@ -331,6 +332,48 @@ namespace BLSnakeLibrary
             }
 
             return win;
+        }
+
+        public void RunTimer(short divider)
+        {
+            _timer += (double)Interval / divider;
+        }
+
+        public void Reset()
+        {
+            CountEating = 0;
+            _timer = 0;
+            Interval = TICK_SPEED * (byte)Difficulty.Normal;
+        }
+
+        public void RunSnakeDynamics(InputUser key, int step)
+        {
+            SnakeObj.CheckFruitsEating(FruitsObj);
+            WorkOnSpeed();
+            SnakeObj.PassСoordinates();
+            SnakeObj.ChangeDirection(key, step);
+        }
+
+        public void SetDifficulty(byte choisDifficulty)
+        {
+            switch (choisDifficulty)
+            {
+                case (byte)DifficultyChois.Easy:
+                    SetEasyDifficulty();
+                    break;
+
+                case (byte)DifficultyChois.Normal:
+                    SetMiddleDifficulty();
+                    break;
+
+                case (byte)DifficultyChois.High:
+                    SetHightDifficulty();
+                    break;
+
+                default:
+                    SetMiddleDifficulty();
+                    break;
+            }
         }
     }
 }

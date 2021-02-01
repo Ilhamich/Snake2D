@@ -1,5 +1,8 @@
-﻿namespace BLSnakeLibrary
+﻿using System;
+
+namespace BLSnakeLibrary
 {
+    [Serializable]
     public class FruitElement : IGraphicElement
     {
         private Coordinate _coord;

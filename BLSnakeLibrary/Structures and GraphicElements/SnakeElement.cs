@@ -1,5 +1,8 @@
-﻿namespace BLSnakeLibrary
+﻿using System;
+
+namespace BLSnakeLibrary
 {
+    [Serializable]
     public class SnakeElement : IGraphicElement
     {
         public Coordinate Coord { get; internal set; }

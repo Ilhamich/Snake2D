@@ -1,7 +1,5 @@
 ﻿using BLSnakeLibrary;
 using DLSnakeLibrary;
-using System;
-using System.Threading;
 
 namespace Training_Snake
 {
@@ -9,10 +7,10 @@ namespace Training_Snake
     {
         static void Main(string[] args)
         {
+            FruitElement test = new FruitElement(new Coordinate(10, 10), 'w', 10, 80);
+
             const short MILLISECONDS_IN_SECOND = 1000;
             byte choiceMenu = (byte)MenuChois.NoButton;
-            int stepDisplay = 1;
-
             DLWorker saver = new DLWorker();
             GameSnake _game = new GameSnake();
 
@@ -31,13 +29,11 @@ namespace Training_Snake
                     DLWorker.CreatDir(_game.HomeDir);
                 }
 
-                if (DLWorker.ExistSave(_game.HomeDir + "\\" + _game.HomeFile))
+                if (DLWorker.ExistSaveFile(_game.HomeDir + "\\" +
+                        _game.HomeFile))
                 {
                     menu = new string[]
-                    {
-                        "START", "LOAD",
-                        "DIFFICULTY", "EXIT" 
-                    };
+                    {"START", "LOAD", "DIFFICULTY", "EXIT"};
                 }
                 else
                 {
@@ -66,15 +62,16 @@ namespace Training_Snake
 
                         _game.InitSnake(new Coordinate(Visualizer.HEAD_X,
                                 Visualizer.HEAD_Y));
+
                         _game.InitFruits();
 
                         ConnectHelper.RunGameProcess(MILLISECONDS_IN_SECOND,
-                                stepDisplay, _game);
+                                _game);
                         break;
 
                     case (byte)MenuChois.ButtonLoad:
                         ConnectHelper.RunGameProcess(MILLISECONDS_IN_SECOND,
-                                stepDisplay, _game);
+                                _game);
                         break;
 
                     case (byte)MenuChois.ButtonDifficulty:

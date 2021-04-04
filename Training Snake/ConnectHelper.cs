@@ -54,10 +54,9 @@ namespace Training_Snake
             }
         }
 
-        internal static void RunGameProcess(short MILLISECONDS_IN_SECOND,
-                int stepDisplay, GameSnake _game)
+        internal static void RunGameProcess(short timeDivider, GameSnake _game)
         {
-            RunLevel(MILLISECONDS_IN_SECOND, stepDisplay, _game);
+            RunLevel(timeDivider, _game);
 
             ShowGameResult(_game);
 
@@ -68,9 +67,9 @@ namespace Training_Snake
             _game.Reset();
         }
 
-        internal static void RunLevel(short timeDivider, int stepDisplay, GameSnake _game)
+        internal static void RunLevel(short timeDivider, GameSnake _game)
         {
-            InputUser keyDirection = _game.SnakeObj.SetDirection();
+            InputUser keyDirection = (InputUser)_game.SnakeObj.Direction;
             byte chPouseMenu = (byte)MenuChois.ButtonStart;
 
             do// (chPouseMenu != Controller.EXIT_FROM_LEVEL)
@@ -78,8 +77,8 @@ namespace Training_Snake
                 Thread.Sleep(_game.Interval);
 
                 _game.RunTimer(timeDivider);
-                _game.GenerateFruitByCount(stepDisplay);
-                _game.GenerateSuperFruitByCount(stepDisplay);
+                _game.GenerateFruitByCount();
+                _game.GenerateSuperFruitByCount();
 
                 Visualizer.PrintFruits(_game.FruitsObj);
                 Visualizer.PrintSnake(_game.SnakeObj);
@@ -93,7 +92,7 @@ namespace Training_Snake
 
                 InputUser prevKey = keyDirection;
 
-                Controller.SetKurse(ref keyDirection);
+                Controller.ReadKeyPush(ref keyDirection);
 
                 if (keyDirection == InputUser.Escape)
                 {
@@ -109,7 +108,7 @@ namespace Training_Snake
                     keyDirection = prevKey;
                 }
 
-                _game.RunSnakeDynamics(keyDirection, stepDisplay);
+                _game.RunSnakeDynamics(keyDirection);
 
                 if (_game.CheckWin())
                 {
@@ -125,6 +124,7 @@ namespace Training_Snake
             string[] chois = { "Yes", "No" };
             byte choisSaver = (byte)MenuChois.ButtonStart;
             InputUser saveOrNot = InputUser.NoDirection;
+
             Coordinate coord = new Coordinate
                    (_game.PlayField.LeftTopAngle.X + 1,
                    _game.PlayField.LeftTopAngle.Y + 1);
@@ -184,8 +184,8 @@ namespace Training_Snake
 
                 Visualizer.PrintMenu(categories);
 
-                Visualizer.PrintArrowMenu(PouseMenuTmp, categories,
-                        ref key, ref choisPouseMenu);
+                Visualizer.PrintArrowMenu(PouseMenuTmp, categories, key,
+                        choisPouseMenu);
 
                 entry = true;
             } while (key != InputUser.Enter);

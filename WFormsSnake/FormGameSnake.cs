@@ -14,7 +14,7 @@ namespace Training_Snake
         const short MILLISECONDS_IN_SECOND = 1000;
 
         private bool _pouse = true;
-        private InputUser _direction;
+        private InputUser _keyDirection;
         private GameSnake _game;
         DlFormConnector _saver;
 
@@ -56,29 +56,29 @@ namespace Training_Snake
             else
             {
                 FormController.GiveDirectionInputKey
-                        (_game, e.KeyCode, ref _direction);
+                        (_game, e.KeyCode, ref _keyDirection);
             }
         }
 
         public void PrintField(object sender, PaintEventArgs e)
         {
-            FormPainter.PaintField(_game.PlayField, e.Graphics, STEP_DISPLAY);
+            FormPainter.PaintField(_game.PlayField, e.Graphics);
         }
 
         private void PrintSnake(object sender, PaintEventArgs e)
         {
-            FormPainter.PaintSnake(_game.SnakeObj, e.Graphics, STEP_DISPLAY);
+            FormPainter.PaintSnake(_game.SnakeObj, e.Graphics);
         }
 
         private void ProcessFruit(object sender, PaintEventArgs e)
         {
-            _game.GenerateFruitByCount(STEP_DISPLAY);
-            _game.GenerateSuperFruitByCount(STEP_DISPLAY);
+            _game.GenerateFruitByCount();
+            _game.GenerateSuperFruitByCount();
         }
 
         private void PrintFruits(object sender, PaintEventArgs e)
         {
-            FormPainter.PaintFruits(_game.FruitsObj, e.Graphics, STEP_DISPLAY);
+            FormPainter.PaintFruits(_game.FruitsObj, e.Graphics);
         }
 
         private void pictureBoxSand_Paint(object sender, PaintEventArgs e)
@@ -109,7 +109,7 @@ namespace Training_Snake
                             (buttonContinue.Location.X, buttonContinue.Location.Y);
                 }
 
-                _game.RunSnakeDynamics(_direction, STEP_DISPLAY);
+                _game.RunSnakeDynamics(_keyDirection);
 
                 timerGame.Interval = _game.Interval;
             }
@@ -120,11 +120,11 @@ namespace Training_Snake
             ReadyStart();
 
             _game.InitGameField(FIELD_SIZE, 0, 0, STEP_DISPLAY);
-            _game.InitSnake(new Coordinate
-                    (SNAKE_START_X_POSITION, SNAKE_START_Y_POSITION));
-            _game.InitFruits();
+            _game.InitSnake(new Coordinate(SNAKE_START_X_POSITION,
+                    SNAKE_START_Y_POSITION), STEP_DISPLAY);
+            _game.InitFruits(STEP_DISPLAY);
 
-            _direction = _game.SnakeObj.SetDirection();
+            _keyDirection = (InputUser)_game.SnakeObj.Direction;
             _pouse = false;
             timerGame.Start();
         }
@@ -241,7 +241,7 @@ namespace Training_Snake
 
         private void buttonSaveExit_Click(object sender, EventArgs e)
         {
-            _saver = new DlFormConnector(_game); //TODO
+            _saver = new DlFormConnector(_game);
             _saver.Save();
             ReadyExit();
         }
@@ -252,7 +252,7 @@ namespace Training_Snake
 
             try
             {
-                _saver = new DlFormConnector(_game);//TODO
+                _saver = new DlFormConnector(_game);
                 _game = _saver.Load();
                 _game.InitGameField(FIELD_SIZE, 0, 0, STEP_DISPLAY);
             }
@@ -261,13 +261,13 @@ namespace Training_Snake
                 _game.InitGameField(FIELD_SIZE, 0, 0, STEP_DISPLAY);
                 _game.InitSnake(new Coordinate
                         (SNAKE_START_X_POSITION, SNAKE_START_Y_POSITION));
-                _game.InitFruits();
+                _game.InitFruits(STEP_DISPLAY);
 
                 MessageBox.Show("Save file broken or don't exist." +
                                 "\nWill be start new game");
             }
 
-            _direction = _game.SnakeObj.SetDirection();
+            _keyDirection = (InputUser)_game.SnakeObj.Direction;
             _pouse = false;
             timerGame.Start();
         }

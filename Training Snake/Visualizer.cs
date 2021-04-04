@@ -1,6 +1,7 @@
-﻿using BLSnakeLibrary;
-using System;
+﻿using System;
 using System.Text;
+
+using BLSnakeLibrary;
 
 namespace Training_Snake
 {
@@ -21,8 +22,9 @@ namespace Training_Snake
 
         public const int X_COORDINATE_MENU = FIELD_X_END + 3;
         public const int COORDINATE_ARROW = FIELD_X_END + 1;
+        public const byte STATISTIC_CATEGORY = 4;
 
-        private static void PrintGraphicElement(IGraphicElement element) //TODO Поискать решение с отсутствием координат
+        private static void PrintGraphicElement(IGraphicElement element)
         {
             if (element.Coord.X != -1 && element.Coord.Y != -1)
             {
@@ -67,18 +69,22 @@ namespace Training_Snake
 
         public static void PrintStatistic(GameSnake game)
         {
-            Console.SetCursorPosition(0, 0);
+            Coordinate statCoord = new Coordinate(0, 0);
+
+            Console.SetCursorPosition(statCoord.X, statCoord.Y++);
+            Console.WriteLine($"Difficulty : {game.Difficulty}");
+            Console.SetCursorPosition(statCoord.X, statCoord.Y++);
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write("Fruit eaten = {0}", game.CountEating);
-            Console.SetCursorPosition(0, 1);
+            Console.SetCursorPosition(statCoord.X, statCoord.Y++);
             Console.Write("Snake size : {0}", game.SnakeObj.SizeOfSnake);
-            Console.SetCursorPosition(0, 2);
-            Console.Write("Time : {0}", game.Timer);
+            Console.SetCursorPosition(statCoord.X, statCoord.Y++);
+            Console.Write("Time : {0}", game.Timer);         
         }
 
-        public static void ClearStatistic(int distance)
+        public static void ClearStatistic(int distance) //TODO
         {
-            for (int i = 0, j = 0, q = 0; i < distance * 3; i++)
+            for (int i = 0, j = 0, q = 0; i < distance * STATISTIC_CATEGORY; i++)
             {
                 Console.SetCursorPosition(q++, j);
                 Console.Write(' ');
@@ -162,10 +168,9 @@ namespace Training_Snake
         }
 
         public static void PrintArrowMenu(byte tmpStep, string[] categories,
-                ref InputUser key, ref byte stepMenu)
+                InputUser key, byte stepMenu)
         {
             ArrowClear(tmpStep);
-
             PrintArrow(stepMenu);
 
             if (key == InputUser.Enter)

@@ -1,6 +1,6 @@
 ﻿namespace BLSnakeLibrary
 {
-    public enum Difficulty : byte
+    public enum Difficultys : byte
     {
         NoDifficulty = 0,
         Easy = 8,

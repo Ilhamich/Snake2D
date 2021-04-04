@@ -6,7 +6,7 @@ namespace DLSnakeLibrary
 {
     public class DLWorker
     {
-        public static bool ExistSave(string path)
+        public static bool ExistSaveFile(string path)
         {
             return File.Exists(path);
         }
@@ -36,20 +36,9 @@ namespace DLSnakeLibrary
             GameSnake state = null;
             BinaryFormatter saver = new BinaryFormatter();
 
-            try
+            using (FileStream fs = File.Open(path, FileMode.Open))
             {
-                using (FileStream fs = File.Open(path, FileMode.Open))
-                {
-                    state = saver.Deserialize(fs) as GameSnake;
-                }
-            }
-            catch (FileNotFoundException ex)
-            {
-                throw ex;
-            }
-            catch (System.Runtime.Serialization.SerializationException ex)
-            {
-                throw ex;
+                state = saver.Deserialize(fs) as GameSnake;
             }
 
             return state;

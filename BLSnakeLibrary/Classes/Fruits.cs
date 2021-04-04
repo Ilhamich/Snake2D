@@ -10,6 +10,7 @@ namespace BLSnakeLibrary
         public static readonly Coordinate UNTOUCHED_FRUIT = 
                 new Coordinate {X = -1, Y =  -1 };
 
+        #region PRIVATE
         private FruitElement[] _fruit;
         private int _fruitQuantity;
         private int _fruitEaten;
@@ -17,10 +18,13 @@ namespace BLSnakeLibrary
         private FruitElement[] _superFruit;
         private int _superFruitQuantity;
         private int _superFruitEating;
+        #endregion
 
-        public Fruits(byte fruitsLenght, byte superFruitsLehght)
+        public Fruits(byte fruitsLenght, byte superFruitsLehght,
+                int elementSize)
         {
             _fruit = new FruitElement[fruitsLenght];
+            ElementSize = elementSize;
 
             for (int i = 0; i < _fruit.Length; i++)
             {
@@ -41,6 +45,19 @@ namespace BLSnakeLibrary
 
             _superFruitQuantity = 0;
             _superFruitEating = UNEATEN;
+        }
+
+        public int ElementSize { get; private set; }
+
+        /// <summary>
+        /// Get size of fruits arrey
+        /// </summary>
+        public int FruitLength
+        {
+            get
+            {
+                return _fruit.Length;
+            }
         }
 
         /// <summary>
@@ -95,34 +112,11 @@ namespace BLSnakeLibrary
             }
         }
 
-        /// <summary>
-        /// Get fruit by it's index
-        /// </summary>
-        /// <param name="index">index of fruit</param>
-        /// <returns>FruitElement fruit[index]</returns>
-        public FruitElement GetFruit(int index)
-        {
-            return _fruit[index];
-        }
-
-        /// <summary>
-        /// Set fruit by it's index
-        /// </summary>
-        /// <param name="value">installable fruit</param>
-        /// <param name="index">index of fruit</param>
-        public void SetFruit(FruitElement value, int index)
-        {
-            _fruit[index] = value;
-        }
-
-        /// <summary>
-        /// Get size of fruits arrey
-        /// </summary>
-        public int FruitLength
+        public int SuperFruitLength
         {
             get
             {
-                return _fruit.Length;
+                return _superFruit.Length;
             }
         }
 
@@ -180,6 +174,26 @@ namespace BLSnakeLibrary
         }
 
         /// <summary>
+        /// Get fruit by it's index
+        /// </summary>
+        /// <param name="index">index of fruit</param>
+        /// <returns>FruitElement fruit[index]</returns>
+        public FruitElement GetFruit(int index)
+        {
+            return _fruit[index];
+        }
+
+        /// <summary>
+        /// Set fruit by it's index
+        /// </summary>
+        /// <param name="value">installable fruit</param>
+        /// <param name="index">index of fruit</param>
+        public void SetFruit(FruitElement value, int index)
+        {
+            _fruit[index] = value;
+        }
+
+        /// <summary>
         /// Get superFruit by it's index
         /// </summary>
         /// <param name="index">index of superFruit</param>
@@ -197,14 +211,6 @@ namespace BLSnakeLibrary
         public void SetSuperFruit(FruitElement value, int index)
         {
             _superFruit[index] = value;
-        }
-
-        public int SuperFruitLength
-        {
-            get
-            {
-                return _superFruit.Length;
-            }
         }
 
         /// <summary>

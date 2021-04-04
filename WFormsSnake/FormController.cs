@@ -11,8 +11,8 @@ namespace Training_Snake
             switch (key)
             {
                 case Keys.Left:
-                    if (direction != InputUser.RightArrow
-                            && game.SnakeObj.Head.Coord.X - game.StepDisplay
+                    if (/*direction != InputUser.RightArrow
+                            &&*/ game.SnakeObj.Head.Coord.X - game.StepDisplay
                             != game.SnakeObj[0].Coord.X)
                     {
                         direction = InputUser.LeftArrow;

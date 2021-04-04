@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BLSnakeLibrary;
+﻿using BLSnakeLibrary;
 using DLSnakeLibrary;
 
 namespace Training_Snake
@@ -22,7 +16,7 @@ namespace Training_Snake
 
         public bool ExistSave()
         {
-            return DLWorker.ExistSave(_game.HomeDir + "\\" + _game.HomeFile);
+            return DLWorker.ExistSaveFile(_game.HomeDir + "\\" + _game.HomeFile);
         }
 
         public void Save()

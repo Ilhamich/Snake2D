@@ -47,7 +47,8 @@
     <Compile Include="Classes\Snake.cs" />
     <Compile Include="Enum\Accelerators.cs" />
     <Compile Include="Enum\BordersSymbols.cs" />
-    <Compile Include="Enum\Difficulty.cs" />
+    <Compile Include="Enum\SnakeDirection.cs" />
+    <Compile Include="Enum\Difficultys.cs" />
     <Compile Include="Enum\DifficultyChois.cs" />
     <Compile Include="Enum\InputUser.cs" />
     <Compile Include="Enum\MenuChois.cs" />

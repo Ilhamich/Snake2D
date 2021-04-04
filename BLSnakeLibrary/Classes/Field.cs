@@ -2,11 +2,13 @@
 {
     public class Field
     {
-        public const byte QUANTITY_OF_SIDE = 4; 
+        public const byte QUANTITY_OF_SIDE = 4;
+
+        #region PRIVATE Fields
         private const byte ANGLES_ON_ONE_SIDE = 2;
         private const byte ANGLES_ON_FIELD = 4;
 
-        private int _step;
+        public int ElementSize { get; private set; }
         private int _sizeOfSides;
 
         private BorderElement[] _pointOfField;
@@ -21,6 +23,7 @@
             (char)BordersSymbols.LeftDown,
             (char)BordersSymbols.RightDown
         };
+        #endregion
 
         public int FieldLenght
         {
@@ -56,16 +59,30 @@
         public Field(int sizeOfSides, int xOfLeftTopAngle, int yOfLeftTopAngle,
                 int step = 1)
         {
-            _step = step;
+            ElementSize = step;
             _sizeOfSides = sizeOfSides;
             _lTopAngleCoord.X = xOfLeftTopAngle;
             _lTopAngleCoord.Y = yOfLeftTopAngle;
-            _rDownAngleCoord.X = _lTopAngleCoord.X + (_sizeOfSides - 1) * _step;
-            _rDownAngleCoord.Y = _lTopAngleCoord.Y + (_sizeOfSides - 1) * _step;
+            _rDownAngleCoord.X = _lTopAngleCoord.X + (_sizeOfSides - 1) * ElementSize;
+            _rDownAngleCoord.Y = _lTopAngleCoord.Y + (_sizeOfSides - 1) * ElementSize;
 
             BuildField(sizeOfSides);
         }
 
+        /// <summary>
+        /// Return one of BorderElement by it's index
+        /// </summary>
+        /// <param name="index">index of BorderElement in all BorderElements</param>
+        /// <returns>BorderElement</returns>
+        public BorderElement this[int index]
+        {
+            get
+            {
+                return _pointOfField[index];
+            }
+        }
+
+        #region Private Methods
         private void BuildField(int sizeOfSide)
         {
             _pointOfField = new BorderElement
@@ -109,7 +126,7 @@
             }
 
             _pointOfField[index] = new BorderElement(new Coordinate
-                (xPosition, _lTopAngleCoord.Y + _step + (count * _step)),
+                (xPosition, _lTopAngleCoord.Y + ElementSize + (count * ElementSize)),
                    (char)BordersSymbols.Vertical);
         }
 
@@ -130,7 +147,7 @@
             if (count == 0)
             {
                 _pointOfField[index] =new BorderElement(new Coordinate
-                        (_lTopAngleCoord.X + count * _step, yPosition),
+                        (_lTopAngleCoord.X + count * ElementSize, yPosition),
                         _angles[symbol]);
 
                 symbol++;
@@ -140,7 +157,7 @@
                 if (count == _sizeOfSides - 1)
                 {
                     _pointOfField[index] = new BorderElement(new Coordinate
-                           (_lTopAngleCoord.X + count * _step, yPosition),
+                           (_lTopAngleCoord.X + count * ElementSize, yPosition),
                            _angles[symbol]);
 
                     symbol++;
@@ -148,23 +165,11 @@
                 else
                 {
                     _pointOfField[index] = new BorderElement(new Coordinate
-                          (_lTopAngleCoord.X + count * _step, yPosition),
+                          (_lTopAngleCoord.X + count * ElementSize, yPosition),
                           (char)BordersSymbols.Horizontal);
                 }
             }
         }
-
-        /// <summary>
-        /// Return one of BorderElement by it's index
-        /// </summary>
-        /// <param name="index">index of BorderElement in all BorderElements</param>
-        /// <returns>BorderElement</returns>
-        public BorderElement this[int index]
-        {          
-            get
-            {
-                return _pointOfField[index];
-            }
-        }
+        #endregion
     }
 }

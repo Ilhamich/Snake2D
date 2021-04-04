@@ -7,7 +7,7 @@ namespace Training_Snake
     {
         public const byte EXIT_FROM_LEVEL = 2;
 
-        public static void SetKurse(ref InputUser key)
+        public static void ReadKeyPush(ref InputUser key)
         {
             InputUser chekKey = key;
             ConsoleKey keyReal = 0;

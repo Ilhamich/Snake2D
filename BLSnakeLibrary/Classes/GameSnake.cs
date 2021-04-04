@@ -11,10 +11,7 @@ namespace BLSnakeLibrary
         [NonSerialized]
         static Random rnd = new Random();
 
-        #region PRIVATE
-        private bool _easyDif;
-        private bool _middleDif;
-        private bool _highDif;
+        #region PRIVATE Fields
         private double _timer;
 
         [NonSerialized]
@@ -33,8 +30,9 @@ namespace BLSnakeLibrary
         public byte FruitsLenght { get; private set; }
         public byte SuperFruitsLenght { get; private set; }
         public int CountEating { get; private set; }
+        public Difficultys Difficulty { get; private set; }
         public int Interval { get;private set; } = TICK_SPEED * 
-                (byte)Difficulty.Normal;
+                (byte)Difficultys.Normal;
 
         public int Timer
         {
@@ -66,73 +64,68 @@ namespace BLSnakeLibrary
             FruitsLenght = (byte)FruitsSize.Medium;
             SuperFruitsLenght = (byte)SuperFruitsSize.Medium;
 
-            _middleDif = true;
+            Difficulty = Difficultys.Normal;
         }
 
         public void InitGameField(int sizeOfSides, int xOfLeftTopAngle,
-                int yOfLeftTopAngle, int step = 1)
+                int yOfLeftTopAngle, int elementSize = 1)
         {
-            _playField = new Field
-                    (sizeOfSides, xOfLeftTopAngle, yOfLeftTopAngle, step);
+            _playField = new Field(sizeOfSides, xOfLeftTopAngle,
+                    yOfLeftTopAngle, elementSize);
 
-            StepDisplay = (byte)step;
+            StepDisplay = (byte)elementSize;
         }
 
-        public void InitFruits()
+        public void InitFruits(int elementSize = 1)
         {
-            _fruits = new Fruits(FruitsLenght, SuperFruitsLenght);
+            _fruits = new Fruits(FruitsLenght, SuperFruitsLenght,
+                    elementSize);
         }
 
-        public void InitSnake(Coordinate startCoord)
+        public void InitSnake(Coordinate startCoord, int elementSize = 1) //TODO
         {
-            _snake = new Snake(SizeOfSnake, startCoord);
+            _snake = new Snake(SizeOfSnake, startCoord, elementSize);
         }
 
         public void SetEasyDifficulty()
         {
-            if (!_easyDif)
+            if (Difficulty != Difficultys.Easy)
             {
                 Accelerator = (byte)Accelerators.Low;
                 SizeOfSnake = (byte)SizesOfSnake.Big;
                 WinScore = SCORE_FOR_WIN - (TICK_SPEED * (byte)WinSpeed.Easy);
                 FruitsLenght = (byte)FruitsSize.Big;
                 SuperFruitsLenght = (byte)SuperFruitsSize.Big;
-                Interval = TICK_SPEED * (byte)Difficulty.Easy;
-                _easyDif = true;
-                _middleDif = false;
-                _highDif = false;
+                Interval = TICK_SPEED * (byte)Difficultys.Easy;
+                Difficulty = Difficultys.Easy;
             }
         }
 
         public void SetMiddleDifficulty()
         {
-            if (!_middleDif)
+            if (Difficulty != Difficultys.Normal)
             {
                 Accelerator = (byte)Accelerators.Middle;
                 SizeOfSnake = (byte)SizesOfSnake.Normal;
                 WinScore = SCORE_FOR_WIN - (TICK_SPEED * (byte)WinSpeed.Middle);
                 FruitsLenght = (byte)FruitsSize.Medium;
                 SuperFruitsLenght = (byte)SuperFruitsSize.Medium;
-                Interval = TICK_SPEED * (byte)Difficulty.Normal;
-                _easyDif = false;
-                _middleDif = true;
-                _highDif = false;
+                Interval = TICK_SPEED * (byte)Difficultys.Normal;
+                Difficulty = Difficultys.Normal;
             }
         }
 
         public void SetHightDifficulty()
         {
-            if (!_highDif)
+            if (Difficulty != Difficultys.Hight)
             {
                 Accelerator = (byte)Accelerators.High;
                 SizeOfSnake = (byte)SizesOfSnake.Small;
                 WinScore = SCORE_FOR_WIN - (TICK_SPEED * (byte)WinSpeed.High);
                 FruitsLenght = (byte)FruitsSize.Small;
                 SuperFruitsLenght = (byte)SuperFruitsSize.Small;
-                Interval = TICK_SPEED * (byte)Difficulty.Hight;
-                _easyDif = false;
-                _middleDif = false;
-                _highDif = true;
+                Interval = TICK_SPEED * (byte)Difficultys.Hight;
+                Difficulty = Difficultys.Hight;
             }
         }
 
@@ -142,17 +135,38 @@ namespace BLSnakeLibrary
         /// <param name="fruit">fruit for coordinate generation </param>
         /// <param name="LeftTopAngle">left top angle of field</param>
         /// <param name="RightDownAngle">right down angle of field</param>
-        /// <param name="step">size of step on field</param>
         /// <returns>fruit with coordinate </returns>
-        public void GiveFruitCoordinate(int step, ref FruitElement fruit)
+        public void GiveFruitCoordinate(ref FruitElement fruit)
         {
-            int lowerLimitX = (_playField.LeftTopAngle.X + step) / step;
-            int upperLimitX = (_playField.RightDownAngle.X - step) / step;
-            int lowerLimitY = (_playField.LeftTopAngle.Y + step) / step;
-            int upperLimitY = (_playField.RightDownAngle.Y - step) / step;
+            if (_playField == null)
+            {
+                throw new ArgumentNullException("object field not initialized");
+            }
 
-            fruit.SetCoordX(rnd.Next(lowerLimitX, upperLimitX) * step);
-            fruit.SetCoordY(rnd.Next(lowerLimitY, upperLimitY) * step);
+            int minusArg = 0;
+
+            if (_playField.ElementSize >= _fruits.ElementSize)
+            {
+                minusArg = _playField.ElementSize;
+            }
+            else
+            {
+                minusArg = _fruits.ElementSize;
+            }
+
+            int lowerLimitX = (_playField.LeftTopAngle.X +
+                    _playField.ElementSize) / _playField.ElementSize;
+            int upperLimitX = (_playField.RightDownAngle.X -
+                    minusArg) / _playField.ElementSize;
+            int lowerLimitY = (_playField.LeftTopAngle.Y +
+                    _playField.ElementSize) / _playField.ElementSize;
+            int upperLimitY = (_playField.RightDownAngle.Y -
+                    minusArg) / _playField.ElementSize;
+
+            fruit.SetCoordX(rnd.Next(lowerLimitX, upperLimitX) * 
+                    _playField.ElementSize);
+            fruit.SetCoordY(rnd.Next(lowerLimitY, upperLimitY) * 
+                    _playField.ElementSize);
         }
 
         /// <summary>
@@ -161,7 +175,7 @@ namespace BLSnakeLibrary
         /// <param name="fruit">one of fruit</param>
         /// <param name="mySnake">Object of snake</param>
         /// <returns>Resolt of check, if was coincidence true and false if not</returns>
-        public void CheckFruitWithSnake(FruitElement fruit, ref bool check)
+        public void CheckFruitWithSnake(FruitElement fruit, ref bool check)//TODO if fruit is array
         {
             if (fruit.Coord == _snake.Head.Coord)
             {
@@ -201,7 +215,7 @@ namespace BLSnakeLibrary
             return resolt;
         }
 
-        public void GenerateFruit(int stepDispaly, int fruitNum)
+        public void GenerateFruit(int fruitNum)
         {
             bool checkResolt = false;
 
@@ -211,12 +225,12 @@ namespace BLSnakeLibrary
 
                 FruitElement tmpFruit = _fruits.GetFruit(fruitNum);
 
-                GiveFruitCoordinate(stepDispaly, ref tmpFruit);
+                GiveFruitCoordinate(ref tmpFruit);
 
                 _fruits.SetFruit(tmpFruit, fruitNum);
 
-                CheckFruitWithSnake
-                        (_fruits.GetFruit(fruitNum), ref checkResolt);
+                CheckFruitWithSnake(_fruits.GetFruit(fruitNum),
+                        ref checkResolt);
 
                 if (checkResolt)
                 {
@@ -227,7 +241,7 @@ namespace BLSnakeLibrary
             } while (checkResolt);
         }
 
-        public void GenerateSuperFruit(int stepDispaly, int fruitNum)
+        public void GenerateSuperFruit(int fruitNum)
         {
             bool checkResolt = false;
 
@@ -237,7 +251,7 @@ namespace BLSnakeLibrary
 
                 FruitElement tmpSuperFruit = _fruits.GetSuperFruit(fruitNum);
 
-                GiveFruitCoordinate(stepDispaly, ref tmpSuperFruit);
+                GiveFruitCoordinate(ref tmpSuperFruit);
 
                 _fruits.SetSuperFruit(tmpSuperFruit, fruitNum);
 
@@ -269,38 +283,38 @@ namespace BLSnakeLibrary
             return obstruction;
         }
 
-        public void GenerateFruitByCount(int step)
+        public void GenerateFruitByCount()
         {
             if (_fruits.FruitQuantity < _fruits.FruitLength)
             {
                 if (_fruits.FruitEaten == Fruits.UNEATEN)
                 {
-                    GenerateFruit(step, _fruits.FruitQuantity);
+                    GenerateFruit(_fruits.FruitQuantity);
 
                     _fruits.FruitQuantity++;
                 }
                 else
                 {
-                    GenerateFruit(step, _fruits.FruitEaten);
+                    GenerateFruit(_fruits.FruitEaten);
 
                     _fruits.FruitQuantity++;
                 }
             }
         }
 
-        public void GenerateSuperFruitByCount(int step)
+        public void GenerateSuperFruitByCount()
         {
             if (_fruits.SuperFruitQuantity < _fruits.SuperFruitLength)
             {
                 if (_fruits.SuperFruitEating == Fruits.UNEATEN)
                 {
-                    GenerateSuperFruit(step, _fruits.SuperFruitQuantity);
+                    GenerateSuperFruit(_fruits.SuperFruitQuantity);
 
                     _fruits.SuperFruitQuantity++;
                 }
                 else
                 {
-                    GenerateSuperFruit(step, _fruits.SuperFruitEating);
+                    GenerateSuperFruit(_fruits.SuperFruitEating);
 
                     _fruits.SuperFruitQuantity++;
                 }
@@ -343,15 +357,15 @@ namespace BLSnakeLibrary
         {
             CountEating = 0;
             _timer = 0;
-            Interval = TICK_SPEED * (byte)Difficulty.Normal;
+            SetMiddleDifficulty();
         }
 
-        public void RunSnakeDynamics(InputUser key, int step)
+        public void RunSnakeDynamics(InputUser key)
         {
             SnakeObj.CheckFruitsEating(FruitsObj);
             WorkOnSpeed();
             SnakeObj.PassСoordinates();
-            SnakeObj.ChangeDirection(key, step);
+            SnakeObj.ChangeDirection(key);
         }
 
         public void SetDifficulty(byte choisDifficulty)

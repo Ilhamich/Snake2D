@@ -6,19 +6,25 @@ namespace BLSnakeLibrary
     [Serializable]
     public class Snake
     {
+        #region PRIVATE
         private const byte SUPERFRUIT_PRIZ = 2;
-        public static readonly Coordinate NO_COORDINATE
-                = new Coordinate{ X = -1, Y = -1 };
         private SnakeElement _head;
-        private List<SnakeElement> _body;              
+        private List<SnakeElement> _body;
         private SnakeElement _tail;
+        #endregion
+
+        public static readonly Coordinate NO_COORDINATE
+               = new Coordinate { X = -1, Y = -1 };
 
         /// <summary>
         /// Size of snake with head but with out tail
         /// </summary>
         public int SizeOfSnake { get; private set; }
+        public int ElementSize { get; private set; }
+        public SnakeDirection Direction { get; private set; }
 
-        public Snake(int sizeOfSnake, Coordinate startCoord)
+        public Snake(int sizeOfSnake, Coordinate startCoord,
+            int elementSize = 1)
         {
             _head = new SnakeElement(startCoord,
                     (char)Symbols.Head);
@@ -33,6 +39,8 @@ namespace BLSnakeLibrary
             _tail = new SnakeElement(NO_COORDINATE, ' ');
 
             SizeOfSnake = sizeOfSnake;
+            ElementSize = elementSize;
+            Direction = SnakeDirection.Down;
         }
 
         /// <summary>
@@ -88,7 +96,7 @@ namespace BLSnakeLibrary
         {
             for (int i = SizeOfSnake - 1; i >= 0; i--)
             {
-                if ((i == SizeOfSnake - 1) 
+                if ((i == SizeOfSnake - 1)
                         && (_body[i - 1].Coord != NO_COORDINATE))
                 {
                     _tail.Coord = _body[i - 1].Coord;
@@ -114,26 +122,30 @@ namespace BLSnakeLibrary
         /// Change direction of movement by enum for key
         /// </summary>
         /// <param name="key">key of movement</param>
-        /// <param name="step">size of step on field</param>
-        public void ChangeDirection(InputUser key, int step)
+        public void ChangeDirection(InputUser key)
         {
-            switch (key)
+            if (key <= InputUser.DownArrow)
             {
-                case InputUser.LeftArrow:
+                Direction = (SnakeDirection)key;
+            }
+            
+            switch (Direction)
+            {
+                case SnakeDirection.Left:
                     _head.Coord = new Coordinate
-                            (_head.Coord.X - step, _head.Coord.Y);
+                            (_head.Coord.X - ElementSize, _head.Coord.Y);
                     break;
-                case InputUser.UpArrow:
+                case SnakeDirection.Up:
                     _head.Coord = new Coordinate
-                            (_head.Coord.X, _head.Coord.Y - step);
+                            (_head.Coord.X, _head.Coord.Y - ElementSize);
                     break;
-                case InputUser.RightArrow:
+                case SnakeDirection.Right:
                     _head.Coord = new Coordinate
-                           (_head.Coord.X + step, _head.Coord.Y);
+                           (_head.Coord.X + ElementSize, _head.Coord.Y);
                     break;
-                case InputUser.DownArrow:
+                case SnakeDirection.Down:
                     _head.Coord = new Coordinate
-                            (_head.Coord.X, _head.Coord.Y + step);
+                            (_head.Coord.X, _head.Coord.Y + ElementSize);
                     break;
                 default:
                     break;
@@ -146,7 +158,7 @@ namespace BLSnakeLibrary
         /// and arrey superFruits(check of eating)
         /// </summary>
         /// <param name="myFruits">Object fruits</param>
-        public void CheckFruitsEating(Fruits myFruits)
+        public void CheckFruitsEating(Fruits myFruits)//TODO if fruit is array
         {
             myFruits.FruitEaten = Fruits.UNEATEN;
 
@@ -163,6 +175,8 @@ namespace BLSnakeLibrary
                     }
 
                     myFruits.FruitQuantity--;
+
+                    return;
                 }
             }
 
@@ -180,7 +194,7 @@ namespace BLSnakeLibrary
                         for (int j = 0; j < SUPERFRUIT_PRIZ; j++)
                         {
                             _body.Add(new SnakeElement(NO_COORDINATE, '*'));
-                        }                     
+                        }
                     }
 
                     myFruits.SuperFruitQuantity--;
@@ -223,7 +237,7 @@ namespace BLSnakeLibrary
                     else
                     {
                         direction = InputUser.UpArrow;
-                    }                  
+                    }
                 }
                 else
                 {

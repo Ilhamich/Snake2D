@@ -13,8 +13,7 @@ namespace Training_Snake
                                element.Coord.Y, stepDisplay, stepDisplay);
         }
 
-        public static void PaintSnake
-                (Snake snakeFP, Graphics painter, int stepDisplay)
+        public static void PaintSnake(Snake snakeFP, Graphics painter)
         {
             SolidBrush snakeBrush = new SolidBrush(Color.DarkMagenta);
 
@@ -34,7 +33,7 @@ namespace Training_Snake
                         }
 
                         PainttGraphicElement(snakeFP[i], snakeBrush,
-                                painter, stepDisplay);
+                                painter, snakeFP.ElementSize);
                     }
                 }
                 else
@@ -44,41 +43,41 @@ namespace Training_Snake
                         snakeBrush.Color = Color.Black;
 
                         PainttGraphicElement(snakeFP.Head, snakeBrush,
-                                painter, stepDisplay);
+                                painter, snakeFP.ElementSize);
                     }
                 }
             }
         }
 
         public static void PaintField
-                (Field fieldFP, Graphics painter, int stepDisplay)
+                (Field fieldFP, Graphics painter)
         {
             SolidBrush fieldBrash = new SolidBrush(Color.BurlyWood);
 
             for (int i = 0; i < fieldFP.FieldLenght; i++)
             {
-                PainttGraphicElement
-                        (fieldFP[i], fieldBrash, painter, stepDisplay);
+                PainttGraphicElement(fieldFP[i], fieldBrash, painter,
+                        fieldFP.ElementSize);
             }
         }
 
         public static void PaintFruits
-                (Fruits fruitsFP, Graphics painter, int stepDisplay)
+                (Fruits fruitsFP, Graphics painter)
         {
             SolidBrush fruitBrash = new SolidBrush(Color.Crimson);
 
             for (int i = 0; i < fruitsFP.FruitQuantity; i++)
             {
-                PainttGraphicElement(fruitsFP.GetFruit(i),
-                        fruitBrash, painter, stepDisplay);
+                PainttGraphicElement(fruitsFP.GetFruit(i),fruitBrash,
+                        painter, fruitsFP.ElementSize);
             }
 
             fruitBrash.Color = Color.Chartreuse;
 
             for (int i = 0; i < fruitsFP.SuperFruitQuantity; i++)
             {
-                PainttGraphicElement(fruitsFP.GetSuperFruit(i),
-                        fruitBrash, painter, stepDisplay);
+                PainttGraphicElement(fruitsFP.GetSuperFruit(i), fruitBrash,
+                        painter, fruitsFP.ElementSize);
             }
         }
     }

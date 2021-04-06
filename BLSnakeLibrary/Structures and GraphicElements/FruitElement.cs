@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace BLSnakeLibrary
 {
     [Serializable]
-    public class FruitElement : IGraphicElement
+    public class FruitElement : IGraphicElement, IEnumerable<Coordinate>
     {
-        Coordinate[] _points;//TODO if fruit is point collection array paralel image
+        Image _fruitImage ;
+        Coordinate[] _points; //Если fruitElement не точка а колекция точек
 
         private Coordinate _coord;
 
@@ -15,7 +19,14 @@ namespace BLSnakeLibrary
             internal set { _coord = value; }
         }
 
+        public Image Picture
+        {
+            get { return _fruitImage; }
+        }
+
         public char Symbol { get; internal set; }
+
+        public int PictureSize { get; private set; }  
 
         public FruitElement(Coordinate coord, char symbol)
         {
@@ -23,15 +34,29 @@ namespace BLSnakeLibrary
             Symbol = symbol;
         }
 
-        public FruitElement(Coordinate coord, char symbol, //TODO
+        public FruitElement(Coordinate LeftTopcoord, Bitmap image,   //TODO
                 int snakeHeadSize, int fruitSize)
         {
-            float Checker2D = 2f;
+            _fruitImage = image;
 
-            if (fruitSize > snakeHeadSize 
-                    && (fruitSize / Checker2D / snakeHeadSize) % 1 == 0)
+            if (fruitSize * 1f / snakeHeadSize % 1 == 0)
             {
-                _points = new Coordinate[fruitSize / snakeHeadSize];
+                int ratio = fruitSize / snakeHeadSize;
+                _points = new Coordinate[ratio * ratio];
+                int count = 0; 
+
+                for (int i = 1; i <= ratio; i++)
+                {                  
+                    for (int j = 1; j <= ratio; j++)
+                    {
+                        _points[count++] = new Coordinate(LeftTopcoord.X + 
+                            (snakeHeadSize * (j - 1)), LeftTopcoord.Y + 
+                            (snakeHeadSize * (i - 1)));
+                    }
+                }
+
+                Coord = LeftTopcoord;
+                PictureSize = fruitSize;
             }
             else
             {
@@ -41,9 +66,6 @@ namespace BLSnakeLibrary
                             " for 2D figure relatively size of snake head");
                 }
             }
-
-            Coord = coord;
-            Symbol = symbol;
         }
 
         internal void SetCoordX(int x)
@@ -54,6 +76,16 @@ namespace BLSnakeLibrary
         internal void SetCoordY(int y)
         {
             _coord.Y = y;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _points.GetEnumerator();
+        }
+
+        public IEnumerator<Coordinate> GetEnumerator()
+        {
+            return ((IEnumerable<Coordinate>)_points).GetEnumerator();
         }
     }
 }

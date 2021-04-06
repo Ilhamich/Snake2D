@@ -77,9 +77,8 @@ namespace Training_Snake
                 Thread.Sleep(_game.Interval);
 
                 _game.RunTimer(timeDivider);
-                _game.GenerateFruitByCount();
-                _game.GenerateSuperFruitByCount();
-
+                _game.GenerateFruit();
+                
                 Visualizer.PrintFruits(_game.FruitsObj);
                 Visualizer.PrintSnake(_game.SnakeObj);
                 Visualizer.PrintStatistic(_game);

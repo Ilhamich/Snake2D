@@ -1,5 +1,6 @@
 ﻿using BLSnakeLibrary;
 using DLSnakeLibrary;
+using System.Drawing;
 
 namespace Training_Snake
 {
@@ -7,8 +8,6 @@ namespace Training_Snake
     {
         static void Main(string[] args)
         {
-            FruitElement test = new FruitElement(new Coordinate(10, 10), 'w', 10, 80);
-
             const short MILLISECONDS_IN_SECOND = 1000;
             byte choiceMenu = (byte)MenuChois.NoButton;
             DLWorker saver = new DLWorker();

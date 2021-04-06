@@ -217,7 +217,7 @@ namespace Training_Snake
         {
             for (int i = 0; i < myFruit.FruitLength; i++)
             {
-                if (myFruit.GetFruit(i).Coord != Fruits.UNTOUCHED_FRUIT)
+                if (myFruit.GetFruit(i) != null)
                 {
                     PrintGraphicElement(new FruitElement(new Coordinate
                             (myFruit.GetFruit(i).Coord.X,
@@ -227,7 +227,7 @@ namespace Training_Snake
 
             for (int i = 0; i < myFruit.SuperFruitLength; i++)
             {
-                if (myFruit.GetSuperFruit(i).Coord != Fruits.UNTOUCHED_FRUIT)
+                if (myFruit.GetSuperFruit(i) != null)
                 {
                     PrintGraphicElement(new FruitElement(new Coordinate
                           (myFruit.GetSuperFruit(i).Coord.X,

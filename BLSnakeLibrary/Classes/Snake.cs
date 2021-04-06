@@ -164,7 +164,8 @@ namespace BLSnakeLibrary
 
             for (int i = 0; i < myFruits.FruitLength; i++)
             {
-                if (Head.Coord == myFruits.GetFruit(i).Coord)
+                if (myFruits.GetFruit(i) != null 
+                        && Head.Coord == myFruits.GetFruit(i).Coord)
                 {
                     myFruits.FruitEaten = i;
                     SizeOfSnake++;
@@ -184,7 +185,8 @@ namespace BLSnakeLibrary
 
             for (int i = 0; i < myFruits.SuperFruitLength; i++)
             {
-                if (Head.Coord == myFruits.GetSuperFruit(i).Coord)
+                if (myFruits.GetSuperFruit(i) != null 
+                        && Head.Coord == myFruits.GetSuperFruit(i).Coord)
                 {
                     myFruits.SuperFruitEating = i;
                     SizeOfSnake += SUPERFRUIT_PRIZ;
@@ -200,6 +202,68 @@ namespace BLSnakeLibrary
                     myFruits.SuperFruitQuantity--;
                 }
             }
+        }
+
+        public void Check2DFruitsEating(Fruits myFruits)
+        {
+            myFruits.FruitEaten = Fruits.UNEATEN;
+
+            for (int i = 0; i < myFruits.FruitLength; i++)
+            {
+                if (myFruits.GetFruit(i) != null
+                        && CheckHeadWithFruit(myFruits.GetFruit(i)))
+                {
+                    myFruits.FruitEaten = i;
+                    SizeOfSnake++;
+
+                    if (SizeOfSnake - 1 > SizeOfBody)
+                    {
+                        _body.Add(new SnakeElement(NO_COORDINATE, '*'));
+                    }
+
+                    myFruits.FruitQuantity--;
+
+                    return;
+                }
+            }
+
+            myFruits.SuperFruitEating = Fruits.UNEATEN;
+
+            for (int i = 0; i < myFruits.SuperFruitLength; i++)
+            {
+                if (myFruits.GetSuperFruit(i) != null
+                        && CheckHeadWithFruit(myFruits.GetSuperFruit(i)))
+                {
+                    myFruits.SuperFruitEating = i;
+                    SizeOfSnake += SUPERFRUIT_PRIZ;
+
+                    if (SizeOfSnake > SizeOfBody)
+                    {
+                        for (int j = 0; j < SUPERFRUIT_PRIZ; j++)
+                        {
+                            _body.Add(new SnakeElement(NO_COORDINATE, '*'));
+                        }
+                    }
+
+                    myFruits.SuperFruitQuantity--;
+                }
+            }
+        }
+
+        private bool CheckHeadWithFruit(FruitElement fruit)
+        {
+            bool resolt = false;
+
+            foreach (Coordinate item in fruit)
+            {
+                if (item == Head.Coord)
+                {
+                    resolt = true;
+                    break;
+                }
+            }
+
+            return resolt;
         }
 
         /// <summary>

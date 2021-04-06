@@ -72,8 +72,7 @@ namespace Training_Snake
 
         private void ProcessFruit(object sender, PaintEventArgs e)
         {
-            _game.GenerateFruitByCount();
-            _game.GenerateSuperFruitByCount();
+            _game.Generate2DFruit();
         }
 
         private void PrintFruits(object sender, PaintEventArgs e)
@@ -122,7 +121,7 @@ namespace Training_Snake
             _game.InitGameField(FIELD_SIZE, 0, 0, STEP_DISPLAY);
             _game.InitSnake(new Coordinate(SNAKE_START_X_POSITION,
                     SNAKE_START_Y_POSITION), STEP_DISPLAY);
-            _game.InitFruits(STEP_DISPLAY);
+            _game.InitFruits(30);
 
             _keyDirection = (InputUser)_game.SnakeObj.Direction;
             _pouse = false;

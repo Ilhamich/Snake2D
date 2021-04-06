@@ -5,6 +5,14 @@ namespace Training_Snake
 {
     class FormPainter
     {
+        private static void Paintt2DGraphicElement(IGraphicElement element,
+                Graphics painter)
+        {
+            painter.DrawImage(element.Picture, element.Coord.X,
+                    element.Coord.Y, element.PictureSize,
+                    element.PictureSize);
+        }
+
         private static void PainttGraphicElement
                 (IGraphicElement element, SolidBrush brush,
                 Graphics painter, int stepDisplay)
@@ -64,20 +72,14 @@ namespace Training_Snake
         public static void PaintFruits
                 (Fruits fruitsFP, Graphics painter)
         {
-            SolidBrush fruitBrash = new SolidBrush(Color.Crimson);
-
             for (int i = 0; i < fruitsFP.FruitQuantity; i++)
             {
-                PainttGraphicElement(fruitsFP.GetFruit(i),fruitBrash,
-                        painter, fruitsFP.ElementSize);
+                Paintt2DGraphicElement(fruitsFP.GetFruit(i), painter);
             }
-
-            fruitBrash.Color = Color.Chartreuse;
 
             for (int i = 0; i < fruitsFP.SuperFruitQuantity; i++)
             {
-                PainttGraphicElement(fruitsFP.GetSuperFruit(i), fruitBrash,
-                        painter, fruitsFP.ElementSize);
+                Paintt2DGraphicElement(fruitsFP.GetSuperFruit(i), painter);
             }
         }
     }

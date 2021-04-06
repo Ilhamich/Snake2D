@@ -8,7 +8,6 @@
         private const byte ANGLES_ON_ONE_SIDE = 2;
         private const byte ANGLES_ON_FIELD = 4;
 
-        public int ElementSize { get; private set; }
         private int _sizeOfSides;
 
         private BorderElement[] _pointOfField;
@@ -24,6 +23,8 @@
             (char)BordersSymbols.RightDown
         };
         #endregion
+
+        public int ElementSize { get; private set; }
 
         public int FieldLenght
         {

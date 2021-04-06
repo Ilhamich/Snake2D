@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace BLSnakeLibrary
 {
@@ -7,6 +8,20 @@ namespace BLSnakeLibrary
     {
         public const int TICK_SPEED = 40;
         public const byte SCORE_FOR_WIN = 120;
+
+        private string[] _fruitImagePaths =
+        {
+            "..\\..\\Resources\\InvisibleFruit1 40x40.png",
+            "..\\..\\Resources\\InvisibleFruit2 40x40.png",
+            "..\\..\\Resources\\InvisibleFruit3 40x40.png"
+        };
+
+        private string[] _superFruitImagePaths =
+        {
+            "..\\..\\Resources\\InvisibleSuperFruit1 40x40.png",
+            "..\\..\\Resources\\InvisibleSuperFruit2 40x40.png",
+            "..\\..\\Resources\\InvisibleSuperFruit3 40x40.png"
+        };
 
         [NonSerialized]
         static Random rnd = new Random();
@@ -82,7 +97,7 @@ namespace BLSnakeLibrary
                     elementSize);
         }
 
-        public void InitSnake(Coordinate startCoord, int elementSize = 1) //TODO
+        public void InitSnake(Coordinate startCoord, int elementSize = 1)
         {
             _snake = new Snake(SizeOfSnake, startCoord, elementSize);
         }
@@ -103,6 +118,7 @@ namespace BLSnakeLibrary
 
         public void SetMiddleDifficulty()
         {
+            //TODO при выходе не меняет интервал на средней сложности
             if (Difficulty != Difficultys.Normal)
             {
                 Accelerator = (byte)Accelerators.Middle;
@@ -136,7 +152,7 @@ namespace BLSnakeLibrary
         /// <param name="LeftTopAngle">left top angle of field</param>
         /// <param name="RightDownAngle">right down angle of field</param>
         /// <returns>fruit with coordinate </returns>
-        public void GiveFruitCoordinate(ref FruitElement fruit)
+        public Coordinate GiveFruitCoordinate()
         {
             if (_playField == null)
             {
@@ -163,10 +179,9 @@ namespace BLSnakeLibrary
             int upperLimitY = (_playField.RightDownAngle.Y -
                     minusArg) / _playField.ElementSize;
 
-            fruit.SetCoordX(rnd.Next(lowerLimitX, upperLimitX) * 
-                    _playField.ElementSize);
-            fruit.SetCoordY(rnd.Next(lowerLimitY, upperLimitY) * 
-                    _playField.ElementSize);
+            return new Coordinate(rnd.Next(lowerLimitX, upperLimitX) *
+                    _playField.ElementSize, rnd.Next(lowerLimitY,
+                    upperLimitY) * _playField.ElementSize);
         }
 
         /// <summary>
@@ -175,7 +190,7 @@ namespace BLSnakeLibrary
         /// <param name="fruit">one of fruit</param>
         /// <param name="mySnake">Object of snake</param>
         /// <returns>Resolt of check, if was coincidence true and false if not</returns>
-        public void CheckFruitWithSnake(FruitElement fruit, ref bool check)//TODO if fruit is array
+        public void CheckFruitWithSnake(FruitElement fruit, ref bool check)
         {
             if (fruit.Coord == _snake.Head.Coord)
             {
@@ -196,6 +211,45 @@ namespace BLSnakeLibrary
                 check = true;
             }
         }
+    
+        public void Check2DFruitWithSnake(FruitElement fruit, ref bool check)
+        {
+            if (Check2DFruitWithSnakeElement(fruit ,_snake.Head))
+            {
+                check = true;
+            }
+
+            for (int i = 0; i < _snake.SizeOfSnake - 1; i++)
+            {
+                if (Check2DFruitWithSnakeElement(fruit, _snake[i]))
+                {
+                    check = true;
+                    return;
+                }
+            }
+
+            if (Check2DFruitWithSnakeElement(fruit, _snake.Tail))
+            {
+                check = true;
+            }
+        }
+
+        private bool Check2DFruitWithSnakeElement(FruitElement fruit,
+                SnakeElement sElement)
+        {
+            bool resolt = false;
+
+            foreach (var item in fruit)
+            {
+                if (item == sElement.Coord)
+                {
+                    resolt = true;
+                    break;
+                }
+            }
+
+            return resolt;
+        }
 
         /// <summary>
         /// Check of encounter snake head with border field
@@ -215,58 +269,6 @@ namespace BLSnakeLibrary
             return resolt;
         }
 
-        public void GenerateFruit(int fruitNum)
-        {
-            bool checkResolt = false;
-
-            do
-            {
-                checkResolt = false;
-
-                FruitElement tmpFruit = _fruits.GetFruit(fruitNum);
-
-                GiveFruitCoordinate(ref tmpFruit);
-
-                _fruits.SetFruit(tmpFruit, fruitNum);
-
-                CheckFruitWithSnake(_fruits.GetFruit(fruitNum),
-                        ref checkResolt);
-
-                if (checkResolt)
-                {
-                    continue;
-                }
-
-                _fruits.CheckFruitWihtFruits(fruitNum, ref checkResolt);
-            } while (checkResolt);
-        }
-
-        public void GenerateSuperFruit(int fruitNum)
-        {
-            bool checkResolt = false;
-
-            do
-            {
-                checkResolt = false;
-
-                FruitElement tmpSuperFruit = _fruits.GetSuperFruit(fruitNum);
-
-                GiveFruitCoordinate(ref tmpSuperFruit);
-
-                _fruits.SetSuperFruit(tmpSuperFruit, fruitNum);
-
-                CheckFruitWithSnake(_fruits.GetSuperFruit(fruitNum),
-                        ref checkResolt);
-
-                if (checkResolt)
-                {
-                    continue;
-                }
-
-                _fruits.CheckSuperFruitWihtFruits(fruitNum, ref checkResolt);
-            } while (checkResolt);
-        }
-
         public bool CheckObstructionBorders()
         {
             bool obstruction = false;
@@ -281,6 +283,13 @@ namespace BLSnakeLibrary
             }
 
             return obstruction;
+        }
+
+        #region Fruit Generator 
+        public void GenerateFruit()
+        {
+            GenerateFruitByCount();
+            GenerateSuperFruitByCount();
         }
 
         public void GenerateFruitByCount()
@@ -320,6 +329,157 @@ namespace BLSnakeLibrary
                 }
             }
         }
+
+        public void GenerateFruit(int fruitNum)
+        {
+            bool checkResolt = false;
+
+            do
+            {
+                checkResolt = false;
+
+                FruitElement tmpFruit = new FruitElement(GiveFruitCoordinate()
+                        , (char)Symbols.Apple);
+
+                _fruits.SetFruit(tmpFruit, fruitNum);
+
+                CheckFruitWithSnake(_fruits.GetFruit(fruitNum),
+                        ref checkResolt);
+
+                if (checkResolt)
+                {
+                    continue;
+                }
+
+                _fruits.CheckFruitWihtFruits(fruitNum, ref checkResolt);
+            } while (checkResolt);
+        }
+
+        public void GenerateSuperFruit(int fruitNum)
+        {
+            bool checkResolt = false;
+
+            do
+            {
+                checkResolt = false;
+
+                FruitElement tmpSuperFruit = new FruitElement(GiveFruitCoordinate()
+                      , (char)Symbols.BigApple);
+
+                _fruits.SetSuperFruit(tmpSuperFruit, fruitNum);
+
+                CheckFruitWithSnake(_fruits.GetSuperFruit(fruitNum),
+                        ref checkResolt);
+
+                if (checkResolt)
+                {
+                    continue;
+                }
+
+                _fruits.CheckSuperFruitWihtFruits(fruitNum, ref checkResolt);
+            } while (checkResolt);
+        }
+        #endregion
+
+        #region 2D Fruit Generator
+        public void Generate2DFruit() //Fruit size in argument
+        {
+            Generate2DFruitByCount();
+            Generate2DSuperFruitByCount();
+            _fruits.IsFruit2D = true;
+        }
+
+        private void Generate2DFruitByCount()
+        {
+            if (_fruits.FruitQuantity < _fruits.FruitLength)
+            {
+                if (_fruits.FruitEaten == Fruits.UNEATEN)
+                {
+                    Generate2DFruit(_fruits.FruitQuantity);
+
+                    _fruits.FruitQuantity++;
+                }
+                else
+                {
+                    Generate2DFruit(_fruits.FruitEaten);
+
+                    _fruits.FruitQuantity++;
+                }
+            }
+        }
+
+        private void Generate2DSuperFruitByCount()
+        {
+            if (_fruits.SuperFruitQuantity < _fruits.SuperFruitLength)
+            {
+                if (_fruits.SuperFruitEating == Fruits.UNEATEN)
+                {
+                    Generate2DSuperFruit(_fruits.SuperFruitQuantity);
+
+                    _fruits.SuperFruitQuantity++;
+                }
+                else
+                {
+                    Generate2DSuperFruit(_fruits.SuperFruitEating);
+
+                    _fruits.SuperFruitQuantity++;
+                }
+            }
+        }
+
+        public void Generate2DFruit(int fruitNum)
+        {
+            bool checkResolt = false;
+
+            do
+            {
+                checkResolt = false;
+
+                FruitElement tmpFruit = new FruitElement(GiveFruitCoordinate(),
+                        new Bitmap(_fruitImagePaths[rnd.Next(0,
+                        _fruitImagePaths.Length)]), _snake.ElementSize, 30);
+
+                _fruits.SetFruit(tmpFruit, fruitNum);
+
+                Check2DFruitWithSnake(_fruits.GetFruit(fruitNum),
+                        ref checkResolt);
+
+                if (checkResolt)
+                {
+                    continue;
+                }
+
+                _fruits.Check2DFruitWihtFruits(fruitNum, ref checkResolt);
+            } while (checkResolt);
+        }
+
+        public void Generate2DSuperFruit(int fruitNum)
+        {
+            bool checkResolt = false;
+
+            do
+            {
+                checkResolt = false;
+
+                FruitElement tmpSuperFruit = new FruitElement(GiveFruitCoordinate(),
+                        new Bitmap(_superFruitImagePaths[rnd.Next(0,
+                        _superFruitImagePaths.Length)]),
+                        _snake.ElementSize, 30);
+
+                _fruits.SetSuperFruit(tmpSuperFruit, fruitNum);
+
+                Check2DFruitWithSnake(_fruits.GetSuperFruit(fruitNum),
+                        ref checkResolt);
+
+                if (checkResolt)
+                {
+                    continue;
+                }
+
+                _fruits.Check2DSuperFruitWihtFruits(fruitNum, ref checkResolt);
+            } while (checkResolt);
+        }
+        #endregion
 
         public void WorkOnSpeed()
         {
@@ -362,7 +522,15 @@ namespace BLSnakeLibrary
 
         public void RunSnakeDynamics(InputUser key)
         {
-            SnakeObj.CheckFruitsEating(FruitsObj);
+            if (_fruits.IsFruit2D)
+            {
+                SnakeObj.Check2DFruitsEating(FruitsObj);
+            }
+            else
+            {
+                SnakeObj.CheckFruitsEating(FruitsObj);
+            }
+
             WorkOnSpeed();
             SnakeObj.PassСoordinates();
             SnakeObj.ChangeDirection(key);

@@ -7,9 +7,6 @@ namespace BLSnakeLibrary
     {
         public const int UNEATEN = -1;
 
-        public static readonly Coordinate UNTOUCHED_FRUIT = 
-                new Coordinate {X = -1, Y =  -1 };
-
         #region PRIVATE
         private FruitElement[] _fruit;
         private int _fruitQuantity;
@@ -21,36 +18,30 @@ namespace BLSnakeLibrary
         #endregion
 
         public Fruits(byte fruitsLenght, byte superFruitsLehght,
-                int elementSize)
+               int elementSize)
         {
             _fruit = new FruitElement[fruitsLenght];
-            ElementSize = elementSize;
 
-            for (int i = 0; i < _fruit.Length; i++)
-            {
-                _fruit[i] = new FruitElement
-                    (new Coordinate(UNEATEN, UNEATEN), (char)Symbols.Apple);              
-            }
+            ElementSize = elementSize;
 
             _fruitQuantity = 0;
             _fruitEaten = UNEATEN;
 
             _superFruit = new FruitElement[superFruitsLehght];
 
-            for (int i = 0; i < _superFruit.Length; i++)
-            {
-                _superFruit[i] = new FruitElement
-                    (new Coordinate(UNEATEN, UNEATEN), (char)Symbols.BigApple);
-            }
-
             _superFruitQuantity = 0;
             _superFruitEating = UNEATEN;
         }
 
+        /// <summary>
+        /// Возвращает размер элемента фрукт
+        /// </summary>
         public int ElementSize { get; private set; }
 
+        public bool IsFruit2D { get; internal set;}
+
         /// <summary>
-        /// Get size of fruits arrey
+        /// Возвращает размер массива фруктов
         /// </summary>
         public int FruitLength
         {
@@ -223,6 +214,11 @@ namespace BLSnakeLibrary
         {
             for (int j = 0; j < FruitLength; j++)
             {
+                if (_fruit[j] == null)
+                {
+                    break;
+                }
+
                 if ((index != j) && (_fruit[index].Coord == _fruit[j].Coord))
                 {
                     check = true;
@@ -232,6 +228,11 @@ namespace BLSnakeLibrary
 
             for (int j = 0; j < SuperFruitLength; j++)
             {
+                if (_superFruit[j] == null)
+                {
+                    break;
+                }
+
                 if (_fruit[index].Coord == _superFruit[j].Coord)
                 {
                     check = true;
@@ -250,6 +251,11 @@ namespace BLSnakeLibrary
         {
             for (int j = 0; j < FruitLength; j++)
             {
+                if (_fruit[j] == null)
+                {
+                    break;
+                }
+
                 if (_superFruit[index].Coord == _fruit[j].Coord)
                 {
                     check = true;
@@ -259,6 +265,11 @@ namespace BLSnakeLibrary
 
             for (int j = 0; j < SuperFruitLength; j++)
             {
+                if (_superFruit[j] == null)
+                {
+                    break;
+                }
+
                 if ((index != j)
                        && (_superFruit[index].Coord == _superFruit[j].Coord))
                 {
@@ -266,6 +277,80 @@ namespace BLSnakeLibrary
                     break;
                 }
             }
+        }
+
+        public void Check2DFruitWihtFruits(int index, ref bool check)
+        {
+            for (int j = 0; j < FruitLength; j++)
+            {
+                if ((index != j) && Check2DfruitWith2DFruit(_fruit[index], _fruit[j]))
+                {
+                    check = true;
+                    return;
+                }
+            }
+
+            for (int j = 0; j < SuperFruitLength; j++)
+            {
+                if (Check2DfruitWith2DFruit(_fruit[index], _superFruit[j]))
+                {
+                    check = true;
+                    break;
+                }
+            }
+        }
+        
+        public void Check2DSuperFruitWihtFruits(int index, ref bool check)
+        {
+            for (int j = 0; j < FruitLength; j++)
+            {
+                if (Check2DfruitWith2DFruit(_superFruit[index], _fruit[j]))
+                {
+                    check = true;
+                    return;
+                }
+            }
+
+            for (int j = 0; j < SuperFruitLength; j++)
+            {
+                if ((index != j)
+                       && Check2DfruitWith2DFruit(_superFruit[index], _fruit[j]))
+                {
+                    check = true;
+                    break;
+                }
+            }
+        }
+        
+        private bool Check2DfruitWith2DFruit(FruitElement first, FruitElement second)
+        {
+            bool resolt = false;
+
+            foreach (var fCoord in first)
+            {
+
+                if (second == null) //TODO
+                {
+                    //return??
+                    break;
+                }
+
+                foreach (var sCoord in second)
+                {
+                    if (fCoord == sCoord)
+                    {
+                        resolt = true;
+                        break;
+                    }
+                }
+
+                if (resolt)
+                {
+                    break;
+                }
+            }
+
+            return resolt;
         }
     }
 }

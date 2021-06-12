@@ -1,7 +1,7 @@
 ﻿using BLSnakeLibrary;
 using System;
 
-namespace Training_Snake
+namespace ConsoleSnake
 {
     class Controller
     {

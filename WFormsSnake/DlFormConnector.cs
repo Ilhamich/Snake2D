@@ -1,7 +1,7 @@
 ﻿using BLSnakeLibrary;
 using DLSnakeLibrary;
 
-namespace Training_Snake
+namespace WFormsSnake
 {
     class DlFormConnector
     {

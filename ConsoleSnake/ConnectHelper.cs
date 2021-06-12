@@ -4,7 +4,7 @@ using System.Threading;
 using BLSnakeLibrary;
 using DLSnakeLibrary;
 
-namespace Training_Snake
+namespace ConsoleSnake
 {
     internal class ConnectHelper
     {
@@ -72,7 +72,7 @@ namespace Training_Snake
             InputUser keyDirection = (InputUser)_game.SnakeObj.Direction;
             byte chPouseMenu = (byte)MenuChois.ButtonStart;
 
-            do// (chPouseMenu != Controller.EXIT_FROM_LEVEL)
+            do// while (chPouseMenu != Controller.EXIT_FROM_LEVEL);
             {
                 Thread.Sleep(_game.Interval);
 
@@ -188,6 +188,27 @@ namespace Training_Snake
 
                 entry = true;
             } while (key != InputUser.Enter);
+        }
+
+        internal static void SetDifficulty(GameSnake game)
+        {
+            InputUser keyDifficulty = InputUser.NoDirection;
+            byte choisDifficulty = (byte)DifficultyChois.Normal;
+            string[] difficulty = { "EASY", "NORMAL", "HIGH" };
+
+            do
+            {
+                Visualizer.PrintMenu(difficulty);
+
+                ConnectHelper.WorkWithMenu(difficulty,
+                        ref keyDifficulty, ref choisDifficulty);
+
+            } while (keyDifficulty != InputUser.Enter);
+
+            game.SetDifficulty(choisDifficulty);
+
+            Visualizer.ArrowClear(choisDifficulty);
+            Visualizer.ClearMenu(difficulty);
         }
     }
 }

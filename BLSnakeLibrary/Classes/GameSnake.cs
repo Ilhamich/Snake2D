@@ -22,7 +22,7 @@ namespace BLSnakeLibrary
             "..\\..\\Resources\\InvisibleSuperFruit2 40x40.png",
             "..\\..\\Resources\\InvisibleSuperFruit3 40x40.png"
         };
-
+      
         [NonSerialized]
         static Random rnd = new Random();
 
@@ -119,7 +119,7 @@ namespace BLSnakeLibrary
         public void SetMiddleDifficulty()
         {
             //TODO при выходе не меняет интервал на средней сложности
-            if (Difficulty != Difficultys.Normal)
+            //if (Difficulty != Difficultys.Normal)
             {
                 Accelerator = (byte)Accelerators.Middle;
                 SizeOfSnake = (byte)SizesOfSnake.Normal;

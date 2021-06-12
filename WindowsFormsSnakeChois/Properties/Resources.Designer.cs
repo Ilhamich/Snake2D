@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WFormsSnake.Properties {
+namespace WindowsFormsSnakeChois.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace WFormsSnake.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WFormsSnake.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WindowsFormsSnakeChois.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,29 +63,19 @@ namespace WFormsSnake.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Pesok_1024x640 {
+        internal static System.Drawing.Bitmap Снимок_экрана__11_ {
             get {
-                object obj = ResourceManager.GetObject("Pesok_1024x640", resourceCulture);
+                object obj = ResourceManager.GetObject("Снимок экрана (11)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon snake_svg1 {
-            get {
-                object obj = ResourceManager.GetObject("snake_svg1", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Snakes___pic {
+        internal static System.Drawing.Bitmap Снимок_экрана__14_ {
             get {
-                object obj = ResourceManager.GetObject("Snakes___pic", resourceCulture);
+                object obj = ResourceManager.GetObject("Снимок экрана (14)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

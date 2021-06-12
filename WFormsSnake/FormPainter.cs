@@ -1,7 +1,7 @@
 ﻿using BLSnakeLibrary;
 using System.Drawing;
 
-namespace Training_Snake
+namespace WFormsSnake
 {
     class FormPainter
     {

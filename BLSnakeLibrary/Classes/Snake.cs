@@ -158,7 +158,7 @@ namespace BLSnakeLibrary
         /// and arrey superFruits(check of eating)
         /// </summary>
         /// <param name="myFruits">Object fruits</param>
-        public void CheckFruitsEating(Fruits myFruits)//TODO if fruit is array
+        public void CheckFruitsEating(Fruits myFruits)
         {
             myFruits.FruitEaten = Fruits.UNEATEN;
 

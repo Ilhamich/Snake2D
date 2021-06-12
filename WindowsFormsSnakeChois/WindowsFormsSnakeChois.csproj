@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{117A3EBE-6766-49AA-9FFE-C700AF12E7AB}</ProjectGuid>
+    <ProjectGuid>{0813535B-E75C-4FB8-8DCA-0D4C5748D648}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Training_Snake</RootNamespace>
-    <AssemblyName>Training Snake</AssemblyName>
+    <RootNamespace>WindowsFormsSnakeChois</RootNamespace>
+    <AssemblyName>WindowsFormsSnakeChois</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,31 +46,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="VersionChoisForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="VersionChoisForm.Designer.cs">
+      <DependentUpon>VersionChoisForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="VersionChoisForm.resx">
+      <DependentUpon>VersionChoisForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -81,19 +81,20 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BLSnakeLibrary\BLSnakeLibrary.csproj">
-      <Project>{b1f1e348-534f-4d0e-9d76-06621f7e43f3}</Project>
-      <Name>BLSnakeLibrary</Name>
+    <None Include="Resources\Снимок экрана %2811%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Снимок экрана %2814%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConsoleSnake\ConsoleSnake.csproj">
+      <Project>{a009e36a-5145-4079-9060-1f6aa5f0d187}</Project>
+      <Name>ConsoleSnake</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\rechnoy-pesok.jpeg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\snake-svg.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Pesok-1024x640.jpg" />
+    <ProjectReference Include="..\WFormsSnake\WFormsSnake.csproj">
+      <Project>{117a3ebe-6766-49aa-9ffe-c700af12e7ab}</Project>
+      <Name>WFormsSnake</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

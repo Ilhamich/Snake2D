@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BFFC7375-ED03-439F-8F8B-F19A06030618}</ProjectGuid>
+    <ProjectGuid>{A009E36A-5145-4079-9060-1F6AA5F0D187}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Training_Snake</RootNamespace>
-    <AssemblyName>Training Snake</AssemblyName>
+    <RootNamespace>ConsoleSnake</RootNamespace>
+    <AssemblyName>ConsoleSnake</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -35,7 +35,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,6 +48,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Visualizer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLSnakeLibrary\BLSnakeLibrary.csproj">

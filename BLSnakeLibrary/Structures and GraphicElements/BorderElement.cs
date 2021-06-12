@@ -18,11 +18,6 @@ namespace BLSnakeLibrary
             Symbol = symbol;
         }
 
-        //internal BorderElement GetCopy()
-        //{
-        //    return (BorderElement)MemberwiseClone();
-        //}
-
         public override string ToString()
         {
             return Symbol.ToString();

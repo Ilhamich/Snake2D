@@ -9,7 +9,7 @@ namespace BLSnakeLibrary
     public class FruitElement : IGraphicElement, IEnumerable<Coordinate>
     {
         Image _fruitImage ;
-        Coordinate[] _points; //Если fruitElement не точка а колекция точек
+        Coordinate[] _points;
 
         private Coordinate _coord;
 
@@ -34,7 +34,7 @@ namespace BLSnakeLibrary
             Symbol = symbol;
         }
 
-        public FruitElement(Coordinate LeftTopcoord, Bitmap image,   //TODO
+        public FruitElement(Coordinate LeftTopcoord, Bitmap image,
                 int snakeHeadSize, int fruitSize)
         {
             _fruitImage = image;

@@ -314,7 +314,7 @@ namespace BLSnakeLibrary
             for (int j = 0; j < SuperFruitLength; j++)
             {
                 if ((index != j)
-                       && Check2DfruitWith2DFruit(_superFruit[index], _fruit[j]))
+                       && Check2DfruitWith2DFruit(_superFruit[index], _superFruit[j]))
                 {
                     check = true;
                     break;
@@ -328,10 +328,8 @@ namespace BLSnakeLibrary
 
             foreach (var fCoord in first)
             {
-
                 if (second == null) //TODO
                 {
-                    //return??
                     break;
                 }
 

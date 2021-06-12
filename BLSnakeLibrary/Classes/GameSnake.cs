@@ -9,6 +9,10 @@ namespace BLSnakeLibrary
         public const int TICK_SPEED = 40;
         public const byte SCORE_FOR_WIN = 120;
 
+        #region PRIVATE Fields
+        [NonSerialized]
+        private static Random rnd = new Random();
+
         private string[] _fruitImagePaths =
         {
             "..\\..\\Resources\\InvisibleFruit1 40x40.png",
@@ -23,10 +27,6 @@ namespace BLSnakeLibrary
             "..\\..\\Resources\\InvisibleSuperFruit3 40x40.png"
         };
 
-        [NonSerialized]
-        static Random rnd = new Random();
-
-        #region PRIVATE Fields
         private double _timer;
 
         [NonSerialized]
@@ -46,7 +46,7 @@ namespace BLSnakeLibrary
         public byte SuperFruitsLenght { get; private set; }
         public int CountEating { get; private set; }
         public Difficultys Difficulty { get; private set; }
-        public int Interval { get;private set; } = TICK_SPEED * 
+        public int Interval { get; private set; } = TICK_SPEED *
                 (byte)Difficultys.Normal;
 
         public int Timer
@@ -118,17 +118,13 @@ namespace BLSnakeLibrary
 
         public void SetMiddleDifficulty()
         {
-            //TODO при выходе не меняет интервал на средней сложности
-            if (Difficulty != Difficultys.Normal)
-            {
-                Accelerator = (byte)Accelerators.Middle;
-                SizeOfSnake = (byte)SizesOfSnake.Normal;
-                WinScore = SCORE_FOR_WIN - (TICK_SPEED * (byte)WinSpeed.Middle);
-                FruitsLenght = (byte)FruitsSize.Medium;
-                SuperFruitsLenght = (byte)SuperFruitsSize.Medium;
-                Interval = TICK_SPEED * (byte)Difficultys.Normal;
-                Difficulty = Difficultys.Normal;
-            }
+            Accelerator = (byte)Accelerators.Middle;
+            SizeOfSnake = (byte)SizesOfSnake.Normal;
+            WinScore = SCORE_FOR_WIN - (TICK_SPEED * (byte)WinSpeed.Middle);
+            FruitsLenght = (byte)FruitsSize.Medium;
+            SuperFruitsLenght = (byte)SuperFruitsSize.Medium;
+            Interval = TICK_SPEED * (byte)Difficultys.Normal;
+            Difficulty = Difficultys.Normal;
         }
 
         public void SetHightDifficulty()
@@ -211,10 +207,10 @@ namespace BLSnakeLibrary
                 check = true;
             }
         }
-    
+
         public void Check2DFruitWithSnake(FruitElement fruit, ref bool check)
         {
-            if (Check2DFruitWithSnakeElement(fruit ,_snake.Head))
+            if (Check2DFruitWithSnakeElement(fruit, _snake.Head))
             {
                 check = true;
             }
@@ -382,7 +378,7 @@ namespace BLSnakeLibrary
         #endregion
 
         #region 2D Fruit Generator
-        public void Generate2DFruit() //Fruit size in argument
+        public void Generate2DFruit()
         {
             Generate2DFruitByCount();
             Generate2DSuperFruitByCount();

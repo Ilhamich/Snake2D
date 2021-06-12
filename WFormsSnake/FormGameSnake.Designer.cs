@@ -1,6 +1,6 @@
 ﻿using BLSnakeLibrary;
 
-namespace Training_Snake
+namespace WFormsSnake
 {
     partial class FormGameSnake
     {
@@ -111,7 +111,7 @@ namespace Training_Snake
             // 
             // pictureBoxSand
             // 
-            this.pictureBoxSand.Image = global::Training_Snake.Properties.Resources.Pesok_1024x640;
+            this.pictureBoxSand.Image = global::WFormsSnake.Properties.Resources.Pesok_1024x640;
             this.pictureBoxSand.Location = new System.Drawing.Point(200, 20);
             this.pictureBoxSand.Name = "pictureBoxSand";
             this.pictureBoxSand.Size = new System.Drawing.Size(410, 410);
@@ -326,7 +326,7 @@ namespace Training_Snake
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Beige;
-            this.BackgroundImage = global::Training_Snake.Properties.Resources.Snakes___pic;
+            this.BackgroundImage = global::WFormsSnake.Properties.Resources.Snakes___pic;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(804, 451);
             this.Controls.Add(this.buttonLoad);

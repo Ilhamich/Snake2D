@@ -3,52 +3,31 @@
   <Class Name="BLSnakeLibrary.Field">
     <Position X="4.5" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAIAIAAAAAIQAEIACAAAAAAAAAAgAAAIAAAMEDCAAAI=</HashCode>
+      <HashCode>AAIAAAAAAAIQAEIACAAACAAAAAAgAAAIAAAMEDCAAAI=</HashCode>
       <FileName>Classes\Field.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BLSnakeLibrary.Fruits">
     <Position X="7.5" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AEAAAAAgAAACAgCBAAEAACICIAABEgAAAAEAAARQCAA=</HashCode>
+      <HashCode>AEABAEAgAAACAgABAAEACCICIAABEgABEgEAAARQCAA=</HashCode>
       <FileName>Classes\Fruits.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BLSnakeLibrary.Snake">
     <Position X="11" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAEABAAAAAAQAIAACSAgAAAAAAAQACIAAAACAAABGAA=</HashCode>
+      <HashCode>AAEAAAAAAAAQAIAACSAgCAAACAAQACIAAACSAAABGAA=</HashCode>
       <FileName>Classes\Snake.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BLSnakeLibrary.GameSnake">
     <Position X="1" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>QEBUAAAQAAgISBAACBAECggAAIEiBIAQAEAgAIEACFU=</HashCode>
+      <HashCode>SEBUAAARcEhoDTCACZAECgAACIECDICQAMAAAIEECFU=</HashCode>
       <FileName>Classes\GameSnake.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Struct Name="BLSnakeLibrary.BorderElement">
-    <Position X="4.75" Y="6" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaAA=</HashCode>
-      <FileName>Structures\BorderElement.cs</FileName>
-    </TypeIdentifier>
-  </Struct>
-  <Struct Name="BLSnakeLibrary.FruitElement">
-    <Position X="8" Y="6.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaAA=</HashCode>
-      <FileName>Structures\FruitElement.cs</FileName>
-    </TypeIdentifier>
-  </Struct>
-  <Struct Name="BLSnakeLibrary.SnakeElement">
-    <Position X="11.5" Y="5.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaAA=</HashCode>
-      <FileName>Structures\SnakeElement.cs</FileName>
-    </TypeIdentifier>
-  </Struct>
   <Enum Name="BLSnakeLibrary.Accelerators" Collapsed="true">
     <Position X="13.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
@@ -63,11 +42,11 @@
       <FileName>Enum\BordersSymbols.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="BLSnakeLibrary.Difficulty" Collapsed="true">
+  <Enum Name="BLSnakeLibrary.Difficultys" Collapsed="true">
     <Position X="13.75" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAIAAAAAAAAAAAgACA=</HashCode>
-      <FileName>Enum\Difficulty.cs</FileName>
+      <FileName>Enum\Difficultys.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="BLSnakeLibrary.DifficultyChois" Collapsed="true">
@@ -94,7 +73,7 @@
   <Enum Name="BLSnakeLibrary.MenuChois" Collapsed="true">
     <Position X="13.75" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACAAAAAAABAAAAAAAAAAACAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <HashCode>ACgAAAAAABAAAAAAAAAAACAAAAAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>Enum\MenuChois.cs</FileName>
     </TypeIdentifier>
   </Enum>

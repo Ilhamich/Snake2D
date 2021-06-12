@@ -33,16 +33,10 @@ namespace BLSnakeLibrary
             _superFruitEating = UNEATEN;
         }
 
-        /// <summary>
-        /// Возвращает размер элемента фрукт
-        /// </summary>
         public int ElementSize { get; private set; }
 
         public bool IsFruit2D { get; internal set;}
 
-        /// <summary>
-        /// Возвращает размер массива фруктов
-        /// </summary>
         public int FruitLength
         {
             get
@@ -314,7 +308,7 @@ namespace BLSnakeLibrary
             for (int j = 0; j < SuperFruitLength; j++)
             {
                 if ((index != j)
-                       && Check2DfruitWith2DFruit(_superFruit[index], _fruit[j]))
+                       && Check2DfruitWith2DFruit(_superFruit[index], _superFruit[j]))
                 {
                     check = true;
                     break;
@@ -328,10 +322,8 @@ namespace BLSnakeLibrary
 
             foreach (var fCoord in first)
             {
-
-                if (second == null) //TODO
+                if (second == null)
                 {
-                    //return??
                     break;
                 }
 

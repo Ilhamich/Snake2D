@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Text;
+using static System.Console;
 
 using BLSnakeLibrary;
 
-namespace Training_Snake
+namespace ConsoleSnake
 {
     class Visualizer
     {
@@ -28,66 +29,66 @@ namespace Training_Snake
         {
             if (element.Coord.X != -1 && element.Coord.Y != -1)
             {
-                Console.SetCursorPosition(element.Coord.X, element.Coord.Y);
-                Console.Write(element.Symbol);
+                SetCursorPosition(element.Coord.X, element.Coord.Y);
+                Write(element.Symbol);
             }
         }
 
         public static void PrintField(Field field)
         {
-            Console.SetWindowSize(WINDOW_WIDTH, WINDOW_HIGHT);
+            SetWindowSize(WINDOW_WIDTH, WINDOW_HIGHT);
 
-            Console.ForegroundColor = ConsoleColor.Blue;
+            ForegroundColor = ConsoleColor.Blue;
 
             for (int i = 0; i < field.FieldLenght; i++)
             {
                 PrintGraphicElement(field[i]);
             }
 
-            Console.ResetColor();
+            ResetColor();
         }
 
         public static void PrintFruits(Fruits myFruits)
         {
-            Console.OutputEncoding = Encoding.Unicode;
-            Console.ForegroundColor = ConsoleColor.Magenta;
+            OutputEncoding = Encoding.Unicode;
+            ForegroundColor = ConsoleColor.Magenta;
 
             for (int i = 0; i < myFruits.FruitQuantity; i++)
             {
                 PrintGraphicElement(myFruits.GetFruit(i));
             }
 
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            ForegroundColor = ConsoleColor.DarkGreen;
 
             for (int i = 0; i < myFruits.SuperFruitQuantity; i++)
             {
                 PrintGraphicElement(myFruits.GetSuperFruit(i));
             }
 
-            Console.ResetColor();
+            ResetColor();
         }
 
         public static void PrintStatistic(GameSnake game)
         {
             Coordinate statCoord = new Coordinate(0, 0);
 
-            Console.SetCursorPosition(statCoord.X, statCoord.Y++);
-            Console.WriteLine($"Difficulty : {game.Difficulty}");
-            Console.SetCursorPosition(statCoord.X, statCoord.Y++);
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("Fruit eaten = {0}", game.CountEating);
-            Console.SetCursorPosition(statCoord.X, statCoord.Y++);
-            Console.Write("Snake size : {0}", game.SnakeObj.SizeOfSnake);
-            Console.SetCursorPosition(statCoord.X, statCoord.Y++);
-            Console.Write("Time : {0}", game.Timer);         
+            SetCursorPosition(statCoord.X, statCoord.Y++);
+            WriteLine($"Difficulty : {game.Difficulty}");
+            SetCursorPosition(statCoord.X, statCoord.Y++);
+            ForegroundColor = ConsoleColor.Cyan;
+            Write("Fruit eaten = {0}", game.CountEating);
+            SetCursorPosition(statCoord.X, statCoord.Y++);
+            Write("Snake size : {0}", game.SnakeObj.SizeOfSnake);
+            SetCursorPosition(statCoord.X, statCoord.Y++);
+            Write("Time : {0}", game.Timer);
         }
 
-        public static void ClearStatistic(int distance) //TODO
+        public static void ClearStatistic(int distance)
         {
             for (int i = 0, j = 0, q = 0; i < distance * STATISTIC_CATEGORY; i++)
             {
-                Console.SetCursorPosition(q++, j);
-                Console.Write(' ');
+                SetCursorPosition(q++, j);
+                Write(' ');
 
                 if (i % 20 == 0 && i > 0)
                 {
@@ -99,20 +100,20 @@ namespace Training_Snake
 
         public static void PrintGameResolt(string resolt, SnakeElement head)
         {
-            Console.SetCursorPosition(head.Coord.X, head.Coord.Y);
-            Console.Write(resolt);
-            Console.ReadKey();
+            SetCursorPosition(head.Coord.X, head.Coord.Y);
+            Write(resolt);
+            ReadKey();
         }
 
         public static void DrawSnakeElement(SnakeElement body, int iter)
         {
             if (iter % 2 == 0 && body.Symbol != (char)Symbols.Head)
             {
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                ForegroundColor = ConsoleColor.DarkYellow;
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Green;
+                ForegroundColor = ConsoleColor.Green;
             }
 
             PrintGraphicElement(body);
@@ -149,22 +150,22 @@ namespace Training_Snake
 
         public static void PrintMenu(string[] menu)
         {
-            Console.ForegroundColor = ConsoleColor.White;
+            ForegroundColor = ConsoleColor.White;
 
             for (int i = 1; i <= menu.Length; i++)
             {
-                Console.SetCursorPosition(X_COORDINATE_MENU, i);
-                Console.Write(menu[i - 1]);
+                SetCursorPosition(X_COORDINATE_MENU, i);
+                Write(menu[i - 1]);
             }
 
-            Console.ResetColor();
+            ResetColor();
         }
 
         public static void PrintArrow(byte step)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition(COORDINATE_ARROW, step);
-            Console.Write((char)Symbols.Arrow);
+            ForegroundColor = ConsoleColor.Red;
+            SetCursorPosition(COORDINATE_ARROW, step);
+            Write((char)Symbols.Arrow);
         }
 
         public static void PrintArrowMenu(byte tmpStep, string[] categories,
@@ -182,8 +183,8 @@ namespace Training_Snake
 
         public static void ArrowClear(byte numberOfArrow)
         {
-            Console.SetCursorPosition(COORDINATE_ARROW, numberOfArrow);
-            Console.Write(' ');
+            SetCursorPosition(COORDINATE_ARROW, numberOfArrow);
+            Write(' ');
         }
 
         public static void ClearMenu(string[] menu)
@@ -194,8 +195,8 @@ namespace Training_Snake
 
                 for (int j = 0; j < menu[i - 1].Length; j++)
                 {
-                    Console.SetCursorPosition(xCoordinete++, i);
-                    Console.Write(' ');
+                    SetCursorPosition(xCoordinete++, i);
+                    Write(' ');
                 }
             }
         }
@@ -204,7 +205,7 @@ namespace Training_Snake
         {
             Coordinate snakeHead = new Coordinate(head.Coord.X, head.Coord.Y);
 
-            Console.SetCursorPosition(snakeHead.X, snakeHead.Y);
+            SetCursorPosition(snakeHead.X, snakeHead.Y);
 
             for (int i = 0; i < resolt.Length; i++)
             {
@@ -248,27 +249,27 @@ namespace Training_Snake
 
         public static void SetCursor(int x, int y)
         {
-            Console.SetCursorPosition(x, y);
+            SetCursorPosition(x, y);
         }
 
         public static void ShowMessage(string message, Coordinate coord,
                 bool pouse = false)
         {
-            Console.SetCursorPosition(coord.X, coord.Y);
-            Console.Write(message);
+            SetCursorPosition(coord.X, coord.Y);
+            Write(message);
 
             if (pouse)
             {
-                Console.ReadKey();
-            }          
+                ReadKey();
+            }
         }
 
         public static void ClearMessage(string message, Coordinate coord)
         {
             for (int i = 0; i < message.Length; i++)
             {
-                Console.SetCursorPosition(coord.X++, coord.Y);
-                Console.Write(' ');
+                SetCursorPosition(coord.X++, coord.Y);
+                Write(' ');
             }
         }
     }

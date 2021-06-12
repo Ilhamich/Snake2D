@@ -3,11 +3,12 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Training_Snake
+namespace WFormsSnake
 {
     public partial class FormGameSnake : Form
     {
         const byte STEP_DISPLAY = 10;
+        const byte FRUIT_SIZE = 30;
         const byte FIELD_SIZE = 41;
         const byte SNAKE_START_X_POSITION = 200;
         const byte SNAKE_START_Y_POSITION = 10;
@@ -121,7 +122,7 @@ namespace Training_Snake
             _game.InitGameField(FIELD_SIZE, 0, 0, STEP_DISPLAY);
             _game.InitSnake(new Coordinate(SNAKE_START_X_POSITION,
                     SNAKE_START_Y_POSITION), STEP_DISPLAY);
-            _game.InitFruits(30);
+            _game.InitFruits(FRUIT_SIZE);
 
             _keyDirection = (InputUser)_game.SnakeObj.Direction;
             _pouse = false;
@@ -260,7 +261,7 @@ namespace Training_Snake
                 _game.InitGameField(FIELD_SIZE, 0, 0, STEP_DISPLAY);
                 _game.InitSnake(new Coordinate
                         (SNAKE_START_X_POSITION, SNAKE_START_Y_POSITION));
-                _game.InitFruits(STEP_DISPLAY);
+                _game.InitFruits(FRUIT_SIZE);
 
                 MessageBox.Show("Save file broken or don't exist." +
                                 "\nWill be start new game");

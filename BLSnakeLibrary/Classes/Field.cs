@@ -2,9 +2,8 @@
 {
     public class Field
     {
-        public const byte QUANTITY_OF_SIDE = 4;
-
         #region PRIVATE Fields
+        private const byte QUANTITY_OF_SIDE = 4;
         private const byte ANGLES_ON_ONE_SIDE = 2;
         private const byte ANGLES_ON_FIELD = 4;
 

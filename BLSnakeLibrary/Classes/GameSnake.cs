@@ -26,15 +26,7 @@ namespace BLSnakeLibrary
             "..\\..\\Resources\\InvisibleSuperFruit2 40x40.png",
             "..\\..\\Resources\\InvisibleSuperFruit3 40x40.png"
         };
-<<<<<<< HEAD
 
-=======
-      
-        [NonSerialized]
-        static Random rnd = new Random();
-
-        #region PRIVATE Fields
->>>>>>> 58aa27d5b7fff7891179cec4ef2bafdbf7852165
         private double _timer;
 
         [NonSerialized]
@@ -126,7 +118,6 @@ namespace BLSnakeLibrary
 
         public void SetMiddleDifficulty()
         {
-<<<<<<< HEAD
             Accelerator = (byte)Accelerators.Middle;
             SizeOfSnake = (byte)SizesOfSnake.Normal;
             WinScore = SCORE_FOR_WIN - (TICK_SPEED * (byte)WinSpeed.Middle);
@@ -134,19 +125,6 @@ namespace BLSnakeLibrary
             SuperFruitsLenght = (byte)SuperFruitsSize.Medium;
             Interval = TICK_SPEED * (byte)Difficultys.Normal;
             Difficulty = Difficultys.Normal;
-=======
-            //TODO при выходе не меняет интервал на средней сложности
-            //if (Difficulty != Difficultys.Normal)
-            {
-                Accelerator = (byte)Accelerators.Middle;
-                SizeOfSnake = (byte)SizesOfSnake.Normal;
-                WinScore = SCORE_FOR_WIN - (TICK_SPEED * (byte)WinSpeed.Middle);
-                FruitsLenght = (byte)FruitsSize.Medium;
-                SuperFruitsLenght = (byte)SuperFruitsSize.Medium;
-                Interval = TICK_SPEED * (byte)Difficultys.Normal;
-                Difficulty = Difficultys.Normal;
-            }
->>>>>>> 58aa27d5b7fff7891179cec4ef2bafdbf7852165
         }
 
         public void SetHightDifficulty()

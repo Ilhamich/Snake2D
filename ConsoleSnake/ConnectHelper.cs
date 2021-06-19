@@ -72,7 +72,11 @@ namespace ConsoleSnake
             InputUser keyDirection = (InputUser)_game.SnakeObj.Direction;
             byte chPouseMenu = (byte)MenuChois.ButtonStart;
 
+<<<<<<< HEAD:ConsoleSnake/ConnectHelper.cs
             do// while(chPouseMenu != Controller.EXIT_FROM_LEVEL);
+=======
+            do// while (chPouseMenu != Controller.EXIT_FROM_LEVEL);
+>>>>>>> 58aa27d5b7fff7891179cec4ef2bafdbf7852165:Training Snake/ConnectHelper.cs
             {
                 Thread.Sleep(_game.Interval);
 

@@ -322,7 +322,11 @@ namespace BLSnakeLibrary
 
             foreach (var fCoord in first)
             {
+<<<<<<< HEAD
                 if (second == null)
+=======
+                if (second == null) //TODO
+>>>>>>> 58aa27d5b7fff7891179cec4ef2bafdbf7852165
                 {
                     break;
                 }

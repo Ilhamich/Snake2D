@@ -20,9 +20,6 @@ namespace BLSnakeLibrary
             Symbol = symbol; 
         }
 
-        internal void ChangeCoordinate(Coordinate coord)
-        {
-            Coord = coord;
-        }
+        internal void ChangeCoordinate(Coordinate coord) => Coord = coord;
     }
 }

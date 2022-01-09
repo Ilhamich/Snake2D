@@ -42,22 +42,15 @@
 
         public Coordinate LeftTopAngle
         {
-            get
-            {
-                return _lTopAngleCoord;
-            }
+            get => _lTopAngleCoord;
         }
 
         public Coordinate RightDownAngle
         {
-            get
-            {
-                return _rDownAngleCoord;
-            }
+            get =>_rDownAngleCoord;          
         }
 
-        public Field(int sizeOfSides, int xOfLeftTopAngle, int yOfLeftTopAngle,
-                int step = 1)
+        public Field(int sizeOfSides, int xOfLeftTopAngle, int yOfLeftTopAngle, int step = 1)
         {
             ElementSize = step;
             _sizeOfSides = sizeOfSides;
@@ -76,17 +69,13 @@
         /// <returns>BorderElement</returns>
         public BorderElement this[int index]
         {
-            get
-            {
-                return _pointOfField[index];
-            }
+            get => _pointOfField[index];
         }
 
         #region Private Methods
         private void BuildField(int sizeOfSide)
         {
-            _pointOfField = new BorderElement
-                    [sizeOfSide * QUANTITY_OF_SIDE - ANGLES_ON_FIELD];
+            _pointOfField = new BorderElement[sizeOfSide * QUANTITY_OF_SIDE - ANGLES_ON_FIELD];
 
             int index = 0;
             int symbolNum = 0;
@@ -116,18 +105,10 @@
         {
             int xPosition = 0;
 
-            if (sideNumber == 1)
-            {
-                xPosition = _lTopAngleCoord.X;
-            }
-            else
-            {
-                xPosition = _rDownAngleCoord.X;
-            }
-
-            _pointOfField[index] = new BorderElement(new Coordinate
-                (xPosition, _lTopAngleCoord.Y + ElementSize + (count * ElementSize)),
-                   (char)BordersSymbols.Vertical);
+            if (sideNumber == 1) xPosition = _lTopAngleCoord.X;
+            else xPosition = _rDownAngleCoord.X;
+            
+            _pointOfField[index] = new BorderElement(new Coordinate(xPosition, _lTopAngleCoord.Y + ElementSize + (count * ElementSize)), (char)BordersSymbols.Vertical);
         }
 
         private void BildHorizontalLine(int index, int count, int sideNumber,
@@ -135,20 +116,12 @@
         {
             int yPosition = 0;
 
-            if (sideNumber == 0)
-            {
-                yPosition = _lTopAngleCoord.Y;
-            }
-            else
-            {
-                yPosition = _rDownAngleCoord.Y;
-            }
-
+            if (sideNumber == 0) yPosition = _lTopAngleCoord.Y;
+            else yPosition = _rDownAngleCoord.Y;
+            
             if (count == 0)
             {
-                _pointOfField[index] =new BorderElement(new Coordinate
-                        (_lTopAngleCoord.X + count * ElementSize, yPosition),
-                        _angles[symbol]);
+                _pointOfField[index] =new BorderElement(new Coordinate(_lTopAngleCoord.X + count * ElementSize, yPosition), _angles[symbol]);
 
                 symbol++;
             }
@@ -156,17 +129,13 @@
             {
                 if (count == _sizeOfSides - 1)
                 {
-                    _pointOfField[index] = new BorderElement(new Coordinate
-                           (_lTopAngleCoord.X + count * ElementSize, yPosition),
-                           _angles[symbol]);
+                    _pointOfField[index] = new BorderElement(new Coordinate(_lTopAngleCoord.X + count * ElementSize, yPosition), _angles[symbol]);
 
                     symbol++;
                 }
                 else
                 {
-                    _pointOfField[index] = new BorderElement(new Coordinate
-                          (_lTopAngleCoord.X + count * ElementSize, yPosition),
-                          (char)BordersSymbols.Horizontal);
+                    _pointOfField[index] = new BorderElement(new Coordinate(_lTopAngleCoord.X + count * ElementSize, yPosition), (char)BordersSymbols.Horizontal);
                 }
             }
         }

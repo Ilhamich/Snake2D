@@ -15,13 +15,13 @@ namespace BLSnakeLibrary
 
         public Coordinate Coord
         {
-            get { return _coord; }
-            internal set { _coord = value; }
+            get => _coord; 
+            internal set => _coord = value; 
         }
 
         public Image Picture
         {
-            get { return _fruitImage; }
+            get => _fruitImage;
         }
 
         public char Symbol { get; internal set; }
@@ -62,30 +62,17 @@ namespace BLSnakeLibrary
             {
                 if (fruitSize != snakeHeadSize)
                 {
-                    throw new ArgumentException("Size of fruit not correct" +
-                            " for 2D figure relatively size of snake head");
+                    throw new ArgumentException("Size of fruit not correct for 2D figure relatively size of snake head");
                 }
             }
         }
 
-        internal void SetCoordX(int x)
-        {
-            _coord.X = x;
-        }
-
-        internal void SetCoordY(int y)
-        {
-            _coord.Y = y;
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _points.GetEnumerator();
-        }
-
-        public IEnumerator<Coordinate> GetEnumerator()
-        {
-            return ((IEnumerable<Coordinate>)_points).GetEnumerator();
-        }
+        internal void SetCoordX(int x) => _coord.X = x;
+        
+        internal void SetCoordY(int y) => _coord.Y = y;
+        
+        IEnumerator IEnumerable.GetEnumerator() => _points.GetEnumerator();
+        
+        public IEnumerator<Coordinate> GetEnumerator() => ((IEnumerable<Coordinate>)_points).GetEnumerator();      
     }
 }

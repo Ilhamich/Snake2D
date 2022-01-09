@@ -479,28 +479,23 @@ namespace BLSnakeLibrary
 
         public void WorkOnSpeed()
         {
-            if (_fruits.FruitEaten != Fruits.UNEATEN
-                    || _fruits.SuperFruitEating != Fruits.UNEATEN)
+            if (_fruits.FruitEaten != Fruits.UNEATEN || _fruits.SuperFruitEating != Fruits.UNEATEN)
             {
                 CountEating++;
 
-                if (CountEating % Accelerator == 0
-                        && Interval - TICK_SPEED > TICK_SPEED)
+                if (CountEating % Accelerator == 0 && Interval - TICK_SPEED > TICK_SPEED)
                 {
                     Interval -= TICK_SPEED;
                 }
             }
         }
 
-        public bool CheckWin()
+        public bool IsWin()
         {
             bool win = false;
 
-            if (_snake.SizeOfSnake == WinScore)
-            {
-                win = true;
-            }
-
+            if (_snake.SizeOfSnake == WinScore) win = true;
+           
             return win;
         }
 
@@ -518,15 +513,9 @@ namespace BLSnakeLibrary
 
         public void RunSnakeDynamics(InputUser key)
         {
-            if (_fruits.IsFruit2D)
-            {
-                SnakeObj.Check2DFruitsEating(FruitsObj);
-            }
-            else
-            {
-                SnakeObj.CheckFruitsEating(FruitsObj);
-            }
-
+            if (_fruits.IsFruit2D) SnakeObj.Check2DFruitsEating(FruitsObj);
+            else SnakeObj.CheckFruitsEating(FruitsObj);
+            
             WorkOnSpeed();
             SnakeObj.PassСoordinates();
             SnakeObj.ChangeDirection(key);

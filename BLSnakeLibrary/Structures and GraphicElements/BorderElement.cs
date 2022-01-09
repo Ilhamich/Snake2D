@@ -18,9 +18,6 @@ namespace BLSnakeLibrary
             Symbol = symbol;
         }
 
-        public override string ToString()
-        {
-            return Symbol.ToString();
-        }
+        public override string ToString() => Symbol.ToString();
     }
 }

@@ -39,10 +39,7 @@ namespace BLSnakeLibrary
 
         public int FruitLength
         {
-            get
-            {
-                return _fruit.Length;
-            }
+            get => _fruit.Length;
         }
 
         /// <summary>
@@ -51,21 +48,13 @@ namespace BLSnakeLibrary
         /// </summary>
         public int FruitQuantity
         {
-            get
-            {
-                return _fruitQuantity;
-            }
+            get =>_fruitQuantity;
             set
             {
-                if (_fruitQuantity - value == -1 || _fruitQuantity - value == 1)
-                {
-                    _fruitQuantity = value;
-                }
+                if (_fruitQuantity - value == -1 || _fruitQuantity - value == 1) _fruitQuantity = value;
                 else
                 {
-                    string massege = "Changes of count in one step can't be" +
-                        " more 1. Now oldCount = " + _fruitQuantity +
-                        " new count = " + value;
+                    string massege = "Changes of count in one step can't be more 1. Now oldCount = " + _fruitQuantity + " new count = " + value;
 
                     throw new FruitCountException(massege, _fruitQuantity, value);
                 }
@@ -77,20 +66,13 @@ namespace BLSnakeLibrary
         /// </summary>
         public int FruitEaten
         {
-            get
-            {
-                return _fruitEaten;
-            }
+            get => _fruitEaten;
             set
             {
-                if (value < _fruit.Length && value >= -1)
-                {
-                    _fruitEaten = value;
-                }
+                if (value < _fruit.Length && value >= -1) _fruitEaten = value;
                 else
                 {
-                    string massege = "Value can be not less -1(untouched)" +
-                        " or not more " + _fruit.Length + ". Value is " + value;
+                    string massege = "Value can be not less -1(untouched) or not more " + _fruit.Length + ". Value is " + value;
 
                     throw new FruitEatingException(massege, _fruit.Length, value);
                 }
@@ -99,10 +81,7 @@ namespace BLSnakeLibrary
 
         public int SuperFruitLength
         {
-            get
-            {
-                return _superFruit.Length;
-            }
+            get => _superFruit.Length;
         }
 
         /// <summary>
@@ -111,22 +90,13 @@ namespace BLSnakeLibrary
         /// </summary>
         public int SuperFruitQuantity
         {
-            get
-            {
-                return _superFruitQuantity;
-            }
+            get => _superFruitQuantity;
             set
             {
-                if (_superFruitQuantity - value == -1
-                        || _superFruitQuantity - value == 1)
-                {
-                    _superFruitQuantity = value;
-                }
+                if (_superFruitQuantity - value == -1 || _superFruitQuantity - value == 1) _superFruitQuantity = value;
                 else
                 {
-                    string massege = "Changes of count in one step can't be" +
-                        " more 1. Now oldCount = " + _superFruitQuantity +
-                        " new count = " + value;
+                    string massege = "Changes of count in one step can't be more 1. Now oldCount = " + _superFruitQuantity + " new count = " + value;
 
                     throw new FruitCountException(massege, _superFruitQuantity, value);
                 }
@@ -138,20 +108,13 @@ namespace BLSnakeLibrary
         /// </summary>
         public int SuperFruitEating
         {
-            get
-            {
-                return _superFruitEating;
-            }
+            get => _superFruitEating;
             set
             {
-                if (value < _superFruit.Length && value >= -1)
-                {
-                    _superFruitEating = value;
-                }
+                if (value < _superFruit.Length && value >= -1) _superFruitEating = value;
                 else
                 {
-                    string massege = "Value can be not less -1(untouched)" +
-                        " or not more " + _superFruit.Length + ". Value is " + value;
+                    string massege = "Value can be not less -1(untouched) or not more " + _superFruit.Length + ". Value is " + value;
 
                     throw new FruitEatingException(massege, _superFruit.Length, value);
                 }
@@ -163,41 +126,29 @@ namespace BLSnakeLibrary
         /// </summary>
         /// <param name="index">index of fruit</param>
         /// <returns>FruitElement fruit[index]</returns>
-        public FruitElement GetFruit(int index)
-        {
-            return _fruit[index];
-        }
+        public FruitElement GetFruit(int index) => _fruit[index];
 
         /// <summary>
         /// Set fruit by it's index
         /// </summary>
         /// <param name="value">installable fruit</param>
         /// <param name="index">index of fruit</param>
-        public void SetFruit(FruitElement value, int index)
-        {
-            _fruit[index] = value;
-        }
-
+        public void SetFruit(FruitElement value, int index) => _fruit[index] = value;
+        
         /// <summary>
         /// Get superFruit by it's index
         /// </summary>
         /// <param name="index">index of superFruit</param>
         /// <returns>FruitElement superFruit[index]</returns>
-        public FruitElement GetSuperFruit(int index)
-        {
-            return _superFruit[index];
-        }
-
+        public FruitElement GetSuperFruit(int index) =>_superFruit[index];
+        
         /// <summary>
         /// Set superFruit by it's index
         /// </summary>
         /// <param name="value">installable superFruit</param>
         /// <param name="index">index of superFruit</param>
-        public void SetSuperFruit(FruitElement value, int index)
-        {
-            _superFruit[index] = value;
-        }
-
+        public void SetSuperFruit(FruitElement value, int index) =>_superFruit[index] = value;
+        
         /// <summary>
         /// Check coordinate fruit with coordinate other fruits and superfruits
         /// </summary>
@@ -208,10 +159,7 @@ namespace BLSnakeLibrary
         {
             for (int j = 0; j < FruitLength; j++)
             {
-                if (_fruit[j] == null)
-                {
-                    break;
-                }
+                if (_fruit[j] == null) break;
 
                 if ((index != j) && (_fruit[index].Coord == _fruit[j].Coord))
                 {
@@ -222,10 +170,7 @@ namespace BLSnakeLibrary
 
             for (int j = 0; j < SuperFruitLength; j++)
             {
-                if (_superFruit[j] == null)
-                {
-                    break;
-                }
+                if (_superFruit[j] == null) break;
 
                 if (_fruit[index].Coord == _superFruit[j].Coord)
                 {
@@ -245,11 +190,8 @@ namespace BLSnakeLibrary
         {
             for (int j = 0; j < FruitLength; j++)
             {
-                if (_fruit[j] == null)
-                {
-                    break;
-                }
-
+                if (_fruit[j] == null) break;
+                
                 if (_superFruit[index].Coord == _fruit[j].Coord)
                 {
                     check = true;
@@ -259,13 +201,9 @@ namespace BLSnakeLibrary
 
             for (int j = 0; j < SuperFruitLength; j++)
             {
-                if (_superFruit[j] == null)
-                {
-                    break;
-                }
+                if (_superFruit[j] == null) break;
 
-                if ((index != j)
-                       && (_superFruit[index].Coord == _superFruit[j].Coord))
+                if ((index != j) && (_superFruit[index].Coord == _superFruit[j].Coord))
                 {
                     check = true;
                     break;
@@ -307,8 +245,7 @@ namespace BLSnakeLibrary
 
             for (int j = 0; j < SuperFruitLength; j++)
             {
-                if ((index != j)
-                       && Check2DfruitWith2DFruit(_superFruit[index], _superFruit[j]))
+                if ((index != j) && Check2DfruitWith2DFruit(_superFruit[index], _superFruit[j]))
                 {
                     check = true;
                     break;
@@ -322,12 +259,8 @@ namespace BLSnakeLibrary
 
             foreach (var fCoord in first)
             {
-                if (second == null)
-
-                {
-                    break;
-                }
-
+                if (second == null) break;
+                
                 foreach (var sCoord in second)
                 {
                     if (fCoord == sCoord)
@@ -337,10 +270,7 @@ namespace BLSnakeLibrary
                     }
                 }
 
-                if (resolt)
-                {
-                    break;
-                }
+                if (resolt) break;
             }
 
             return resolt;

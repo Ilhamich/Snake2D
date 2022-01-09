@@ -27,9 +27,7 @@ namespace BLSnakeLibrary
 
         public override bool Equals(object obj)
         {
-            return obj is Coordinate coordinate &&
-                   Y == coordinate.Y &&
-                   X == coordinate.X;
+            return obj is Coordinate coordinate && Y == coordinate.Y && X == coordinate.X;
         }
 
         public override int GetHashCode()

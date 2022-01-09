@@ -12,11 +12,8 @@ namespace ConsoleSnake
             InputUser chekKey = key;
             ConsoleKey keyReal = 0;
 
-            if (Console.KeyAvailable)
-            {
-                keyReal = Console.ReadKey().Key;
-            }
-
+            if (Console.KeyAvailable) keyReal = Console.ReadKey().Key;
+            
             switch (keyReal)
             {
                 case ConsoleKey.LeftArrow:
@@ -83,20 +80,12 @@ namespace ConsoleSnake
             return result;
         }
 
-        public static void MoveArrow
-              (InputUser key, byte start, byte exit, ref byte stepMenu)
+        public static void MoveArrow(InputUser key, byte start, byte exit, ref byte stepMenu)
         {
-            if (key == InputUser.DownArrow && stepMenu < exit)
-            {
-                stepMenu++;
-            }
+            if (key == InputUser.DownArrow && stepMenu < exit) stepMenu++;
             else
             {
-                if (key == InputUser.UpArrow
-                        && stepMenu > start)
-                {
-                    stepMenu--;
-                }
+                if (key == InputUser.UpArrow && stepMenu > start) stepMenu--;
             }
         }
     }

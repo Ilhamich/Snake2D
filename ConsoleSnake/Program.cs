@@ -20,14 +20,12 @@ namespace ConsoleSnake
                 choiceMenu = (byte)MenuChois.ButtonStart;
                 InputUser push = InputUser.NoDirection;
 
-                string[] menu = null;
-
                 if (!DLWorker.ExistsDir(game.HomeDir))
                 {
                     DLWorker.CreatDir(game.HomeDir);
                 }
 
-                menu = new string[]{"START", "LOAD", "DIFFICULTY", "SAVE OPTIONS", "EXIT"};
+                string[] menu = new string[]{"START", "LOAD", "DIFFICULTY", "SAVE OPTIONS", "EXIT"};
 
                 Visualizer.PrintField(game.PlayField);
 
@@ -35,32 +33,26 @@ namespace ConsoleSnake
                 {
                     Visualizer.PrintMenu(menu);
 
-                    ConnectHelper.WorkWithMenu(menu, ref push,
-                            ref choiceMenu);
+                    ConnectHelper.WorkWithMenu(menu, ref push, ref choiceMenu);
                 } while (push != InputUser.Enter);
 
                 if (choiceMenu == (byte)MenuChois.ButtonLoad)
                 {
-                    ConnectHelper.WorkWithLoad(ref choiceMenu, saver,
-                            ref game);
+                    ConnectHelper.WorkWithLoad(ref choiceMenu, saver, ref game);
                 }
 
                 switch (choiceMenu)
                 {
                     case (byte)MenuChois.ButtonStart:
 
-                        game.InitSnake(new Coordinate(Visualizer.HEAD_X,
-                                Visualizer.HEAD_Y));
-
+                        game.InitSnake(new Coordinate(Visualizer.HEAD_X, Visualizer.HEAD_Y));
                         game.InitFruits();
 
-                        ConnectHelper.RunGameProcess(MILLISECONDS_IN_SECOND,
-                                game);
+                        ConnectHelper.RunGameProcess(MILLISECONDS_IN_SECOND, game);
                         break;
 
                     case (byte)MenuChois.ButtonLoad:
-                        ConnectHelper.RunGameProcess(MILLISECONDS_IN_SECOND,
-                                game);
+                        ConnectHelper.RunGameProcess(MILLISECONDS_IN_SECOND, game);
                         break;
 
                     case (byte)MenuChois.ButtonDifficulty:

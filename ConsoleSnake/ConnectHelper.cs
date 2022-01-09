@@ -72,11 +72,7 @@ namespace ConsoleSnake
             InputUser keyDirection = (InputUser)_game.SnakeObj.Direction;
             byte chPouseMenu = (byte)MenuChois.ButtonStart;
 
-<<<<<<< HEAD:ConsoleSnake/ConnectHelper.cs
             do// while(chPouseMenu != Controller.EXIT_FROM_LEVEL);
-=======
-            do// while (chPouseMenu != Controller.EXIT_FROM_LEVEL);
->>>>>>> 58aa27d5b7fff7891179cec4ef2bafdbf7852165:Training Snake/ConnectHelper.cs
             {
                 Thread.Sleep(_game.Interval);
 
@@ -87,8 +83,7 @@ namespace ConsoleSnake
                 Visualizer.PrintSnake(_game.SnakeObj);
                 Visualizer.PrintStatistic(_game);
 
-                if (_game.CheckObstructionBorders()
-                        || _game.SnakeObj.CheckEncounter())
+                if (_game.CheckObstructionBorders() || _game.SnakeObj.CheckEncounter())
                 {
                     chPouseMenu = Controller.EXIT_FROM_LEVEL;
                 }
@@ -103,20 +98,15 @@ namespace ConsoleSnake
 
                     WorkWithMenu(categories, ref keyDirection, ref chPouseMenu);
 
-                    if (chPouseMenu == Controller.EXIT_FROM_LEVEL)
-                    {
-                        WorkWithSave(_game);
-                    }
-
+                    if (chPouseMenu == Controller.EXIT_FROM_LEVEL) WorkWithSave(_game);
+                    
                     keyDirection = prevKey;
                 }
 
                 _game.RunSnakeDynamics(keyDirection);
 
-                if (_game.CheckWin())
-                {
-                    chPouseMenu = Controller.EXIT_FROM_LEVEL;
-                }
+                if (_game.IsWin()) chPouseMenu = Controller.EXIT_FROM_LEVEL;
+                
 
             } while(chPouseMenu != Controller.EXIT_FROM_LEVEL);
         }
@@ -147,7 +137,7 @@ namespace ConsoleSnake
 
         internal static void ShowGameResult(GameSnake _game)
         {
-            if (_game.CheckWin())
+            if (_game.IsWin())
             {
                 string youWin = "YOU WIN";
 

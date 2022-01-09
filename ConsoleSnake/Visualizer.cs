@@ -40,11 +40,8 @@ namespace ConsoleSnake
 
             ForegroundColor = ConsoleColor.Blue;
 
-            for (int i = 0; i < field.FieldLenght; i++)
-            {
-                PrintGraphicElement(field[i]);
-            }
-
+            for (int i = 0; i < field.FieldLenght; i++) PrintGraphicElement(field[i]);
+            
             ResetColor();
         }
 
@@ -125,24 +122,17 @@ namespace ConsoleSnake
             {
                 if (i < mySnake.SizeOfSnake - 1)
                 {
-                    if (mySnake[i].Coord != Snake.NO_COORDINATE)
-                    {
-                        DrawSnakeElement(mySnake[i], i);
-                    }
+                    if (mySnake[i].Coord != Snake.NO_COORDINATE) DrawSnakeElement(mySnake[i], i);
                 }
                 else
                 {
-                    if ((mySnake.Tail.Coord != Snake.NO_COORDINATE)
-                            && (i == mySnake.SizeOfSnake - 1))
+                    if ((mySnake.Tail.Coord != Snake.NO_COORDINATE) && (i == mySnake.SizeOfSnake - 1))
                     {
                         DrawSnakeElement(mySnake.Tail, i);
                     }
                     else
                     {
-                        if (i == mySnake.SizeOfSnake)
-                        {
-                            DrawSnakeElement(mySnake.Head, i);
-                        }
+                        if (i == mySnake.SizeOfSnake) DrawSnakeElement(mySnake.Head, i);
                     }
                 }
             }
@@ -209,8 +199,7 @@ namespace ConsoleSnake
 
             for (int i = 0; i < resolt.Length; i++)
             {
-                PrintGraphicElement(new SnakeElement
-                        (new Coordinate(snakeHead.X++, snakeHead.Y), ' '));
+                PrintGraphicElement(new SnakeElement(new Coordinate(snakeHead.X++, snakeHead.Y), ' '));
             }
         }
 
@@ -220,9 +209,7 @@ namespace ConsoleSnake
             {
                 if (myFruit.GetFruit(i) != null)
                 {
-                    PrintGraphicElement(new FruitElement(new Coordinate
-                            (myFruit.GetFruit(i).Coord.X,
-                            myFruit.GetFruit(i).Coord.Y), ' '));
+                    PrintGraphicElement(new FruitElement(new Coordinate(myFruit.GetFruit(i).Coord.X, myFruit.GetFruit(i).Coord.Y), ' '));
                 }
             }
 
@@ -230,38 +217,26 @@ namespace ConsoleSnake
             {
                 if (myFruit.GetSuperFruit(i) != null)
                 {
-                    PrintGraphicElement(new FruitElement(new Coordinate
-                          (myFruit.GetSuperFruit(i).Coord.X,
-                          myFruit.GetSuperFruit(i).Coord.Y), ' '));
+                    PrintGraphicElement(new FruitElement(new Coordinate(myFruit.GetSuperFruit(i).Coord.X, myFruit.GetSuperFruit(i).Coord.Y), ' '));
                 }
             }
         }
 
         public static void ClearSnake(Snake mySnake)
         {
-            for (int i = 0; i < mySnake.SizeOfSnake - 1; i++)
-            {
-                PrintGraphicElement(new SnakeElement(mySnake[i].Coord, ' '));
-            }
+            for (int i = 0; i < mySnake.SizeOfSnake - 1; i++) PrintGraphicElement(new SnakeElement(mySnake[i].Coord, ' '));
 
             PrintGraphicElement(mySnake.Tail);
         }
 
-        public static void SetCursor(int x, int y)
-        {
-            SetCursorPosition(x, y);
-        }
-
-        public static void ShowMessage(string message, Coordinate coord,
-                bool pouse = false)
+        public static void SetCursor(int x, int y) => SetCursorPosition(x, y);
+        
+        public static void ShowMessage(string message, Coordinate coord, bool pouse = false)
         {
             SetCursorPosition(coord.X, coord.Y);
             Write(message);
 
-            if (pouse)
-            {
-                ReadKey();
-            }
+            if (pouse) ReadKey();          
         }
 
         public static void ClearMessage(string message, Coordinate coord)

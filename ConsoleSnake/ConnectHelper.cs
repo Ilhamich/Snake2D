@@ -8,25 +8,22 @@ namespace ConsoleSnake
 {
     internal class ConnectHelper
     {
-        internal static void WorkWithLoad(ref byte choiceMenu, DLWorker saver,
-                 ref GameSnake _game)
+        internal static void WorkWithLoad(ref byte choiceMenu, DLWorker saver, ref GameSnake _game)
         {
             try
             {
-                _game = saver.Load(_game.HomeDir + "\\"
-                      + _game.HomeFile);
-                _game.InitGameField(Visualizer.SIDE_SIZE,
-                        Visualizer.FIELD_X_START,
-                        Visualizer.FIELD_Y_START);
+                _game = saver.Load(_game.HomeDir + "\\" + _game.HomeFile);
+                _game.InitGameField(Visualizer.SIDE_SIZE, Visualizer.FIELD_X_START, Visualizer.FIELD_Y_START);
             }
             catch (Exception)
             {
-                string[] message = {"Save file broken or don't exist.",
-                                "Will be start new game"};
+                string[] message = 
+                {
+                    "Save file broken or don't exist."
+                    , "Will be start new game"
+                };
 
-                Coordinate coord = new Coordinate
-                        (_game.PlayField.LeftTopAngle.X + 1,
-                        _game.PlayField.LeftTopAngle.Y + 1);
+                Coordinate coord = new Coordinate(_game.PlayField.LeftTopAngle.X + 1, _game.PlayField.LeftTopAngle.Y + 1);
 
                 for (int i = 0; i < message.Length; i++)
                 {
@@ -41,8 +38,7 @@ namespace ConsoleSnake
                     }
                 }
 
-                coord = new Coordinate(_game.PlayField.LeftTopAngle.X + 1,
-                        _game.PlayField.LeftTopAngle.Y + 1);
+                coord = new Coordinate(_game.PlayField.LeftTopAngle.X + 1, _game.PlayField.LeftTopAngle.Y + 1);
 
                 for (int i = 0; i < message.Length; i++)
                 {
@@ -106,8 +102,6 @@ namespace ConsoleSnake
                 _game.RunSnakeDynamics(keyDirection);
 
                 if (_game.IsWin()) chPouseMenu = Controller.EXIT_FROM_LEVEL;
-                
-
             } while(chPouseMenu != Controller.EXIT_FROM_LEVEL);
         }
 
@@ -118,9 +112,7 @@ namespace ConsoleSnake
             byte choisSaver = (byte)MenuChois.ButtonStart;
             InputUser saveOrNot = InputUser.NoDirection;
 
-            Coordinate coord = new Coordinate
-                   (_game.PlayField.LeftTopAngle.X + 1,
-                   _game.PlayField.LeftTopAngle.Y + 1);
+            Coordinate coord = new Coordinate(_game.PlayField.LeftTopAngle.X + 1, _game.PlayField.LeftTopAngle.Y + 1);
 
             Visualizer.ShowMessage(offer, coord, true);
             WorkWithMenu(chois, ref saveOrNot, ref choisSaver);
@@ -130,8 +122,7 @@ namespace ConsoleSnake
             {
                 DLWorker saver = new DLWorker();
 
-                saver.Save(_game.HomeDir + "\\" + _game.HomeFile,
-                        _game);
+                saver.Save(_game.HomeDir + "\\" + _game.HomeFile, _game);
             }
         }
 
@@ -141,24 +132,19 @@ namespace ConsoleSnake
             {
                 string youWin = "YOU WIN";
 
-                Visualizer.PrintGameResolt
-                        (youWin, _game.SnakeObj.Head);
-                Visualizer.ClearGameResolt
-                        (youWin, _game.SnakeObj.Head);
+                Visualizer.PrintGameResolt(youWin, _game.SnakeObj.Head);
+                Visualizer.ClearGameResolt(youWin, _game.SnakeObj.Head);
             }
             else
             {
                 string gameOver = "GAME OVER";
 
-                Visualizer.PrintGameResolt
-                        (gameOver, _game.SnakeObj.Head);
-                Visualizer.ClearGameResolt
-                        (gameOver, _game.SnakeObj.Head);
+                Visualizer.PrintGameResolt(gameOver, _game.SnakeObj.Head);
+                Visualizer.ClearGameResolt(gameOver, _game.SnakeObj.Head);
             }
         }
 
-        internal static void WorkWithMenu(string[] categories,
-                ref InputUser key, ref byte choisPouseMenu)
+        internal static void WorkWithMenu(string[] categories, ref InputUser key, ref byte choisPouseMenu)
         {
             bool entry = false;
             byte PouseMenuTmp = 0;
@@ -171,14 +157,11 @@ namespace ConsoleSnake
                 {
                     key = Controller.PushButton();
 
-                    Controller.MoveArrow(key, (byte)MenuChois.ButtonStart,
-                            (byte)categories.Length, ref choisPouseMenu);
+                    Controller.MoveArrow(key, (byte)MenuChois.ButtonStart, (byte)categories.Length, ref choisPouseMenu);
                 }
 
                 Visualizer.PrintMenu(categories);
-
-                Visualizer.PrintArrowMenu(PouseMenuTmp, categories, key,
-                        choisPouseMenu);
+                Visualizer.PrintArrowMenu(PouseMenuTmp, categories, key, choisPouseMenu);
 
                 entry = true;
             } while (key != InputUser.Enter);
@@ -194,8 +177,7 @@ namespace ConsoleSnake
             {
                 Visualizer.PrintMenu(difficulty);
 
-                ConnectHelper.WorkWithMenu(difficulty,
-                        ref keyDifficulty, ref choisDifficulty);
+                WorkWithMenu(difficulty, ref keyDifficulty, ref choisDifficulty);
 
             } while (keyDifficulty != InputUser.Enter);
 

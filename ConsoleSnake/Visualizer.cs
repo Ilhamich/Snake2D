@@ -224,7 +224,10 @@ namespace ConsoleSnake
 
         public static void ClearSnake(Snake mySnake)
         {
-            for (int i = 0; i < mySnake.SizeOfSnake - 1; i++) PrintGraphicElement(new SnakeElement(mySnake[i].Coord, ' '));
+            for (int i = 0; i < mySnake.SizeOfSnake - 1; i++)
+            {
+                PrintGraphicElement(new SnakeElement(mySnake[i].Coord, ' '));
+            }
 
             PrintGraphicElement(mySnake.Tail);
         }
